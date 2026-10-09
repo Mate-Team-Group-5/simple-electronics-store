@@ -1,0 +1,30 @@
+name: Lint
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  fix-style:
+    name: Run fix-style on PR
+    runs-on: ubuntu-latest
+
+    steps:
+      # Отримання коду репозиторію
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Налаштування Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # За потреби зміни версію Node.js
+
+      # Встановлення залежностей
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # Запуск ESLint та Prettier
+      - name: Run fix-style
+        run: npm run fix-style
