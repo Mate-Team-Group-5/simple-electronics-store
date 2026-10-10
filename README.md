@@ -1,3 +1,46 @@
+# Folders structure
+
+src/
+├── assets/ # Global images, fonts, icons
+├── components/ # Atomic Design hierarchy
+│ ├── atoms/ # 1. Base UI elements
+│ │ ├── Button/
+│ │ │ ├── Button.jsx
+│ │ │ ├── Button.module.css
+│ │ │ └── Button.test.jsx
+│ │ ├── Input/
+│ │ └── Typography/
+│ │
+│ ├── molecules/ # 2. Simple combinations of atoms
+│ │ ├── SearchBar/
+│ │ │ ├── SearchBar.jsx
+│ │ │ └── SearchBar.module.css
+│ │ └── FormField/
+│ │
+│ ├── organisms/ # 3. Complex UI sections
+│ │ ├── Header/
+│ │ │ ├── Header.jsx
+│ │ │ └── Header.module.css
+│ │ └── ProductGrid/
+│ │
+│ └── templates/ # 4. Page layouts / wireframe structures
+│ ├── MainLayout/
+│ │ ├── MainLayout.jsx
+│ │ └── MainLayout.module.css
+│ └── DashboardLayout/
+│
+├── pages/ # 5. Actual views / routed pages (uses templates)
+│ ├── HomePage.jsx
+│ ├── ProfilePage.jsx
+│ └── CatalogPage.jsx
+│
+├── hooks/ # Custom React hooks
+├── context/ # React Context providers / State management
+├── services/ # API calls and external services
+├── utils/ # Helper functions and formatters
+├── App.jsx # Root component with router
+└── main.jsx # Application entry point
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
