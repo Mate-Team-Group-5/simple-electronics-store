@@ -1,10 +1,18 @@
-import { Button } from './components/ui/button';
-//test
+import { Button } from './components/atoms/Button/Button';
+
 function App() {
   return (
     <>
-      <h1> Hello World</h1>
-      <Button>Click me</Button>
+      <header>Our shop</header>
+      <main>
+        <Button
+          size="lg"
+          onClick={() => console.log('Button clicked')}
+        >
+          Buy gadget
+        </Button>
+      </main>
+      <footer></footer>
     </>
   );
 }
