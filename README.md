@@ -40,7 +40,7 @@ src/
 ├── utils/ # Helper functions and formatters
 ├── App.jsx # Root component with router
 └── main.jsx # Application entry point
-'''
+```
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
