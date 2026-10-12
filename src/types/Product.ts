@@ -12,3 +12,8 @@ export type Product = {
   year: number;
   image: string;
 };
+
+export type ProductDescription = {
+  title: string;
+  text: string[];
+};
