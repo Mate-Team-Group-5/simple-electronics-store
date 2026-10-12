@@ -1,9 +1,10 @@
 import { Button } from './components/atoms/Button/Button';
+import { Header } from './components/organisms/Header/Header';
 
 function App() {
   return (
     <>
-      <header>Our shop</header>
+      <Header />
       <main>
         <Button
           size="lg"
