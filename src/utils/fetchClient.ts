@@ -1,13 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const BASE_URL = 'src/api';
 
-// returns a promise resolved after a given delay
-function wait(delay: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-}
-
 // To have autocompletion and avoid mistypes
 type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
@@ -26,16 +19,13 @@ function request<T>(
     };
   }
 
-  // DON'T change the delay it is required for tests
-  return wait(100)
-    .then(() => fetch(BASE_URL + url, options))
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error();
-      }
+  return fetch(BASE_URL + url, options).then((response) => {
+    if (!response.ok) {
+      throw new Error();
+    }
 
-      return response.json();
-    });
+    return response.json();
+  });
 }
 
 export const client = {
