@@ -1,0 +1,8 @@
+.heart__fill {
+  transform: translateY(0);
+  transition: transform 600ms ease;
+}
+
+.heart:hover .heart__fill {
+  transform: translateY(-100px);
+}
