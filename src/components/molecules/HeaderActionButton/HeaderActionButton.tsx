@@ -26,7 +26,7 @@ export function HeaderActionButton({
       aria-label={ariaLabel}
       className={({ isActive }) =>
         cn(
-          'relative flex size-12 shrink-0 items-center justify-center desktop:size-16',
+          'relative flex h-12 w-12 shrink-0 items-center justify-center desktop:h-16 desktop:w-16',
           'bg-white text-text-primary transition-colors hover:bg-hover-bg',
           'shadow-[-1px_0_0_0_var(--color-elements)]',
           isActive &&
