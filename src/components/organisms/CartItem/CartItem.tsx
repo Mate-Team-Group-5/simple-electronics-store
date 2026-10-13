@@ -38,7 +38,7 @@ export const CartItem: React.FC<CartItemProps> = ({
         />
 
         <Link
-          to={`/${product.category}/${item.id}`}
+          to={`/${product.category}/${product.itemId}`}
           className="text-sm text-text-primary"
         >
           {product.name}
