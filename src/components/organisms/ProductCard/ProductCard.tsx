@@ -7,8 +7,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Heart, RedHeart } from '../atoms/Heart/Heart';
+} from '@/components/atoms/Card';
+import { Heart, RedHeart } from '@/components/atoms/Heart/Heart';
 
 type Props = {
   product: Product;
