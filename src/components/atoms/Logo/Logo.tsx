@@ -4,9 +4,10 @@ import logo from '@/assets/img/header/logo.svg';
 
 type LogoProps = {
   className?: string;
+  imageClassName?: string;
 };
 
-export function Logo({ className }: LogoProps) {
+export function Logo({ className, imageClassName }: LogoProps) {
   return (
     <Link
       to="/"
@@ -15,7 +16,7 @@ export function Logo({ className }: LogoProps) {
       <img
         src={logo}
         alt="Nice Gadgets"
-        className="h-[22px] w-16 desktop:h-7 desktop:w-20"
+        className={cn('h-[22px] w-16 desktop:h-7 desktop:w-20', imageClassName)}
       />
     </Link>
   );
