@@ -4,7 +4,7 @@ import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import { CartItem } from '@/components/organisms/CartItem/CartItem';
 import { useState } from 'react';
 import { Button } from '@/components/atoms/Button/Button';
-import cartIsEmpty from '@/assets/img/cart-is-empty.png';
+//import cartIsEmpty from '@/assets/img/cart-is-empty.png';
 
 // TODO: замінити тимчасові дані.
 const testCart: CartProduct[] = [
@@ -23,7 +23,7 @@ const testCart: CartProduct[] = [
       color: 'gold',
       ram: '6GB',
       year: 2022,
-      image: 'src/assets/img/phones/apple-iphone-14-pro/gold/00.webp',
+      image: 'img/phones/apple-iphone-14-pro/gold/00.webp',
     },
   },
   {
@@ -41,7 +41,7 @@ const testCart: CartProduct[] = [
       color: 'gold',
       ram: '4GB',
       year: 2019,
-      image: 'src/assets/img/phones/apple-iphone-11-pro-max/gold/00.webp',
+      image: 'img/phones/apple-iphone-11-pro-max/gold/00.webp',
     },
   },
   {
@@ -59,7 +59,7 @@ const testCart: CartProduct[] = [
       color: 'silver',
       ram: '1GB',
       year: 2020,
-      image: 'src/assets/img/accessories/apple-watch-se/silver/00.webp',
+      image: 'img/accessories/apple-watch-se/silver/00.webp',
     },
   },
 ];
@@ -100,7 +100,7 @@ export const CartPage: React.FC = () => {
       </PageTitle>
       {cart.length === 0 ?
         <img
-          src={cartIsEmpty}
+          src={`${import.meta.env.BASE_URL}img/cart-is-empty.png`}
           alt="Your cart is empty"
           className="mx-auto w-full max-w-[400px]"
         />

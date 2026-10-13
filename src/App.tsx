@@ -6,6 +6,7 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { useEffect, useState } from 'react';
 import type { Product } from './types/Product';
 import { getProducts } from './services/products';
+import { CartPage } from './pages/CartPage';
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -25,6 +26,10 @@ function App() {
             <Route
               index
               element={<HomePage />}
+            />
+            <Route
+              path="cart"
+              element={<CartPage />}
             />
           </Route>
           <Route
