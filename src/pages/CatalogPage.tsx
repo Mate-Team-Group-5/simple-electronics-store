@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Breadcrumbs } from '@/components/molecules/Breadcrumbs/Breadcrumbs';
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
+import { Select } from '@/components/atoms/Select/Select';
 import { ProductsGrid } from '@/components/organisms/ProductsGrid/ProductsGrid';
 import { useProducts, type Category } from '@/hooks/useProducts';
 
@@ -16,6 +18,7 @@ const CATEGORY_LABELS: Record<Category, string> = {
 
 export function CatalogPage({ category, title }: CatalogPageProps) {
   const { products, isLoading, hasError } = useProducts(category);
+  const [sort, setSort] = useState('newest');
 
   return (
     <>
@@ -32,9 +35,21 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
             {products.length} models
           </p>
 
+          <Select
+            label="Sort by"
+            value={sort}
+            options={[
+              { value: 'newest', label: 'Newest' },
+              { value: 'alphabetically', label: 'Alphabetically' },
+              { value: 'cheapest', label: 'Cheapest' },
+            ]}
+            onChange={setSort}
+            className="mt-10 w-44"
+          />
+
           <ProductsGrid
             products={products}
-            className="mt-10"
+            className="mt-6"
           />
         </>
       )}
