@@ -8,6 +8,35 @@ export const getProducts = () => {
   return client.get<Product[]>(`/products.json`);
 };
 
+// Returns products sorted by year in descending order
+// The most recent products will be at the beginning of the array
+// It's for "Brand new models" section on the home page
+export async function getNewModelsProducts() {
+  const products = await getProducts();
+
+  const result = products.toSorted(
+    (product1, product2) => product2.year - product1.year,
+  );
+
+  return result;
+}
+
+// Returns products sorted by discount in descending order
+// The products with higther discount will be at the beginning of the array
+// It's for "Hot prices" section on the home page
+export async function getHotPricesProducts() {
+  const products = await getProducts();
+
+  const result = products.toSorted(
+    (product1, product2) =>
+      product2.fullPrice -
+      product2.price -
+      (product1.fullPrice - product1.price),
+  );
+
+  return result;
+}
+
 export const getPhones = () => {
   return client.get<Phone[]>(`/phones.json`);
 };
