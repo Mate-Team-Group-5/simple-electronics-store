@@ -1,20 +1,37 @@
-import { Button } from './components/atoms/Button/Button';
 import { Header } from './components/organisms/Header/Header';
 import { Footer } from './components/organisms/Footer/Footer';
 import { HomePage } from './pages/HomePage';
+import { Routes, Route } from 'react-router';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { useEffect, useState } from 'react';
+import type { Product } from './types/Product';
+import { getProducts } from './services/products';
 
 function App() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    getProducts().then(setProducts);
+  }, []);
+
+  console.log(products);
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="w-full flex-1 px-4 tablet:px-6 desktop:mx-auto desktop:max-w-[1200px] desktop:px-8">
-        <HomePage />
-        <Button
-          size="lg"
-          onClick={() => console.log('Button clicked')}
-        >
-          Buy gadget
-        </Button>
+        <Routes>
+          <Route path="/">
+            <Route
+              index
+              element={<HomePage />}
+            />
+          </Route>
+          <Route
+            path="*"
+            element={<NotFoundPage />}
+          />
+        </Routes>
       </main>
       <Footer />
     </div>
