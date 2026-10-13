@@ -94,7 +94,7 @@ export function BannerSlider({ className }: BannerSliderProps) {
       aria-label="Promo banners"
       className={cn('flex flex-col gap-2', className)}
     >
-      <div className="flex aspect-square gap-4 tablet:aspect-auto tablet:h-[189px] desktop:h-[400px]">
+      <div className="flex aspect-square gap-4 tablet:aspect-auto tablet:h-47.25 desktop:h-100">
         <SliderButton
           direction="left"
           onClick={showPrev}
