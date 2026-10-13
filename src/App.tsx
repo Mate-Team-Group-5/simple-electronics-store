@@ -1,6 +1,7 @@
 import { Header } from './components/organisms/Header/Header';
 import { Footer } from './components/organisms/Footer/Footer';
 import { HomePage } from './pages/HomePage';
+import { CatalogPage } from './pages/CatalogPage';
 import { Routes, Route } from 'react-router';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { useEffect, useState } from 'react';
@@ -25,6 +26,33 @@ function App() {
             <Route
               index
               element={<HomePage />}
+            />
+            <Route
+              path="phones"
+              element={
+                <CatalogPage
+                  category="phones"
+                  title="Mobile phones"
+                />
+              }
+            />
+            <Route
+              path="tablets"
+              element={
+                <CatalogPage
+                  category="tablets"
+                  title="Tablets"
+                />
+              }
+            />
+            <Route
+              path="accessories"
+              element={
+                <CatalogPage
+                  category="accessories"
+                  title="Accessories"
+                />
+              }
             />
           </Route>
           <Route
