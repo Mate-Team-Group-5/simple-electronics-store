@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { cn } from 'cn';
-import logo from '@/assets/img/header/logo.svg';
+//import logo from 'img/header/logo.svg';
 
 type LogoProps = {
   className?: string;
@@ -14,7 +14,7 @@ export function Logo({ className, imageClassName }: LogoProps) {
       className={cn('flex shrink-0 items-center', className)}
     >
       <img
-        src={logo}
+        src={`${import.meta.env.BASE_URL}img/header/logo.svg`}
         alt="Nice Gadgets"
         className={cn('h-[22px] w-16 desktop:h-7 desktop:w-20', imageClassName)}
       />

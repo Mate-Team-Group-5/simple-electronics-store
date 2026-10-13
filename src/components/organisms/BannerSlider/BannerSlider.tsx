@@ -2,15 +2,27 @@ import { useEffect, useRef, useState, type TouchEvent } from 'react';
 import { cn } from 'cn';
 import { SliderButton } from '@/components/atoms/SliderButton/SliderButton';
 import { SliderDots } from '@/components/molecules/SliderDots/SliderDots';
-import bannerPhones from '@/assets/img/banner-phones.png';
-import bannerTablets from '@/assets/img/banner-tablets.png';
-import bannerAccessories from '@/assets/img/banner-accessories.png';
+//import bannerPhones from 'img/banner-phones.png';
+//import bannerTablets from 'img/banner-tablets.png';
+//import bannerAccessories from 'img/banner-accessories.png';
 import { Link } from 'react-router';
 
 const SLIDES = [
-  { src: bannerPhones, alt: 'New phones', to: '/phones' },
-  { src: bannerTablets, alt: 'New tablets', to: '/tablets' },
-  { src: bannerAccessories, alt: 'New accessories', to: '/accessories' },
+  {
+    src: `${import.meta.env.BASE_URL}img/banner-phones.png`,
+    alt: 'New phones',
+    to: '/phones',
+  },
+  {
+    src: `${import.meta.env.BASE_URL}img/banner-tablets.png`,
+    alt: 'New tablets',
+    to: '/tablets',
+  },
+  {
+    src: `${import.meta.env.BASE_URL}img/banner-accessories.png`,
+    alt: 'New accessories',
+    to: '/accessories',
+  },
 ];
 
 const SLIDES_COUNT = SLIDES.length;
