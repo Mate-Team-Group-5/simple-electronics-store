@@ -8,6 +8,14 @@ export const getProducts = () => {
   return client.get<Product[]>(`/products.json`);
 };
 
+export function getNewModelsProducts() {
+  getProducts().then((products) => {
+    return products.toSorted(
+      (product1, product2) => product1.year - product2.year,
+    );
+  });
+}
+
 export const getPhones = () => {
   return client.get<Phone[]>(`/phones.json`);
 };
