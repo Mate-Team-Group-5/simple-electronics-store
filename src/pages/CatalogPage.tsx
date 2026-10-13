@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@/components/molecules/Breadcrumbs/Breadcrumbs';
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
+import { ProductsGrid } from '@/components/organisms/ProductsGrid/ProductsGrid';
 import { useProducts, type Category } from '@/hooks/useProducts';
 
 type CatalogPageProps = {
@@ -26,9 +27,16 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
       <PageTitle className="mt-6 tablet:mt-10">{title}</PageTitle>
 
       {!isLoading && !hasError && (
-        <p className="mt-2 text-sm text-text-secondary">
-          {products.length} models
-        </p>
+        <>
+          <p className="mt-2 text-sm text-text-secondary">
+            {products.length} models
+          </p>
+
+          <ProductsGrid
+            products={products}
+            className="mt-10"
+          />
+        </>
       )}
     </>
   );
