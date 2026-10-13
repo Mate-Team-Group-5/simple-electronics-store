@@ -13,6 +13,7 @@ const SLIDES = [
   { src: bannerAccessories, alt: 'New accessories', to: '/accessories' },
 ];
 
+const SLIDES_COUNT = SLIDES.length;
 const AUTOPLAY_DELAY = 5000;
 const SWIPE_THRESHOLD = 50;
 
@@ -22,23 +23,35 @@ type BannerSliderProps = {
 
 export function BannerSlider({ className }: BannerSliderProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const slidesCount = SLIDES.length;
+
+  const intervalRef = useRef<number | undefined>(undefined);
+  const [timerKey, setTimerKey] = useState(0);
+
+  useEffect(() => {
+    intervalRef.current = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % SLIDES_COUNT);
+    }, AUTOPLAY_DELAY);
+
+    return () => window.clearInterval(intervalRef.current);
+  }, [timerKey]);
+
+  const changeSlide = (getIndex: (prev: number) => number) => {
+    window.clearInterval(intervalRef.current);
+    setActiveIndex(getIndex);
+    setTimerKey((key) => key + 1);
+  };
 
   const showNext = () => {
-    setActiveIndex((prev) => (prev + 1) % slidesCount);
+    changeSlide((prev) => (prev + 1) % SLIDES_COUNT);
   };
 
   const showPrev = () => {
-    setActiveIndex((prev) => (prev - 1 + slidesCount) % slidesCount);
+    changeSlide((prev) => (prev - 1 + SLIDES_COUNT) % SLIDES_COUNT);
   };
 
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % SLIDES.length);
-    }, AUTOPLAY_DELAY);
-
-    return () => clearInterval(timerId);
-  }, [activeIndex]);
+  const showSlide = (index: number) => {
+    changeSlide(() => index);
+  };
 
   const touchStartX = useRef<number | null>(null);
 
@@ -116,9 +129,9 @@ export function BannerSlider({ className }: BannerSliderProps) {
       </div>
 
       <SliderDots
-        count={slidesCount}
+        count={SLIDES_COUNT}
         activeIndex={activeIndex}
-        onSelect={setActiveIndex}
+        onSelect={showSlide}
       />
     </section>
   );
