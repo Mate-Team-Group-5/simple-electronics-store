@@ -6,6 +6,7 @@ import {
   CatalogControls,
   type PerPage,
 } from '@/components/molecules/CatalogControls/CatalogControls';
+import { Pagination } from '@/components/molecules/Pagination/Pagination';
 import { ProductsGrid } from '@/components/organisms/ProductsGrid/ProductsGrid';
 import { useProducts, type Category } from '@/hooks/useProducts';
 import { sortProducts, type SortType } from '@/utils/sortProducts';
@@ -37,6 +38,12 @@ function parsePerPage(value: string | null): PerPage {
   );
 }
 
+function parsePage(value: string | null): number {
+  const page = Number(value);
+
+  return Number.isInteger(page) && page > 0 ? page : 1;
+}
+
 export function CatalogPage({ category, title }: CatalogPageProps) {
   const { products, isLoading, hasError } = useProducts(category);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -44,25 +51,52 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
   const sort = parseSort(searchParams.get('sort'));
   const perPage = parsePerPage(searchParams.get('perPage'));
 
-  const updateParam = (key: string, value: string, defaultValue: string) => {
+  const itemsPerPage =
+    perPage === 'all' ? Math.max(products.length, 1) : Number(perPage);
+  const totalPages = Math.max(1, Math.ceil(products.length / itemsPerPage));
+  const currentPage = Math.min(parsePage(searchParams.get('page')), totalPages);
+
+  const updateParams = (changes: Record<string, string | null>) => {
     setSearchParams((prevParams) => {
       const params = new URLSearchParams(prevParams);
 
-      if (value === defaultValue) {
-        params.delete(key);
-      } else {
-        params.set(key, value);
-      }
+      Object.entries(changes).forEach(([key, value]) => {
+        if (value === null) {
+          params.delete(key);
+        } else {
+          params.set(key, value);
+        }
+      });
 
       return params;
     });
   };
 
+  const handleSortChange = (value: SortType) => {
+    updateParams({
+      sort: value === DEFAULT_SORT ? null : value,
+      page: null,
+    });
+  };
+
+  const handlePerPageChange = (value: PerPage) => {
+    updateParams({
+      perPage: value === DEFAULT_PER_PAGE ? null : value,
+      page: null,
+    });
+  };
+
+  const handlePageChange = (page: number) => {
+    updateParams({ page: page === 1 ? null : String(page) });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const visibleProducts = useMemo(() => {
     const sorted = sortProducts(products, sort);
+    const start = (currentPage - 1) * itemsPerPage;
 
-    return perPage === 'all' ? sorted : sorted.slice(0, Number(perPage));
-  }, [products, sort, perPage]);
+    return sorted.slice(start, start + itemsPerPage);
+  }, [products, sort, currentPage, itemsPerPage]);
 
   return (
     <>
@@ -82,16 +116,21 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
           <CatalogControls
             sort={sort}
             perPage={perPage}
-            onSortChange={(value) => updateParam('sort', value, DEFAULT_SORT)}
-            onPerPageChange={(value) =>
-              updateParam('perPage', value, DEFAULT_PER_PAGE)
-            }
+            onSortChange={handleSortChange}
+            onPerPageChange={handlePerPageChange}
             className="mt-8 desktop:mt-10"
           />
 
           <ProductsGrid
             products={visibleProducts}
             className="mt-6"
+          />
+
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            className="mt-10 mb-20"
           />
         </>
       )}
