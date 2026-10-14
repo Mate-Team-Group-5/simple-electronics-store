@@ -4,12 +4,14 @@ import React from 'react';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import { Loader } from '@/components/atoms/Loader/Loader';
 import { ErrorMessage } from '@/components/molecules/ErrorMessage/ErrorMessage';
+import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
+import { ProductGallery } from '@/components/organisms/ProductGallery';
 
 type Props = {
   category: Category;
 };
 
-export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
+export const ProductDetailsPage: React.FC<Props> = () => {
   const { productId } = useParams();
   const { product, isLoading, hasError } = useProductDetails(productId);
 
@@ -23,15 +25,23 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
     if (!product) {
       return <ErrorMessage message="Product not found" />;
     }
-    return product.name;
+    return (
+      <>
+        <PageTitle className="mt-6 tablet:mt-10">{product?.name}</PageTitle>
+        <section className="mt-8 grid grid-cols-1 gap-8 tablet:grid-cols-2">
+          <ProductGallery
+            images={product.images}
+            name={product.name}
+          />
+          <div className="min-h-64 border">Options</div>
+        </section>
+
+        <section className="mt-14 grid grid-cols-1 gap-14 desktop:grid-cols-2">
+          <div className="min-h-64 border">About</div>
+          <div className="min-h-64 border">Tech specs</div>
+        </section>
+      </>
+    );
   }
-  return (
-    <div>
-      {category}
-      <br />
-      {productId}
-      <br />
-      {renderContent()}
-    </div>
-  );
+  return renderContent();
 };
