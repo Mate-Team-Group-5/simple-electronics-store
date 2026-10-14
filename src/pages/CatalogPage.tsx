@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { useSearchParams } from 'react-router';
 import { Breadcrumbs } from '@/components/molecules/Breadcrumbs/Breadcrumbs';
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import {
@@ -20,10 +21,42 @@ const CATEGORY_LABELS: Record<Category, string> = {
   accessories: 'Accessories',
 };
 
+const SORT_VALUES: SortType[] = ['newest', 'alphabetically', 'cheapest'];
+const PER_PAGE_VALUES: PerPage[] = ['4', '8', '16', 'all'];
+
+const DEFAULT_SORT: SortType = 'newest';
+const DEFAULT_PER_PAGE: PerPage = '16';
+
+function parseSort(value: string | null): SortType {
+  return SORT_VALUES.find((sort) => sort === value) ?? DEFAULT_SORT;
+}
+
+function parsePerPage(value: string | null): PerPage {
+  return (
+    PER_PAGE_VALUES.find((perPage) => perPage === value) ?? DEFAULT_PER_PAGE
+  );
+}
+
 export function CatalogPage({ category, title }: CatalogPageProps) {
   const { products, isLoading, hasError } = useProducts(category);
-  const [sort, setSort] = useState<SortType>('newest');
-  const [perPage, setPerPage] = useState<PerPage>('16');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const sort = parseSort(searchParams.get('sort'));
+  const perPage = parsePerPage(searchParams.get('perPage'));
+
+  const updateParam = (key: string, value: string, defaultValue: string) => {
+    setSearchParams((prevParams) => {
+      const params = new URLSearchParams(prevParams);
+
+      if (value === defaultValue) {
+        params.delete(key);
+      } else {
+        params.set(key, value);
+      }
+
+      return params;
+    });
+  };
 
   const visibleProducts = useMemo(() => {
     const sorted = sortProducts(products, sort);
@@ -49,8 +82,10 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
           <CatalogControls
             sort={sort}
             perPage={perPage}
-            onSortChange={setSort}
-            onPerPageChange={setPerPage}
+            onSortChange={(value) => updateParam('sort', value, DEFAULT_SORT)}
+            onPerPageChange={(value) =>
+              updateParam('perPage', value, DEFAULT_PER_PAGE)
+            }
             className="mt-8 desktop:mt-10"
           />
 
