@@ -10,6 +10,8 @@ import { Pagination } from '@/components/molecules/Pagination/Pagination';
 import { ProductsGrid } from '@/components/organisms/ProductsGrid/ProductsGrid';
 import { useProducts, type Category } from '@/hooks/useProducts';
 import { sortProducts, type SortType } from '@/utils/sortProducts';
+import { Loader } from '@/components/atoms/Loader/Loader';
+import { ErrorMessage } from '@/components/molecules/ErrorMessage/ErrorMessage';
 
 type CatalogPageProps = {
   category: Category;
@@ -45,7 +47,7 @@ function parsePage(value: string | null): number {
 }
 
 export function CatalogPage({ category, title }: CatalogPageProps) {
-  const { products, isLoading, hasError } = useProducts(category);
+  const { products, isLoading, hasError, reload } = useProducts(category);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const sort = parseSort(searchParams.get('sort'));
@@ -107,7 +109,20 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
 
       <PageTitle className="mt-6 tablet:mt-10">{title}</PageTitle>
 
-      {!isLoading && !hasError && (
+      {isLoading && <Loader />}
+
+      {hasError && (
+        <ErrorMessage
+          message="Something went wrong. Please try again."
+          onRetry={reload}
+        />
+      )}
+
+      {!isLoading && !hasError && products.length === 0 && (
+        <ErrorMessage message={`There are no ${category} yet`} />
+      )}
+
+      {!isLoading && !hasError && products.length > 0 && (
         <>
           <p className="mt-2 text-sm text-text-secondary">
             {products.length} models
