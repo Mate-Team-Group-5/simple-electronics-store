@@ -7,6 +7,9 @@ import { useEffect, useState } from 'react';
 import type { Product } from './types/Product';
 import { getProducts } from './services/products';
 import { CartPage } from './pages/CartPage';
+import { FavouritesPage } from './pages/FavouritesPage';
+import { CatalogPage } from './pages/CatalogPage';
+import { ProductCategory } from './types/ProductCategory';
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -28,8 +31,39 @@ function App() {
               element={<HomePage />}
             />
             <Route
+              path="/phones"
+              element={
+                <CatalogPage
+                  category={ProductCategory.phones}
+                  title="Mobile phones"
+                />
+              }
+            />
+            <Route
+              path="/tablets"
+              element={
+                <CatalogPage
+                  category={ProductCategory.tablets}
+                  title="Tablets"
+                />
+              }
+            />
+            <Route
+              path="/accessories"
+              element={
+                <CatalogPage
+                  category={ProductCategory.accessories}
+                  title="Accessories"
+                />
+              }
+            />
+            <Route
               path="cart"
               element={<CartPage />}
+            />
+            <Route
+              path="favourites"
+              element={<FavouritesPage />}
             />
           </Route>
           <Route
