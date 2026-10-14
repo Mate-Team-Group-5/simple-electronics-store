@@ -3,23 +3,12 @@ import { Footer } from './components/organisms/Footer/Footer';
 import { HomePage } from './pages/HomePage';
 import { Routes, Route } from 'react-router';
 import { NotFoundPage } from './pages/NotFoundPage';
-import { useEffect, useState } from 'react';
-import type { Product } from './types/Product';
-import { getProducts } from './services/products';
 import { CartPage } from './pages/CartPage';
 import { FavouritesPage } from './pages/FavouritesPage';
 import { CatalogPage } from './pages/CatalogPage';
 import { ProductCategory } from './types/ProductCategory';
 
 function App() {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    getProducts().then(setProducts);
-  }, []);
-
-  console.log(products);
-
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
