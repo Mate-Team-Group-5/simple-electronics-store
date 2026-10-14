@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getProducts } from '@/services/products';
 import type { Product } from '@/types/Product';
+import type { ProductCategory } from '@/types/ProductCategory';
 
-export type Category = 'phones' | 'tablets' | 'accessories';
+export type Category = Exclude<ProductCategory, 'all'>;
 
 type LoadResult = {
   category: Category | null;

@@ -1,13 +1,15 @@
 import { Header } from './components/organisms/Header/Header';
 import { Footer } from './components/organisms/Footer/Footer';
 import { HomePage } from './pages/HomePage';
-import { CatalogPage } from './pages/CatalogPage';
 import { Routes, Route } from 'react-router';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { useEffect, useState } from 'react';
 import type { Product } from './types/Product';
 import { getProducts } from './services/products';
 import { CartPage } from './pages/CartPage';
+import { FavouritesPage } from './pages/FavouritesPage';
+import { CatalogPage } from './pages/CatalogPage';
+import { ProductCategory } from './types/ProductCategory';
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -29,28 +31,28 @@ function App() {
               element={<HomePage />}
             />
             <Route
-              path="phones"
+              path="/phones"
               element={
                 <CatalogPage
-                  category="phones"
+                  category={ProductCategory.phones}
                   title="Mobile phones"
                 />
               }
             />
             <Route
-              path="tablets"
+              path="/tablets"
               element={
                 <CatalogPage
-                  category="tablets"
+                  category={ProductCategory.tablets}
                   title="Tablets"
                 />
               }
             />
             <Route
-              path="accessories"
+              path="/accessories"
               element={
                 <CatalogPage
-                  category="accessories"
+                  category={ProductCategory.accessories}
                   title="Accessories"
                 />
               }
@@ -58,6 +60,10 @@ function App() {
             <Route
               path="cart"
               element={<CartPage />}
+            />
+            <Route
+              path="favourites"
+              element={<FavouritesPage />}
             />
           </Route>
           <Route
