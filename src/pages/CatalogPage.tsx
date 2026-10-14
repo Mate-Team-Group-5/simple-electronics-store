@@ -6,8 +6,7 @@ type Props = {
   title: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const CatalogPage: React.FC<Props> = ({ category, title }) => {
+export const CatalogPage: React.FC<Props> = ({ title }) => {
   return (
     <>
       <PageTitle className="mt-6 mb-6 tablet:mt-8 tablet:mb-8 desktop:mt-14 desktop:mb-14">
