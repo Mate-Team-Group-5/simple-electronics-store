@@ -5,6 +5,7 @@ import type React from 'react';
 import { ProductCard } from '../ProductCard';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from 'cn';
+import { useFavourites } from '@/hooks/useFavourites';
 
 type Props = {
   title: string;
@@ -22,6 +23,7 @@ export const ProductGrid: React.FC<Props> = ({
   );
 
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { isFavourite, toggleFavourite } = useFavourites();
 
   useEffect(() => {}, []);
 
@@ -106,7 +108,8 @@ export const ProductGrid: React.FC<Props> = ({
               key={product.id}
               product={product}
               isAddedToCart={false}
-              isFavorite={false}
+              isFavorite={isFavourite(product.id)}
+              onAddToFavorites={toggleFavourite}
             />
           );
         })}

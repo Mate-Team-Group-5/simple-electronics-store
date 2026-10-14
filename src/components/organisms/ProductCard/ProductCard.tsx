@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/atoms/Card';
-import { Heart, RedHeart } from '@/components/atoms/Heart/Heart';
+import { FavouriteButton } from '@/components/atoms/FavouriteButton/FavouriteButton';
 
 type Props = {
   product: Product;
@@ -76,17 +76,10 @@ export const ProductCard: React.FC<Props> = ({
         >
           {isAddedToCart ? 'Added' : 'Add to cart'}
         </Button>
-        <Button
-          variant="outline"
-          className="w-10 h-10"
-          onClick={() => {
-            if (onAddToFavorites) onAddToFavorites(id);
-          }}
-        >
-          {isFavorite ?
-            <RedHeart />
-          : <Heart />}
-        </Button>
+        <FavouriteButton
+          isFavourite={isFavorite}
+          onClick={() => onAddToFavorites?.(id)}
+        />
       </CardFooter>
     </Card>
   );
