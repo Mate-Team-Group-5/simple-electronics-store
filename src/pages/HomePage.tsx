@@ -16,16 +16,25 @@ export function HomePage() {
 
   return (
     <>
-      <PageTitle className="mt-6 mb-6 tablet:mt-8 tablet:mb-8 desktop:mt-14 desktop:mb-14">
-        Welcome to Nice Gadgets store!
-      </PageTitle>
+      <div className="flex flex-col gap-14 sm:gap-16 lg:gap-20">
+        <div>
+          <PageTitle className="mt-6 mb-6 tablet:mt-8 tablet:mb-8 desktop:mt-14 desktop:mb-14">
+            Welcome to Nice Gadgets store!
+          </PageTitle>
 
-      <BannerSlider className="-mx-4 tablet:mx-0" />
+          <BannerSlider className="-mx-4 tablet:mx-0" />
+        </div>
 
-      <ProductGrid
-        title="Brand new models"
-        products={products}
-      />
+        <ProductGrid
+          title="Brand new models"
+          products={products}
+        />
+        <ProductGrid
+          title="Hot prices"
+          products={products}
+          classNames="mb-14 sm:mb-16 lg:mb-20"
+        />
+      </div>
     </>
   );
 }
