@@ -11,7 +11,7 @@ export function ProductsGrid({ products, className }: ProductsGridProps) {
   return (
     <ul
       className={cn(
-        'grid grid-cols-[repeat(auto-fill,minmax(229px,1fr))] gap-x-4 gap-y-10',
+        'grid grid-cols-[repeat(auto-fill,minmax(272px,1fr))] gap-x-4 gap-y-10',
         className,
       )}
     >
