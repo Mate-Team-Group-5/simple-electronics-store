@@ -75,7 +75,7 @@ export const ProductGrid: React.FC<Props> = ({
 
   return (
     <div className={cn(classNames)}>
-      <div className="flex justify-between mb-6">
+      <div className="flex justify-between mb-5">
         <h2 className="text-[22px] sm:text-[32px] font-bold">{title}</h2>
         <div className="h-fit gap-4 flex flex-row">
           <Button
@@ -97,7 +97,7 @@ export const ProductGrid: React.FC<Props> = ({
         </div>
       </div>
       <div
-        className="overflow-x-auto flex flex-row gap-4 scrollbar-hide"
+        className="overflow-x-auto flex flex-row gap-4 scrollbar-hide p-1 -mx-1"
         ref={scrollRef}
       >
         {products.slice(gridSections, gridSections + 4).map((product) => {
