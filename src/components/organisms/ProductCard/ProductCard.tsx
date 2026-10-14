@@ -29,7 +29,7 @@ export const ProductCard: React.FC<Props> = ({
   onAddToFavorites,
 }) => {
   return (
-    <Card className="w-full max-w-[272px] max-h-[506px] border-box p-8 flex-col gap-0">
+    <Card className="shrink-0 w-68 h-126.5 border-box p-8 flex-col gap-0 snap-x snap-mandatory scroll-smooth">
       <CardHeader className="border-box px-0 gap-0">
         <img
           src={image}
