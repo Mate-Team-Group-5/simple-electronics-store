@@ -30,12 +30,14 @@ export const ProductCard: React.FC<Props> = ({
 }) => {
   return (
     <Card className="shrink-0 w-68 h-126.5 border-box p-8 flex-col gap-0 snap-x snap-mandatory scroll-smooth">
-      <CardHeader className="border-box px-0 gap-0">
+      <div className="flex min-h-0 flex-1 items-center justify-center">
         <img
           src={image}
           alt={name}
-          className="w-full h-full object-contain"
+          className="max-h-full max-w-full object-contain"
         />
+      </div>
+      <CardHeader className="border-box px-0 gap-0">
         <CardTitle className="mt-6 text-sm">
           {name}
           <div className="mt-2 border-box border-b border-gray-500 pb-2">
