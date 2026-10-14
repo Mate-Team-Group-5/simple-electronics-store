@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Breadcrumbs } from '@/components/molecules/Breadcrumbs/Breadcrumbs';
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
-import { Select } from '@/components/atoms/Select/Select';
+import {
+  CatalogControls,
+  type PerPage,
+} from '@/components/molecules/CatalogControls/CatalogControls';
 import { ProductsGrid } from '@/components/organisms/ProductsGrid/ProductsGrid';
 import { useProducts, type Category } from '@/hooks/useProducts';
+import { sortProducts, type SortType } from '@/utils/sortProducts';
 
 type CatalogPageProps = {
   category: Category;
@@ -18,7 +22,14 @@ const CATEGORY_LABELS: Record<Category, string> = {
 
 export function CatalogPage({ category, title }: CatalogPageProps) {
   const { products, isLoading, hasError } = useProducts(category);
-  const [sort, setSort] = useState('newest');
+  const [sort, setSort] = useState<SortType>('newest');
+  const [perPage, setPerPage] = useState<PerPage>('16');
+
+  const visibleProducts = useMemo(() => {
+    const sorted = sortProducts(products, sort);
+
+    return perPage === 'all' ? sorted : sorted.slice(0, Number(perPage));
+  }, [products, sort, perPage]);
 
   return (
     <>
@@ -35,20 +46,16 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
             {products.length} models
           </p>
 
-          <Select
-            label="Sort by"
-            value={sort}
-            options={[
-              { value: 'newest', label: 'Newest' },
-              { value: 'alphabetically', label: 'Alphabetically' },
-              { value: 'cheapest', label: 'Cheapest' },
-            ]}
-            onChange={setSort}
-            className="mt-10 w-44"
+          <CatalogControls
+            sort={sort}
+            perPage={perPage}
+            onSortChange={setSort}
+            onPerPageChange={setPerPage}
+            className="mt-8 desktop:mt-10"
           />
 
           <ProductsGrid
-            products={products}
+            products={visibleProducts}
             className="mt-6"
           />
         </>
