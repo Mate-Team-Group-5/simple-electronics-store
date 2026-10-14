@@ -1,18 +1,26 @@
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import { BannerSlider } from '@/components/organisms/BannerSlider/BannerSlider';
 import { ProductGrid } from '@/components/organisms/ProductGrid';
-import { getProducts } from '@/services/products';
+import {
+  getHotPricesProducts,
+  getNewModelsProducts,
+} from '@/services/products';
 import type { Product } from '@/types/Product';
 import { useEffect, useState } from 'react';
 
 export function HomePage() {
-  const [products, serProducts] = useState<Product[]>([]);
+  const [newModelsProducts, setNewModelsProducts] = useState<Product[]>([]);
+  const [hotPricesProducts, setHotPricesProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    getProducts()
-      .then((prod) => serProducts(prod))
+    getNewModelsProducts()
+      .then((prod) => setNewModelsProducts(prod))
       .catch(() => console.error('cant load products in HamePage'));
-  });
+
+    getHotPricesProducts()
+      .then((prod) => setHotPricesProducts(prod))
+      .catch(() => console.error('cant load hot prices products in HomePage'));
+  }, []);
 
   return (
     <>
@@ -27,11 +35,11 @@ export function HomePage() {
 
         <ProductGrid
           title="Brand new models"
-          products={products}
+          products={newModelsProducts}
         />
         <ProductGrid
           title="Hot prices"
-          products={products}
+          products={hotPricesProducts}
           classNames="mb-14 sm:mb-16 lg:mb-20"
         />
       </div>
