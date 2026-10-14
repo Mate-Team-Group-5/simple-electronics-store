@@ -1,5 +1,3 @@
-import './Heart.css';
-
 export const Heart = () => {
   return (
     <svg
