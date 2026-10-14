@@ -7,6 +7,7 @@ import { CartPage } from './pages/CartPage';
 import { FavouritesPage } from './pages/FavouritesPage';
 import { CatalogPage } from './pages/CatalogPage';
 import { ProductCategory } from './types/ProductCategory';
+import { ProductDetailsPage } from './pages/ProductDetailsPage';
 
 function App() {
   return (
@@ -27,6 +28,10 @@ function App() {
                   title="Mobile phones"
                 />
               }
+            />
+            <Route
+              path="/phones/:productId"
+              element={<ProductDetailsPage category={ProductCategory.phones} />}
             />
             <Route
               path="/tablets"
