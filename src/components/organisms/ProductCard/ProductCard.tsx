@@ -30,9 +30,6 @@ export const ProductCard: React.FC<Props> = ({
 }) => {
   const { cartItems, addCartItem, removeCartItem } = useAccountContext();
   function handleAddCartButton(): void {
-    console.log(cartItems);
-    console.log(id);
-
     if (cartItems.some((item) => item.id === id)) {
       removeCartItem(id);
     } else {
