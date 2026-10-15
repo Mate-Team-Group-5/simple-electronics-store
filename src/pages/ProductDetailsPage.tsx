@@ -6,12 +6,13 @@ import { Loader } from '@/components/atoms/Loader/Loader';
 import { ErrorMessage } from '@/components/molecules/ErrorMessage/ErrorMessage';
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import { ProductGallery } from '@/components/organisms/ProductGallery';
+import { ColorSelector } from '@/components/molecules/ColorSelector';
 
 type Props = {
   category: Category;
 };
 
-export const ProductDetailsPage: React.FC<Props> = () => {
+export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
   const { productId } = useParams();
   const { product, isLoading, hasError } = useProductDetails(productId);
 
@@ -30,10 +31,17 @@ export const ProductDetailsPage: React.FC<Props> = () => {
         <PageTitle className="mt-6 tablet:mt-10">{product?.name}</PageTitle>
         <section className="mt-8 grid grid-cols-1 gap-8 tablet:grid-cols-2">
           <ProductGallery
+            // key={product.id}
             images={product.images}
             name={product.name}
           />
-          <div className="min-h-64 border">Options</div>
+          <ColorSelector
+            category={category}
+            colors={product.colorsAvailable}
+            selectedColor={product.color}
+            namespaceId={product.namespaceId}
+            capacity={product.capacity}
+          />
         </section>
 
         <section className="mt-14 grid grid-cols-1 gap-14 desktop:grid-cols-2">
