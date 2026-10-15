@@ -19,10 +19,8 @@ export function FavouriteButton({
       aria-label={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
       aria-pressed={isFavourite}
       className={cn(
-        'flex size-10 shrink-0 items-center justify-center border transition-colors',
-        isFavourite ? 'border-elements' : (
-          'border-icons hover:border-text-primary'
-        ),
+        'flex size-10 shrink-0 cursor-pointer hover:border-text-primary items-center justify-center border transition-colors',
+        isFavourite ? 'border-elements' : 'border-icons',
         className,
       )}
     >

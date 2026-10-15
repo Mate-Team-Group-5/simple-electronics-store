@@ -6,7 +6,9 @@ import {
   getNewModelsProducts,
 } from '@/services/products';
 import type { Product } from '@/types/Product';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { ShopByCategory } from '@/components/organisms/ShopByCategory/ShopByCategory';
+import type { Category } from '@/hooks/useProducts';
 
 export function HomePage() {
   const [newModelsProducts, setNewModelsProducts] = useState<Product[]>([]);
@@ -21,6 +23,18 @@ export function HomePage() {
       .then((prod) => setHotPricesProducts(prod))
       .catch(() => console.error('cant load hot prices products in HomePage'));
   }, []);
+
+  const categoryCounts = useMemo(() => {
+    const countByCategory = (category: Category) =>
+      newModelsProducts.filter((product) => product.category === category)
+        .length;
+
+    return {
+      phones: countByCategory('phones'),
+      tablets: countByCategory('tablets'),
+      accessories: countByCategory('accessories'),
+    };
+  }, [newModelsProducts]);
 
   return (
     <>
@@ -37,6 +51,9 @@ export function HomePage() {
           title="Brand new models"
           products={newModelsProducts}
         />
+
+        <ShopByCategory counts={categoryCounts} />
+
         <ProductGrid
           title="Hot prices"
           products={hotPricesProducts}
