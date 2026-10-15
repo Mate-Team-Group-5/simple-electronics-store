@@ -23,17 +23,19 @@ type Props = {
 };
 
 export const ProductCard: React.FC<Props> = ({
-  product: { name, price, fullPrice, image, id, ram, capacity, screen },
+  product,
   isFavorite,
   isSale,
   onAddToFavorites,
 }) => {
+  const { name, price, fullPrice, image, id, ram, capacity, screen } = product;
+
   const { cartItems, addCartItem, removeCartItem } = useAccountContext();
   function handleAddCartButton(): void {
     if (cartItems.some((item) => item.id === id)) {
       removeCartItem(id);
     } else {
-      addCartItem(id, 1);
+      addCartItem(product, 1);
     }
   }
 

@@ -1,4 +1,5 @@
 import type { CartProduct } from '@/types/Cart';
+import type { Product } from '@/types/Product';
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
 interface AccountContextType {
@@ -6,7 +7,7 @@ interface AccountContextType {
   cartItems: CartProduct[];
   addFavorites: (id: number) => void;
   removeFavorites: (id: number) => void;
-  addCartItem: (id: number, quantity: number) => void;
+  addCartItem: (product: Product, quantity: number) => void;
   updateCartItem: (id: number, quantity: number) => void;
   removeCartItem: (id: number) => void;
 }
@@ -46,9 +47,9 @@ export const AccountProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   }
 
-  function addCartItem(id: number, quantity: number) {
-    if (cartItems.some((item) => item.id === id)) return;
-    setCartItems([...cartItems, { id, quantity } as CartProduct]);
+  function addCartItem(product: Product, quantity: number) {
+    if (cartItems.some((item) => item.id === product.id)) return;
+    setCartItems([...cartItems, { id: product.id, product, quantity }]);
   }
 
   function updateCartItem(id: number, quantity: number) {
