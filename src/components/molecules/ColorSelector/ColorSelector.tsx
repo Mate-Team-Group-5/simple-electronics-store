@@ -19,7 +19,7 @@ export const ColorSelector: React.FC<Props> = ({
 }) => {
   return (
     <div>
-      <p>Available colors</p>
+      <p className="text-xs text-text-secondary mb-2">Available colors</p>
       <div className="flex gap-2">
         {colors.map((color) => (
           <Link

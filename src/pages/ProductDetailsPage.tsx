@@ -6,7 +6,7 @@ import { Loader } from '@/components/atoms/Loader/Loader';
 import { ErrorMessage } from '@/components/molecules/ErrorMessage/ErrorMessage';
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import { ProductGallery } from '@/components/organisms/ProductGallery';
-import { ColorSelector } from '@/components/molecules/ColorSelector';
+import { ProductPurchase } from '@/components/organisms/ProductPurchase';
 
 type Props = {
   category: Category;
@@ -35,12 +35,9 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
             images={product.images}
             name={product.name}
           />
-          <ColorSelector
+          <ProductPurchase
+            product={product}
             category={category}
-            colors={product.colorsAvailable}
-            selectedColor={product.color}
-            namespaceId={product.namespaceId}
-            capacity={product.capacity}
           />
         </section>
 
