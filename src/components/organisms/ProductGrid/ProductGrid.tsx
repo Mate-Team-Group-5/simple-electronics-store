@@ -10,6 +10,7 @@ import { useFavourites } from '@/hooks/useFavourites';
 type Props = {
   title: string;
   products: Product[];
+  isSaleGrid?: boolean;
   classNames?: string;
 };
 
@@ -17,6 +18,7 @@ export const ProductGrid: React.FC<Props> = ({
   title,
   products,
   classNames,
+  isSaleGrid,
 }) => {
   const [gridSections, setGridSections] = useState<number>(
     Math.ceil(products.length / 4),
@@ -108,6 +110,7 @@ export const ProductGrid: React.FC<Props> = ({
               key={product.id}
               product={product}
               isAddedToCart={false}
+              isSale={isSaleGrid}
               isFavorite={isFavourite(product.id)}
               onAddToFavorites={toggleFavourite}
             />
