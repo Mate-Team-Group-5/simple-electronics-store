@@ -47,9 +47,8 @@ export const AccountProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   function addCartItem(id: number, quantity: number) {
-    setCartItems(
-      cartItems.map((item) => (item.id === id ? { ...item, quantity } : item)),
-    );
+    if (cartItems.some((item) => item.id === id)) return;
+    setCartItems([...cartItems, { id, quantity } as CartProduct]);
   }
 
   function updateCartItem(id: number, quantity: number) {
