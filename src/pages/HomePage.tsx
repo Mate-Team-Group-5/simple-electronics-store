@@ -57,6 +57,7 @@ export function HomePage() {
         <ProductGrid
           title="Hot prices"
           products={hotPricesProducts}
+          isSaleGrid={true}
           classNames="mb-14 sm:mb-16 lg:mb-20"
         />
       </div>
