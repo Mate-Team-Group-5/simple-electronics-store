@@ -3,6 +3,7 @@ import type { CartProduct } from '@/types/Cart';
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import { CartItem } from '@/components/organisms/CartItem/CartItem';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { Button } from '@/components/atoms/Button/Button';
 //import cartIsEmpty from '@/assets/img/cart-is-empty.png';
 
@@ -65,6 +66,7 @@ const testCart: CartProduct[] = [
 ];
 export const CartPage: React.FC = () => {
   const [cart, setCart] = useState(testCart);
+  const navigate = useNavigate();
 
   const onRemove = (id: number) => {
     return setCart(cart.filter((filteredItem) => filteredItem.id !== id));
@@ -133,7 +135,7 @@ export const CartPage: React.FC = () => {
             <Button
               size="lg"
               className="h-12 w-full"
-              onClick={() => console.log('Button clicked')}
+              onClick={() => navigate('/checkout')}
             >
               Checkout
             </Button>
