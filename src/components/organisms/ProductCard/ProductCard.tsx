@@ -1,6 +1,4 @@
 import type { Product } from '@/types/Product';
-import { Button } from '@/components/atoms/Button';
-import cn from 'classnames';
 import {
   Card,
   CardContent,
@@ -9,44 +7,62 @@ import {
   CardTitle,
 } from '@/components/atoms/Card';
 import { FavouriteButton } from '@/components/atoms/FavouriteButton/FavouriteButton';
+import { Link } from 'react-router';
+import { AddToCartButton } from '@/components/atoms/AddToCartButton';
+import { useAccountContext } from '@/context/AccountContext';
+import './ProductCard.css';
 
 type Props = {
   product: Product;
   isAddedToCart: boolean;
   isFavorite: boolean;
-  sale?: number;
+  isSale?: boolean;
 
   onAddToCart?: (id: number) => void;
   onAddToFavorites?: (id: number) => void;
 };
 
 export const ProductCard: React.FC<Props> = ({
-  product: { name, price, image, id, ram, capacity, screen },
-  isAddedToCart,
+  product,
   isFavorite,
-  sale,
-  onAddToCart,
+  isSale,
   onAddToFavorites,
 }) => {
+  const { name, price, fullPrice, image, id, ram, capacity, screen } = product;
+
+  const { cartItems, addCartItem, removeCartItem } = useAccountContext();
+  function handleAddCartButton(): void {
+    if (cartItems.some((item) => item.id === id)) {
+      removeCartItem(id);
+    } else {
+      addCartItem(product, 1);
+    }
+  }
+
   return (
-    <Card className="shrink-0 w-68 h-126.5 border-box p-8 flex-col gap-0 snap-x snap-mandatory scroll-smooth">
-      <div className="flex min-h-0 flex-1 items-center justify-center">
+    <Card className="shrink-0 w-68 h-126.5 border-box p-8 flex-col gap-0 snap-x snap-mandatory scroll-smooth hoverAnimations">
+      <Link
+        to="../"
+        className="flex min-h-0 flex-1 items-center justify-center"
+      >
         <img
           src={image}
           alt={name}
           className="max-h-full max-w-full object-contain"
         />
-      </div>
+      </Link>
       <CardHeader className="border-box px-0 gap-0">
         <CardTitle className="mt-6 text-sm">
           {name}
           <div className="mt-2 border-box border-b border-gray-500 pb-2">
-            {sale ?
+            {isSale ?
               <>
-                <span className="text-bold">${sale} </span>
-                <span className="line-through text-gray-500">${price} </span>
+                <span className="text-bold">${price} </span>
+                <span className="line-through text-gray-500">
+                  ${fullPrice}{' '}
+                </span>
               </>
-            : <span className="text-bold ">${price}</span>}
+            : <span className="text-bold ">${fullPrice}</span>}
           </div>
         </CardTitle>
       </CardHeader>
@@ -65,17 +81,11 @@ export const ProductCard: React.FC<Props> = ({
         </div>
       </CardContent>
       <CardFooter className="flex-row gap-2 px-0 ">
-        <Button
-          variant={isAddedToCart ? 'outline' : 'default'}
-          className={cn('flex-1', 'h-10', 'hover:shadow', {
-            'text-[#27AE60]': isAddedToCart,
-          })}
-          onClick={() => {
-            if (onAddToCart) onAddToCart(id);
-          }}
-        >
-          {isAddedToCart ? 'Added' : 'Add to cart'}
-        </Button>
+        <AddToCartButton
+          isAddedToCart={cartItems.some((item) => item.id === id)}
+          onAddToCart={handleAddCartButton}
+        />
+
         <FavouriteButton
           isFavourite={isFavorite}
           onClick={() => onAddToFavorites?.(id)}
