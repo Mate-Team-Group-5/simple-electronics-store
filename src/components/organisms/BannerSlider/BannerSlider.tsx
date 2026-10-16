@@ -2,26 +2,32 @@ import { useEffect, useRef, useState, type TouchEvent } from 'react';
 import { cn } from 'cn';
 import { SliderButton } from '@/components/atoms/SliderButton/SliderButton';
 import { SliderDots } from '@/components/molecules/SliderDots/SliderDots';
-//import bannerPhones from 'img/banner-phones.png';
-//import bannerTablets from 'img/banner-tablets.png';
-//import bannerAccessories from 'img/banner-accessories.png';
 import { Link } from 'react-router';
+import { BannerSlide } from '@/components/molecules/BannerSlide/BannerSlide';
+
+const IMG_URL = `${import.meta.env.BASE_URL}img`;
 
 const SLIDES = [
   {
-    src: `${import.meta.env.BASE_URL}img/banner-phones.png`,
-    alt: 'New phones',
     to: '/phones',
+    image: `${IMG_URL}/category-phones.webp`,
+    title: 'iPhone 14 Pro',
+    subtitle: 'Pro camera. Pro display. Pro performance.',
+    bgClassName: 'bg-linear-to-br from-[#1c1a2e] to-[#3d2f6b]',
   },
   {
-    src: `${import.meta.env.BASE_URL}img/banner-tablets.png`,
-    alt: 'New tablets',
     to: '/tablets',
+    image: `${IMG_URL}/category-tablets.webp`,
+    title: 'iPad Pro',
+    subtitle: 'A big screen for big ideas.',
+    bgClassName: 'bg-linear-to-br from-[#0f172a] to-[#1e3a5f]',
   },
   {
-    src: `${import.meta.env.BASE_URL}img/banner-accessories.png`,
-    alt: 'New accessories',
     to: '/accessories',
+    image: `${IMG_URL}/category-accessories.webp`,
+    title: 'Apple Watch',
+    subtitle: 'Your health and fitness, right on your wrist.',
+    bgClassName: 'bg-linear-to-br from-[#2a1020] to-[#6b2346]',
   },
 ];
 
@@ -119,13 +125,13 @@ export function BannerSlider({ className }: BannerSliderProps) {
                   to={slide.to}
                   tabIndex={isActive ? 0 : -1}
                   aria-hidden={!isActive}
-                  className="h-full w-full shrink-0"
+                  className="group h-full w-full shrink-0"
                 >
-                  <img
-                    src={slide.src}
-                    alt={slide.alt}
-                    draggable={false}
-                    className="h-full w-full object-cover"
+                  <BannerSlide
+                    image={slide.image}
+                    title={slide.title}
+                    subtitle={slide.subtitle}
+                    bgClassName={slide.bgClassName}
                   />
                 </Link>
               );
