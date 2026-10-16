@@ -2,11 +2,13 @@ import type { ReactNode } from 'react';
 import { NavLink } from 'react-router';
 import { cn } from 'cn';
 import { Counter } from '@/components/atoms/Counter/Counter';
+import type { FlyTarget } from '@/utils/flyToTarget';
 
 type HeaderActionButtonProps = {
   to: string;
   label: string;
   count?: number;
+  flyTarget?: FlyTarget;
   children: ReactNode;
   className?: string;
 };
@@ -15,6 +17,7 @@ export function HeaderActionButton({
   to,
   label,
   count = 0,
+  flyTarget,
   children,
   className,
 }: HeaderActionButtonProps) {
@@ -24,6 +27,7 @@ export function HeaderActionButton({
     <NavLink
       to={to}
       aria-label={ariaLabel}
+      data-fly-target={flyTarget}
       className={({ isActive }) =>
         cn(
           'relative flex h-12 w-12 shrink-0 items-center justify-center desktop:h-16 desktop:w-16',

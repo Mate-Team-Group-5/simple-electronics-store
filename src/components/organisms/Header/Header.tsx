@@ -26,6 +26,7 @@ export function Header({ favouritesCount = 0, cartCount = 0 }: HeaderProps) {
             to="/favourites"
             label="Favourites"
             count={favouritesCount}
+            flyTarget="favourites"
           >
             <Heart size={16} />
           </HeaderActionButton>
@@ -33,6 +34,7 @@ export function Header({ favouritesCount = 0, cartCount = 0 }: HeaderProps) {
             to="/cart"
             label="Cart"
             count={cartCount}
+            flyTarget="cart"
           >
             <ShoppingBag size={16} />
           </HeaderActionButton>

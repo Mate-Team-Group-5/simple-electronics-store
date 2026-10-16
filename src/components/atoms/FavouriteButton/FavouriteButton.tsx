@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Heart } from 'lucide-react';
 import { cn } from 'cn';
 
@@ -12,21 +13,42 @@ export function FavouriteButton({
   onClick,
   className,
 }: FavouriteButtonProps) {
+  const [isPopping, setIsPopping] = useState(false);
+
+  const handleClick = () => {
+    if (!isFavourite) {
+      setIsPopping(true);
+    }
+
+    onClick();
+  };
+
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={handleClick}
       aria-label={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
       aria-pressed={isFavourite}
       className={cn(
-        'flex size-10 shrink-0 cursor-pointer hover:border-text-primary items-center justify-center border transition-colors',
+        'relative flex size-10 shrink-0 cursor-pointer hover:border-text-primary items-center justify-center border transition-colors',
         isFavourite ? 'border-elements' : 'border-icons',
         className,
       )}
     >
+      {isPopping && (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute size-6 animate-heart-burst rounded-full border-2 border-red motion-reduce:hidden"
+        />
+      )}
+
       <Heart
         size={16}
-        className={isFavourite ? 'fill-red text-red' : 'text-text-primary'}
+        onAnimationEnd={() => setIsPopping(false)}
+        className={cn(
+          isFavourite ? 'fill-red text-red' : 'text-text-primary',
+          isPopping && 'animate-heart-pop motion-reduce:animate-none',
+        )}
       />
     </button>
   );

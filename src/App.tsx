@@ -11,10 +11,14 @@ import { useAccountContext } from './context/AccountContext';
 import { CheckoutPage } from './pages/CheckoutPage';
 
 function App() {
-  const { favoriteProducts } = useAccountContext();
+  const { favoriteProducts, cartItems } = useAccountContext();
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <div className="flex min-h-screen flex-col">
-      <Header favouritesCount={favoriteProducts.length} />
+      <Header
+        favouritesCount={favoriteProducts.length}
+        cartCount={cartCount}
+      />
       <main className="w-full flex-1 px-4 tablet:px-6 desktop:mx-auto desktop:max-w-[1200px] desktop:px-8">
         <Routes>
           <Route path="/">
