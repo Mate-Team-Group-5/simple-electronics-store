@@ -7,6 +7,7 @@ import { ErrorMessage } from '@/components/molecules/ErrorMessage/ErrorMessage';
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import { ProductGallery } from '@/components/organisms/ProductGallery';
 import { ProductPurchase } from '@/components/organisms/ProductPurchase';
+import { TechSpecs } from '@/components/organisms/TechSpecs';
 
 type Props = {
   category: Category;
@@ -45,7 +46,7 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
 
         <section className="mt-14 grid grid-cols-1 gap-14 desktop:grid-cols-2">
           <div className="min-h-64 border">About</div>
-          <div className="min-h-64 border">Tech specs</div>
+          <TechSpecs product={product} />
         </section>
       </>
     );
