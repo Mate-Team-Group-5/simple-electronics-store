@@ -3,10 +3,12 @@ import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import { CartItem } from '@/components/organisms/CartItem/CartItem';
 import { Button } from '@/components/atoms/Button/Button';
 import { useAccountContext } from '@/context/AccountContext';
+import { useNavigate } from 'react-router';
 //import cartIsEmpty from '@/assets/img/cart-is-empty.png';
 
 export const CartPage: React.FC = () => {
   const { cartItems, updateCartItem, removeCartItem } = useAccountContext();
+  const navigate = useNavigate();
 
   const onRemove = (id: number) => {
     removeCartItem(id);
@@ -63,7 +65,7 @@ export const CartPage: React.FC = () => {
             <Button
               size="lg"
               className="h-12 w-full"
-              onClick={() => console.log('Button clicked')}
+              onClick={() => navigate('/checkout')}
             >
               Checkout
             </Button>
