@@ -8,6 +8,7 @@ import { FavouritesPage } from './pages/FavouritesPage';
 import { CatalogPage } from './pages/CatalogPage';
 import { ProductCategory } from './types/ProductCategory';
 import { useAccountContext } from './context/AccountContext';
+import { CheckoutPage } from './pages/CheckoutPage';
 
 function App() {
   const { favoriteProducts } = useAccountContext();
@@ -51,6 +52,10 @@ function App() {
             <Route
               path="cart"
               element={<CartPage />}
+            />
+            <Route
+              path="checkout"
+              element={<CheckoutPage />}
             />
             <Route
               path="favourites"
