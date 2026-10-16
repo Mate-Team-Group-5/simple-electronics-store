@@ -1,9 +1,9 @@
 import React from 'react';
-import type { Phone } from '@/types/Phone';
 import { SpecsList, type Spec } from '@/components/molecules/SpecsList';
+import type { ProductDetails } from '@/types/ProductDetails';
 
 type Props = {
-  product: Phone;
+  product: ProductDetails;
 };
 
 export const TechSpecs: React.FC<Props> = ({ product }) => {
@@ -13,10 +13,17 @@ export const TechSpecs: React.FC<Props> = ({ product }) => {
     { label: 'Processor', value: product.processor },
     { label: 'RAM', value: product.ram },
     { label: 'Built in memory', value: product.capacity },
-    { label: 'Camera', value: product.camera },
-    { label: 'Zoom', value: product.zoom },
-    { label: 'Cell', value: product.cell.join(', ') },
   ];
+
+  if (product.camera) {
+    specs.push({ label: 'Camera', value: product.camera });
+  }
+
+  if (product.zoom) {
+    specs.push({ label: 'Zoom', value: product.zoom });
+  }
+
+  specs.push({ label: 'Cell', value: product.cell.join(', ') });
 
   return (
     <section>

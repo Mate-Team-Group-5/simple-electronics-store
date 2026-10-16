@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react';
-import type { Phone } from '@/types/Phone';
 import type { Product } from '@/types/Product';
-import { getPhones, getProducts, getTablets } from '@/services/products';
+import {
+  getAccessories,
+  getPhones,
+  getProducts,
+  getTablets,
+} from '@/services/products';
 import type { Category } from '@/hooks/useProducts';
-
-export type DetailsCategory = Exclude<Category, 'accessories'>;
+import type { ProductDetails } from '@/types/ProductDetails';
 
 const loaders = {
   phones: getPhones,
   tablets: getTablets,
+  accessories: getAccessories,
 };
 export function useProductDetails(
-  category: DetailsCategory,
+  category: Category,
   productId: string | undefined,
 ) {
-  const [product, setProduct] = useState<Phone | null>(null);
+  const [product, setProduct] = useState<ProductDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [catalogProduct, setCatalogProduct] = useState<Product | null>(null);

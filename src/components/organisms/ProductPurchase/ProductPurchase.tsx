@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Category } from '@/hooks/useProducts';
-import type { Phone } from '@/types/Phone';
 import type { Product } from '@/types/Product';
 import { ColorSelector } from '@/components/molecules/ColorSelector';
 import { CapacitySelector } from '@/components/molecules/CapacitySelector/CapacitySelector';
@@ -9,9 +8,10 @@ import { AddToCartButton } from '@/components/atoms/AddToCartButton';
 import { FavouriteButton } from '@/components/atoms/FavouriteButton/FavouriteButton';
 import { useAccountContext } from '@/context/AccountContext';
 import { useFavourites } from '@/hooks/useFavourites';
+import type { ProductDetails } from '@/types/ProductDetails';
 
 type Props = {
-  product: Phone;
+  product: ProductDetails;
   category: Category;
   catalogProduct: Product | null;
 };

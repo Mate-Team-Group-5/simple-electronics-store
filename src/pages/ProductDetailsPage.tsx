@@ -8,13 +8,11 @@ import { ProductPurchase } from '@/components/organisms/ProductPurchase';
 import { TechSpecs } from '@/components/organisms/TechSpecs';
 import { ProductAbout } from '@/components/organisms/ProductAbout';
 import { ProductGrid } from '@/components/organisms/ProductGrid';
-import {
-  useProductDetails,
-  type DetailsCategory,
-} from '@/hooks/useProductDetails';
+import type { Category } from '@/hooks/useProducts';
+import { useProductDetails } from '@/hooks/useProductDetails';
 
 type Props = {
-  category: DetailsCategory;
+  category: Category;
 };
 export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
   const { productId } = useParams();

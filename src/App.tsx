@@ -61,6 +61,12 @@ function App() {
               }
             />
             <Route
+              path="/accessories/:productId"
+              element={
+                <ProductDetailsPage category={ProductCategory.accessories} />
+              }
+            />
+            <Route
               path="cart"
               element={<CartPage />}
             />
