@@ -8,6 +8,7 @@ import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import { ProductGallery } from '@/components/organisms/ProductGallery';
 import { ProductPurchase } from '@/components/organisms/ProductPurchase';
 import { TechSpecs } from '@/components/organisms/TechSpecs';
+import { ProductAbout } from '@/components/organisms/ProductAbout';
 
 type Props = {
   category: Category;
@@ -44,8 +45,8 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
           />
         </section>
 
-        <section className="mt-14 grid grid-cols-1 gap-14 desktop:grid-cols-2">
-          <div className="min-h-64 border">About</div>
+        <section className="mt-14 grid grid-cols-1 gap-6 desktop:grid-cols-2">
+          <ProductAbout description={product.description} />
           <TechSpecs product={product} />
         </section>
       </>
