@@ -9,6 +9,7 @@ import { ProductGallery } from '@/components/organisms/ProductGallery';
 import { ProductPurchase } from '@/components/organisms/ProductPurchase';
 import { TechSpecs } from '@/components/organisms/TechSpecs';
 import { ProductAbout } from '@/components/organisms/ProductAbout';
+import { ProductGrid } from '@/components/organisms/ProductGrid';
 
 type Props = {
   category: Category;
@@ -16,7 +17,7 @@ type Props = {
 
 export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
   const { productId } = useParams();
-  const { product, isLoading, hasError, catalogId } =
+  const { product, isLoading, hasError, catalogId, allProducts } =
     useProductDetails(productId);
 
   function renderContent() {
@@ -49,6 +50,12 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
           <ProductAbout description={product.description} />
           <TechSpecs product={product} />
         </section>
+
+        <ProductGrid
+          title="You may also like"
+          products={allProducts}
+          classNames="mt-20"
+        />
       </>
     );
   }
