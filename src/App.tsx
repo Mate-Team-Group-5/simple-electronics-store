@@ -8,11 +8,14 @@ import { FavouritesPage } from './pages/FavouritesPage';
 import { CatalogPage } from './pages/CatalogPage';
 import { ProductCategory } from './types/ProductCategory';
 import { ProductDetailsPage } from './pages/ProductDetailsPage';
+import { useAccountContext } from './context/AccountContext';
+import { CheckoutPage } from './pages/CheckoutPage';
 
 function App() {
+  const { favoriteProducts } = useAccountContext();
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      <Header favouritesCount={favoriteProducts.length} />
       <main className="w-full flex-1 px-4 tablet:px-6 desktop:mx-auto desktop:max-w-[1200px] desktop:px-8">
         <Routes>
           <Route path="/">
@@ -54,6 +57,10 @@ function App() {
             <Route
               path="cart"
               element={<CartPage />}
+            />
+            <Route
+              path="checkout"
+              element={<CheckoutPage />}
             />
             <Route
               path="favourites"

@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import 'tailwind-scrollbar-hide/v4';
 @import 'shadcn/tailwind.css';
 @import '@fontsource-variable/inter';
 
@@ -36,6 +37,21 @@
   --color-hover-bg: #fafbfc;
   --color-accent-purple: #905bff;
   --color-red: #eb5757;
+
+  --animate-card-out: card-out 300ms ease-in forwards;
+
+  @keyframes card-out {
+    to {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-card-out {
+    animation-duration: 1ms;
+  }
 }
 
 @theme inline {

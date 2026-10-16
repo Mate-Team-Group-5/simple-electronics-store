@@ -11,7 +11,7 @@ type LoadResult = {
   hasError: boolean;
 };
 
-export function useProducts(category: Category) {
+export function useProducts(category: ProductCategory) {
   const [attempt, setAttempt] = useState(0);
   const [result, setResult] = useState<LoadResult>({
     requestKey: null,
@@ -29,9 +29,10 @@ export function useProducts(category: Category) {
         if (!isCancelled) {
           setResult({
             requestKey,
-            products: allProducts.filter(
-              (product) => product.category === category,
-            ),
+            products:
+              category === 'all' ? allProducts : (
+                allProducts.filter((product) => product.category === category)
+              ),
             hasError: false,
           });
         }

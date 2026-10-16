@@ -5,10 +5,12 @@ import type React from 'react';
 import { ProductCard } from '../ProductCard';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from 'cn';
+import { useFavourites } from '@/hooks/useFavourites';
 
 type Props = {
   title: string;
   products: Product[];
+  isSaleGrid?: boolean;
   classNames?: string;
 };
 
@@ -16,12 +18,14 @@ export const ProductGrid: React.FC<Props> = ({
   title,
   products,
   classNames,
+  isSaleGrid,
 }) => {
   const [gridSections, setGridSections] = useState<number>(
     Math.ceil(products.length / 4),
   );
 
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { isFavourite, toggleFavourite } = useFavourites();
 
   useEffect(() => {}, []);
 
@@ -75,7 +79,7 @@ export const ProductGrid: React.FC<Props> = ({
 
   return (
     <div className={cn(classNames)}>
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-5">
         <h2 className="text-[22px] sm:text-[32px] font-bold">{title}</h2>
         <div className="h-fit gap-4 flex flex-row">
           <Button
@@ -97,7 +101,7 @@ export const ProductGrid: React.FC<Props> = ({
         </div>
       </div>
       <div
-        className="overflow-x-auto flex flex-row gap-4"
+        className="overflow-x-auto flex flex-row gap-4 scrollbar-hide p-1 -mx-1"
         ref={scrollRef}
       >
         {products.slice(gridSections, gridSections + 4).map((product) => {
@@ -106,7 +110,9 @@ export const ProductGrid: React.FC<Props> = ({
               key={product.id}
               product={product}
               isAddedToCart={false}
-              isFavorite={false}
+              isSale={isSaleGrid}
+              isFavorite={isFavourite(product.id)}
+              onAddToFavorites={toggleFavourite}
             />
           );
         })}
