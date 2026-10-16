@@ -1,10 +1,17 @@
 import type { SubmitEvent } from 'react';
 import { TextField } from '@/components/atoms/TextField/TextField';
 import { ChoiceOption } from '@/components/atoms/ChoiceOption/ChoiceOption';
+import { Select } from '@/components/atoms/Select/Select';
+import { DELIVERY_CITIES, getNovaPoshtaBranches } from '@/services/novaPoshta';
 import type {
   CheckoutFormErrors,
   CheckoutFormValues,
 } from '@/utils/validateCheckout';
+
+const CITY_OPTIONS = DELIVERY_CITIES.map((city) => ({
+  value: city,
+  label: city,
+}));
 
 type CheckoutFormProps = {
   id: string;
@@ -24,9 +31,19 @@ export function CheckoutForm({
   onFieldChange,
   onSubmit,
 }: CheckoutFormProps) {
+  const branchOptions = getNovaPoshtaBranches(values.city).map((branch) => ({
+    value: branch.id,
+    label: branch.name,
+  }));
+
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit();
+  };
+
+  const handleCityChange = (city: string) => {
+    onFieldChange('city', city);
+    onFieldChange('branch', '');
   };
 
   return (
@@ -47,7 +64,7 @@ export function CheckoutForm({
           onChange={(value) => onFieldChange('fullName', value)}
           error={errors.fullName}
           autoComplete="name"
-          placeholder="Taras Shevchenko"
+          placeholder="John Smith"
         />
 
         <div className="grid gap-4 tablet:grid-cols-2">
@@ -78,7 +95,16 @@ export function CheckoutForm({
           Delivery
         </legend>
 
-        <div className="grid gap-4 tablet:grid-cols-2">
+        <div className="grid gap-4 tablet:grid-cols-3">
+          <ChoiceOption
+            name="delivery"
+            value="nova-poshta"
+            checked={values.delivery === 'nova-poshta'}
+            onChange={() => onFieldChange('delivery', 'nova-poshta')}
+            title="Nova Poshta"
+            description="To a branch in 1–2 days"
+          />
+
           <ChoiceOption
             name="delivery"
             value="courier"
@@ -98,14 +124,32 @@ export function CheckoutForm({
           />
         </div>
 
-        <TextField
-          label="City"
-          value={values.city}
-          onChange={(value) => onFieldChange('city', value)}
-          error={errors.city}
-          autoComplete="address-level2"
-          placeholder="Kyiv"
-        />
+        {values.delivery !== 'pickup' && (
+          <Select
+            label="City"
+            value={values.city}
+            options={CITY_OPTIONS}
+            onChange={handleCityChange}
+            placeholder="Choose your city"
+            error={errors.city}
+            selectClassName="h-12 px-4"
+          />
+        )}
+
+        {values.delivery === 'nova-poshta' && (
+          <Select
+            label="Nova Poshta branch"
+            value={values.branch}
+            options={branchOptions}
+            onChange={(value) => onFieldChange('branch', value)}
+            placeholder={
+              values.city ? 'Choose a branch' : 'Choose your city first'
+            }
+            disabled={!values.city}
+            error={errors.branch}
+            selectClassName="h-12 px-4"
+          />
+        )}
 
         {values.delivery === 'courier' && (
           <TextField
@@ -116,6 +160,12 @@ export function CheckoutForm({
             autoComplete="street-address"
             placeholder="Street, building, apartment"
           />
+        )}
+
+        {values.delivery === 'pickup' && (
+          <p className="text-sm text-text-secondary">
+            Nice Gadgets store: 1 Khreshchatyk St, Kyiv. Open daily 10:00–21:00.
+          </p>
         )}
       </fieldset>
 

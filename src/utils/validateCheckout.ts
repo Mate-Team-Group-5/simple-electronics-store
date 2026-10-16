@@ -1,13 +1,14 @@
-export type DeliveryMethod = 'courier' | 'pickup';
+export type DeliveryMethod = 'nova-poshta' | 'courier' | 'pickup';
 export type PaymentMethod = 'card' | 'cash';
 
 export type CheckoutFormValues = {
   fullName: string;
   phone: string;
   email: string;
-  city: string;
-  address: string;
   delivery: DeliveryMethod;
+  city: string;
+  branch: string;
+  address: string;
   payment: PaymentMethod;
 };
 
@@ -19,9 +20,10 @@ export const EMPTY_CHECKOUT_FORM: CheckoutFormValues = {
   fullName: '',
   phone: '',
   email: '',
+  delivery: 'nova-poshta',
   city: '',
+  branch: '',
   address: '',
-  delivery: 'courier',
   payment: 'card',
 };
 
@@ -46,8 +48,12 @@ export function validateCheckout(
     errors.email = 'Enter a valid email';
   }
 
-  if (!values.city.trim()) {
-    errors.city = 'Enter your city';
+  if (values.delivery !== 'pickup' && !values.city) {
+    errors.city = 'Choose your city';
+  }
+
+  if (values.delivery === 'nova-poshta' && !values.branch) {
+    errors.branch = 'Choose a Nova Poshta branch';
   }
 
   if (values.delivery === 'courier' && !values.address.trim()) {
