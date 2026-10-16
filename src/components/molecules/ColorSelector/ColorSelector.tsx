@@ -9,6 +9,7 @@ type Props = {
   namespaceId: string;
   capacity: string;
   selectedColor: string;
+  catalogId: number | null;
 };
 export const ColorSelector: React.FC<Props> = ({
   category,
@@ -16,10 +17,17 @@ export const ColorSelector: React.FC<Props> = ({
   namespaceId,
   capacity,
   selectedColor,
+  catalogId,
 }) => {
   return (
     <div>
-      <p className="text-xs text-text-secondary mb-2">Available colors</p>
+      <div className="flex flex-row w-full place-content-between">
+        <p className="text-xs text-text-secondary mb-2">Available colors</p>
+        {catalogId !== null && (
+          <span className="text-xs text-icons">ID: {catalogId}</span>
+        )}
+      </div>
+
       <div className="flex gap-2">
         {colors.map((color) => (
           <Link

@@ -14,7 +14,8 @@ type Props = {
 
 export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
   const { productId } = useParams();
-  const { product, isLoading, hasError } = useProductDetails(productId);
+  const { product, isLoading, hasError, catalogId } =
+    useProductDetails(productId);
 
   function renderContent() {
     if (isLoading) {
@@ -38,6 +39,7 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
           <ProductPurchase
             product={product}
             category={category}
+            catalogId={catalogId}
           />
         </section>
 
