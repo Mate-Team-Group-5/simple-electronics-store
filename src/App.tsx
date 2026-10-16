@@ -46,6 +46,12 @@ function App() {
               }
             />
             <Route
+              path="/tablets/:productId"
+              element={
+                <ProductDetailsPage category={ProductCategory.tablets} />
+              }
+            />
+            <Route
               path="/accessories"
               element={
                 <CatalogPage

@@ -1,7 +1,5 @@
-import type { Category } from '@/hooks/useProducts';
 import { useParams } from 'react-router';
 import React from 'react';
-import { useProductDetails } from '@/hooks/useProductDetails';
 import { Loader } from '@/components/atoms/Loader/Loader';
 import { ErrorMessage } from '@/components/molecules/ErrorMessage/ErrorMessage';
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
@@ -10,16 +8,18 @@ import { ProductPurchase } from '@/components/organisms/ProductPurchase';
 import { TechSpecs } from '@/components/organisms/TechSpecs';
 import { ProductAbout } from '@/components/organisms/ProductAbout';
 import { ProductGrid } from '@/components/organisms/ProductGrid';
+import {
+  useProductDetails,
+  type DetailsCategory,
+} from '@/hooks/useProductDetails';
 
 type Props = {
-  category: Category;
+  category: DetailsCategory;
 };
-
 export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
   const { productId } = useParams();
-  const { product, isLoading, hasError, catalogId, allProducts } =
-    useProductDetails(productId);
-
+  const { product, isLoading, hasError, catalogProduct, allProducts } =
+    useProductDetails(category, productId);
   function renderContent() {
     if (isLoading) {
       return <Loader />;
@@ -42,7 +42,7 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
           <ProductPurchase
             product={product}
             category={category}
-            catalogId={catalogId}
+            catalogProduct={catalogProduct}
           />
         </section>
 
