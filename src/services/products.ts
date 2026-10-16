@@ -5,7 +5,7 @@ import type { Tablet } from '../types/Tablet';
 import type { Accessory } from '../types/Accessory';
 
 export const getProducts = () => {
-  return client.get<Product[]>(`/products.json`);
+  return client.get<Product[]>(`/products`);
 };
 
 // Returns products sorted by year in descending order
@@ -38,13 +38,13 @@ export async function getHotPricesProducts() {
 }
 
 export const getPhones = () => {
-  return client.get<Phone[]>(`/phones.json`);
+  return client.get<Phone[]>(`/phones`);
 };
 
 export const getTablets = () => {
-  return client.get<Tablet[]>(`/tablets.json`);
+  return client.get<Tablet[]>(`/tablets`);
 };
 
 export const getAccessories = () => {
-  return client.get<Accessory[]>(`/accessories.json`);
+  return client.get<Accessory[]>(`/accessories`);
 };

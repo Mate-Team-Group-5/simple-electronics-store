@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const BASE_URL = `${import.meta.env.BASE_URL}api`;
+const isHasBackend = !!import.meta.env.VITE_SERVER_URL;
+
+const BASE_URL =
+  isHasBackend ?
+    `${import.meta.env.VITE_SERVER_URL}/api`
+  : `${import.meta.env.BASE_URL}api`;
 
 // To have autocompletion and avoid mistypes
 type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
@@ -9,6 +14,7 @@ function request<T>(
   method: RequestMethod = 'GET',
   data: any = null, // we can send any data to the server
 ): Promise<T> {
+  const requestUrl = isHasBackend ? url : `${url}.json`;
   const options: RequestInit = { method };
 
   if (data) {
@@ -19,7 +25,7 @@ function request<T>(
     };
   }
 
-  return fetch(BASE_URL + url, options).then((response) => {
+  return fetch(BASE_URL + requestUrl, options).then((response) => {
     if (!response.ok) {
       throw new Error();
     }
