@@ -1,0 +1,3 @@
+.activButton {
+  @apply text-[#27AE60] hover:text-[#27AE60];
+}

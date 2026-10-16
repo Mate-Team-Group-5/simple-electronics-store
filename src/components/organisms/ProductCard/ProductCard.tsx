@@ -30,12 +30,24 @@ export const ProductCard: React.FC<Props> = ({
 }) => {
   const { name, price, fullPrice, image, id, ram, capacity, screen } = product;
 
-  const { cartItems, addCartItem, removeCartItem } = useAccountContext();
+  const { cartItems, addCartItem, removeCartItem, updateCartItem } =
+    useAccountContext();
   function handleAddCartButton(): void {
     if (cartItems.some((item) => item.id === id)) {
-      removeCartItem(id);
+      updateCartItem(
+        id,
+        (cartItems.find((item) => item.id === id)?.quantity || 0) + 1,
+      );
     } else {
       addCartItem(product, 1);
+    }
+  }
+  function handleDeleteButton() {
+    const quantity = cartItems.find((item) => item.id === id)?.quantity || 0;
+    if (quantity > 1) {
+      updateCartItem(id, quantity - 1);
+    } else {
+      removeCartItem(id);
     }
   }
 
@@ -82,8 +94,9 @@ export const ProductCard: React.FC<Props> = ({
       </CardContent>
       <CardFooter className="flex-row gap-2 px-0 ">
         <AddToCartButton
-          isAddedToCart={cartItems.some((item) => item.id === id)}
+          productsCount={cartItems.find((item) => item.id === id)?.quantity}
           onAddToCart={handleAddCartButton}
+          onDelete={handleDeleteButton}
         />
 
         <FavouriteButton
