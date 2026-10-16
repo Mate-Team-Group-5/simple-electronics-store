@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import fs from 'fs/promises';
 import path from 'path';
+import cors from 'cors';
 import { fileURLToPath } from 'url';
 
 dotenv.config();
@@ -11,6 +12,8 @@ const port = process.env.PORT || 3000;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+// Enable CORS for all routes
+app.use(cors());
 
 // Simple health-check / root route
 app.get('/', (req, res) => {
