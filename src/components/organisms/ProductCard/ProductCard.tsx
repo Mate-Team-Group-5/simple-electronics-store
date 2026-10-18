@@ -31,6 +31,7 @@ export const ProductCard: React.FC<Props> = ({
   onAddToFavorites,
 }) => {
   const { name, price, fullPrice, image, id, ram, capacity, screen } = product;
+  const productLink = `/${product.category}/${product.itemId}`;
   const imageRef = useRef<HTMLImageElement>(null);
 
   const { cartItems, addCartItem, removeCartItem, updateCartItem } =
@@ -69,7 +70,7 @@ export const ProductCard: React.FC<Props> = ({
   return (
     <Card className="shrink-0 w-68 h-126.5 border-box p-8 flex-col gap-0 snap-x snap-mandatory scroll-smooth hoverAnimations">
       <Link
-        to="../"
+        to={productLink}
         className="flex min-h-0 flex-1 items-center justify-center"
       >
         <img
@@ -81,7 +82,12 @@ export const ProductCard: React.FC<Props> = ({
       </Link>
       <CardHeader className="border-box px-0 gap-0">
         <CardTitle className="mt-6 text-sm">
-          {name}
+          <Link
+            to={productLink}
+            className="transition-colors hover:text-accent-purple"
+          >
+            {name}
+          </Link>
           <div className="mt-2 border-box border-b border-gray-500 pb-2">
             {isSale ?
               <>
