@@ -32,6 +32,8 @@ jobs:
       - name: Build the app
         run: |
           npm run build
+        env:
+          VITE_SERVER_URL: ${{ vars.VITE_SERVER_URL }}
 
       # Розгортання на GitHub Pages
       - name: Deploy to GitHub Pages
