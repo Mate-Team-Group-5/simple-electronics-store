@@ -91,6 +91,29 @@ export const en = {
   'filters.year': 'Year',
   'filters.showMore': 'Show more',
   'filters.showLess': 'Show less',
+
+  'specs.screen': 'Screen',
+  'specs.resolution': 'Resolution',
+  'specs.processor': 'Processor',
+  'specs.ram': 'RAM',
+  'specs.capacity': 'Capacity',
+  'specs.builtInMemory': 'Built in memory',
+  'specs.camera': 'Camera',
+  'specs.zoom': 'Zoom',
+  'specs.cell': 'Cell',
+
+  'card.addToCart': 'Add to cart',
+  'card.inCart': '{count} in cart',
+  'card.addToFavourites': 'Add to favourites',
+  'card.removeFromFavourites': 'Remove from favourites',
+
+  'details.notFound': 'Product not found',
+  'details.availableColors': 'Available colors',
+  'details.selectCapacity': 'Select capacity',
+  'details.photo': '{name}, photo {number}',
+  'details.about': 'About',
+  'details.techSpecs': 'Tech specs',
+  'details.alsoLike': 'You may also like',
 } satisfies Record<string, TranslationValue>;
 
 export type TranslationKey = keyof typeof en;

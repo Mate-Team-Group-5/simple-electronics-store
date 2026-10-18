@@ -9,6 +9,7 @@ import { FavouriteButton } from '@/components/atoms/FavouriteButton/FavouriteBut
 import { useAccountContext } from '@/context/AccountContext';
 import { useFavourites } from '@/hooks/useFavourites';
 import type { ProductDetails } from '@/types/ProductDetails';
+import { useLanguage } from '@/context/LanguageContext';
 
 type Props = {
   product: ProductDetails;
@@ -21,6 +22,7 @@ export const ProductPurchase: React.FC<Props> = ({
   category,
   catalogProduct,
 }) => {
+  const { t } = useLanguage();
   const { cartItems, addCartItem, updateCartItem, removeCartItem } =
     useAccountContext();
   const { isFavourite, toggleFavourite } = useFavourites();
@@ -51,10 +53,10 @@ export const ProductPurchase: React.FC<Props> = ({
   }
 
   const shortSpecs = [
-    { label: 'Screen', value: product.screen },
-    { label: 'Resolution', value: product.resolution },
-    { label: 'Processor', value: product.processor },
-    { label: 'RAM', value: product.ram },
+    { label: t('specs.screen'), value: product.screen },
+    { label: t('specs.resolution'), value: product.resolution },
+    { label: t('specs.processor'), value: product.processor },
+    { label: t('specs.ram'), value: product.ram },
   ];
 
   return (

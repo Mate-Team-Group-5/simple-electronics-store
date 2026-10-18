@@ -12,6 +12,7 @@ import { Link } from 'react-router';
 import { AddToCartButton } from '@/components/atoms/AddToCartButton';
 import { useAccountContext } from '@/context/AccountContext';
 import { flyToTarget } from '@/utils/flyToTarget';
+import { useLanguage } from '@/context/LanguageContext';
 import './ProductCard.css';
 
 type Props = {
@@ -30,6 +31,7 @@ export const ProductCard: React.FC<Props> = ({
   isSale,
   onAddToFavorites,
 }) => {
+  const { t } = useLanguage();
   const { name, price, fullPrice, image, id, ram, capacity, screen } = product;
   const productLink = `/${product.category}/${product.itemId}`;
   const imageRef = useRef<HTMLImageElement>(null);
@@ -102,15 +104,17 @@ export const ProductCard: React.FC<Props> = ({
       </CardHeader>
       <CardContent className="text-xs px-0 my-2 font-semibold gap-2">
         <div className="flex justify-between">
-          <span className="text-card-Secondary-text">Screen</span>
+          <span className="text-card-Secondary-text">{t('specs.screen')}</span>
           <span>{screen}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-card-Secondary-text">Capacity</span>
+          <span className="text-card-Secondary-text">
+            {t('specs.capacity')}
+          </span>
           <span>{capacity}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-card-Secondary-text">RAM</span>
+          <span className="text-card-Secondary-text">{t('specs.ram')}</span>
           <span>{ram}</span>
         </div>
       </CardContent>

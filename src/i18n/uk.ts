@@ -90,4 +90,27 @@ export const uk: Translations = {
   'filters.year': 'Рік',
   'filters.showMore': 'Показати більше',
   'filters.showLess': 'Згорнути',
+
+  'specs.screen': 'Екран',
+  'specs.resolution': 'Роздільна здатність',
+  'specs.processor': 'Процесор',
+  'specs.ram': 'Оперативна пам’ять',
+  'specs.capacity': 'Пам’ять',
+  'specs.builtInMemory': 'Вбудована пам’ять',
+  'specs.camera': 'Камера',
+  'specs.zoom': 'Зум',
+  'specs.cell': 'Зв’язок',
+
+  'card.addToCart': 'Додати в кошик',
+  'card.inCart': 'У кошику: {count}',
+  'card.addToFavourites': 'Додати в обране',
+  'card.removeFromFavourites': 'Видалити з обраного',
+
+  'details.notFound': 'Товар не знайдено',
+  'details.availableColors': 'Доступні кольори',
+  'details.selectCapacity': 'Оберіть обсяг пам’яті',
+  'details.photo': '{name}, фото {number}',
+  'details.about': 'Опис',
+  'details.techSpecs': 'Характеристики',
+  'details.alsoLike': 'Вам також може сподобатися',
 };

@@ -3,6 +3,7 @@ import { Button } from '../Button';
 import classNames from 'classnames';
 import { Minus, PlusIcon, Trash2 } from 'lucide-react';
 import './AddToCartButton.css';
+import { useLanguage } from '@/context/LanguageContext';
 
 type Props = {
   productsCount?: number;
@@ -15,6 +16,8 @@ export const AddToCartButton: React.FC<Props> = ({
   onAddToCart,
   onDelete,
 }) => {
+  const { t } = useLanguage();
+
   return (
     <div className="flex-1 h-10 relative justify-center">
       {productsCount && (
@@ -45,7 +48,9 @@ export const AddToCartButton: React.FC<Props> = ({
         )}
         onClick={onAddToCart}
       >
-        {productsCount ? `ea ${productsCount}` : 'Add to cart'}
+        {productsCount ?
+          t('card.inCart', { count: productsCount })
+        : t('card.addToCart')}
       </Button>
       {productsCount && (
         <Button
