@@ -81,11 +81,17 @@ export const ProductGrid: React.FC<Props> = ({
     <div className={cn(classNames)}>
       <div className="flex justify-between mb-5">
         <h2 className="text-[22px] sm:text-[32px] font-bold">{title}</h2>
-        <div className="h-fit gap-4 flex flex-row">
+        <div className="h-fit gap-4 flex flex-row ">
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 rounded-none"
+            className={cn(
+              'h-8 w-8 rounded-none',
+              'bg-sbns border-sbns-border text-sbns-text',
+              'hover:bg-sbns-hover  ',
+              'hover:border-sbns-hover-border',
+              'hover:text-sbns-hover-text',
+            )}
             onClick={handleLeftButon}
           >
             <ArrowLeft />
@@ -93,7 +99,13 @@ export const ProductGrid: React.FC<Props> = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 rounded-none"
+            className={cn(
+              'h-8 w-8 rounded-none',
+              'bg-sbns border-sbns-border text-sbns-text',
+              'hover:bg-sbns-hover  ',
+              'hover:border-sbns-hover-border',
+              'hover:text-sbns-hover-text',
+            )}
             onClick={handleRightButon}
           >
             <ArrowRight />

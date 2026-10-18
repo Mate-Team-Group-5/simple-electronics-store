@@ -68,7 +68,7 @@ export const ProductCard: React.FC<Props> = ({
   }
 
   return (
-    <Card className="shrink-0 w-68 h-126.5 border-box p-8 flex-col gap-0 snap-x snap-mandatory scroll-smooth hoverAnimations">
+    <Card className="shrink-0 w-68 h-126.5 border-box p-8 flex-col gap-0 snap-x snap-mandatory scroll-smooth hoverAnimations bg-card-background ">
       <Link
         to={productLink}
         className="flex min-h-0 flex-1 items-center justify-center"
@@ -77,7 +77,7 @@ export const ProductCard: React.FC<Props> = ({
           ref={imageRef}
           src={image}
           alt={name}
-          className="max-h-full max-w-full object-contain"
+          className="max-h-full max-w-full object-contain "
         />
       </Link>
       <CardHeader className="border-box px-0 gap-0">
@@ -88,11 +88,11 @@ export const ProductCard: React.FC<Props> = ({
           >
             {name}
           </Link>
-          <div className="mt-2 border-box border-b border-gray-500 pb-2">
+          <div className="mt-2 border-box border-b border-card-Secondary-text pb-2">
             {isSale ?
               <>
                 <span className="text-bold">${price} </span>
-                <span className="line-through text-gray-500">
+                <span className="line-through text-card-Secondary-text">
                   ${fullPrice}{' '}
                 </span>
               </>
@@ -102,15 +102,15 @@ export const ProductCard: React.FC<Props> = ({
       </CardHeader>
       <CardContent className="text-xs px-0 my-2 font-semibold gap-2">
         <div className="flex justify-between">
-          <span className="text-gray-500">Screen</span>
+          <span className="text-card-Secondary-text">Screen</span>
           <span>{screen}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-500">Capacity</span>
+          <span className="text-card-Secondary-text">Capacity</span>
           <span>{capacity}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-500">RAM</span>
+          <span className="text-card-Secondary-text">RAM</span>
           <span>{ram}</span>
         </div>
       </CardContent>
