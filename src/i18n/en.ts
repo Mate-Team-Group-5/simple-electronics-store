@@ -132,6 +132,56 @@ export const en = {
   },
 
   'notFound.title': 'Page Not Found',
+
+  'checkout.title': 'Checkout',
+  'checkout.goShopping': 'Go shopping',
+  'checkout.formLabel': 'Delivery and payment',
+  'checkout.yourOrder': 'Your order',
+  'checkout.placeOrder': 'Place order',
+  'checkout.placingOrder': 'Placing order…',
+
+  'checkout.contactDetails': 'Contact details',
+  'checkout.fullName': 'Full name',
+  'checkout.fullNamePlaceholder': 'John Smith',
+  'checkout.phone': 'Phone',
+  'checkout.email': 'Email',
+  'checkout.delivery': 'Delivery',
+  'checkout.novaPoshta': 'Nova Poshta',
+  'checkout.novaPoshtaHint': 'To a branch in 1–2 days',
+  'checkout.courier': 'Courier',
+  'checkout.courierHint': 'To your door in 1–3 days',
+  'checkout.pickup': 'Pickup from store',
+  'checkout.pickupHint': 'Free, ready tomorrow',
+  'checkout.city': 'City',
+  'checkout.cityPlaceholder': 'Choose your city',
+  'checkout.branch': 'Nova Poshta branch',
+  'checkout.branchPlaceholder': 'Choose a branch',
+  'checkout.branchCityFirst': 'Choose your city first',
+  'checkout.address': 'Address',
+  'checkout.addressPlaceholder': 'Street, building, apartment',
+  'checkout.pickupInfo':
+    'Nice Gadgets store: 1 Khreshchatyk St, Kyiv. Open daily 10:00–21:00.',
+  'checkout.payment': 'Payment',
+  'checkout.card': 'Card on delivery',
+  'checkout.cardHint': 'Pay by card when you receive the order',
+  'checkout.cash': 'Cash on delivery',
+  'checkout.cashHint': 'Pay in cash when you receive the order',
+
+  'checkout.errors.fullName': 'Enter your full name',
+  'checkout.errors.phone': 'Enter a valid phone number',
+  'checkout.errors.email': 'Enter a valid email',
+  'checkout.errors.city': 'Choose your city',
+  'checkout.errors.branch': 'Choose a Nova Poshta branch',
+  'checkout.errors.address': 'Enter your delivery address',
+
+  'summary.items': 'Items ({count})',
+  'summary.free': 'Free',
+  'summary.total': 'Total',
+
+  'success.title': 'Thank you for your order!',
+  'success.order': 'Order',
+  'success.placed': 'has been placed. We will send the details to',
+  'success.continue': 'Continue shopping',
 } satisfies Record<string, TranslationValue>;
 
 export type TranslationKey = keyof typeof en;

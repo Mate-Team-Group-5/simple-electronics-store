@@ -15,6 +15,7 @@ import {
   type CheckoutFormErrors,
   type CheckoutFormValues,
 } from '@/utils/validateCheckout';
+import { useLanguage } from '@/context/LanguageContext';
 
 const CHECKOUT_FORM_ID = 'checkout-form';
 
@@ -24,11 +25,12 @@ type CompletedOrder = {
 };
 
 export function CheckoutPage() {
+  const { t } = useLanguage();
   const { cartItems, clearCart } = useAccountContext();
   const [values, setValues] = useState<CheckoutFormValues>(EMPTY_CHECKOUT_FORM);
   const [errors, setErrors] = useState<CheckoutFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const [hasSubmitError, setHasSubmitError] = useState(false);
   const [completedOrder, setCompletedOrder] = useState<CompletedOrder | null>(
     null,
   );
@@ -55,7 +57,7 @@ export function CheckoutPage() {
     }
 
     setIsSubmitting(true);
-    setSubmitError('');
+    setHasSubmitError(false);
 
     try {
       const { orderId } = await placeOrder({
@@ -75,7 +77,7 @@ export function CheckoutPage() {
       setCompletedOrder({ orderId, email: values.email.trim() });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch {
-      setSubmitError('Something went wrong. Please try again.');
+      setHasSubmitError(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -94,12 +96,12 @@ export function CheckoutPage() {
     if (cartItems.length === 0) {
       return (
         <div className="flex flex-col items-center gap-4 py-20 text-center">
-          <p className="text-text-secondary">Your cart is empty</p>
+          <p className="text-text-secondary">{t('cart.empty')}</p>
           <Link
             to="/"
             className="font-semibold text-text-primary underline underline-offset-4"
           >
-            Go shopping
+            {t('checkout.goShopping')}
           </Link>
         </div>
       );
@@ -107,7 +109,7 @@ export function CheckoutPage() {
 
     return (
       <div className="mt-8 mb-20 grid items-start gap-8 desktop:grid-cols-[1fr_368px] desktop:gap-16">
-        <section aria-label="Delivery and payment">
+        <section aria-label={t('checkout.formLabel')}>
           <CheckoutForm
             id={CHECKOUT_FORM_ID}
             values={values}
@@ -117,14 +119,14 @@ export function CheckoutPage() {
           />
         </section>
 
-        <aside aria-label="Your order">
+        <aside aria-label={t('checkout.yourOrder')}>
           <OrderSummary items={cartItems}>
-            {submitError && (
+            {hasSubmitError && (
               <p
                 role="alert"
                 className="text-sm text-red"
               >
-                {submitError}
+                {t('common.error')}
               </p>
             )}
 
@@ -136,7 +138,9 @@ export function CheckoutPage() {
               className="h-12 w-full"
             >
               {isSubmitting && <LoaderCircle className="animate-spin" />}
-              {isSubmitting ? 'Placing order…' : 'Place order'}
+              {t(
+                isSubmitting ? 'checkout.placingOrder' : 'checkout.placeOrder',
+              )}
             </Button>
           </OrderSummary>
         </aside>
@@ -147,11 +151,14 @@ export function CheckoutPage() {
   return (
     <>
       <Breadcrumbs
-        items={[{ label: 'Cart', to: '/cart' }, { label: 'Checkout' }]}
+        items={[
+          { label: t('header.cart'), to: '/cart' },
+          { label: t('checkout.title') },
+        ]}
         className="mt-6"
       />
 
-      <PageTitle className="mt-6 tablet:mt-10">Checkout</PageTitle>
+      <PageTitle className="mt-6 tablet:mt-10">{t('checkout.title')}</PageTitle>
 
       {renderContent()}
     </>

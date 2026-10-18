@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { CircleCheck } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 type OrderSuccessProps = {
   orderId: string;
@@ -7,6 +8,8 @@ type OrderSuccessProps = {
 };
 
 export function OrderSuccess({ orderId, email }: OrderSuccessProps) {
+  const { t } = useLanguage();
+
   return (
     <div
       role="status"
@@ -19,13 +22,13 @@ export function OrderSuccess({ orderId, email }: OrderSuccessProps) {
       />
 
       <h2 className="text-2xl font-bold text-text-primary">
-        Thank you for your order!
+        {t('success.title')}
       </h2>
 
       <p className="text-sm text-text-secondary">
-        Order{' '}
-        <span className="font-semibold text-text-primary">#{orderId}</span> has
-        been placed. We will send the details to{' '}
+        {t('success.order')}{' '}
+        <span className="font-semibold text-text-primary">#{orderId}</span>{' '}
+        {t('success.placed')}{' '}
         <span className="font-semibold text-text-primary">{email}</span>.
       </p>
 
@@ -33,7 +36,7 @@ export function OrderSuccess({ orderId, email }: OrderSuccessProps) {
         to="/"
         className="mt-4 flex h-12 items-center justify-center bg-text-primary px-10 text-sm font-semibold text-white transition-shadow hover:shadow-lg"
       >
-        Continue shopping
+        {t('success.continue')}
       </Link>
     </div>
   );
