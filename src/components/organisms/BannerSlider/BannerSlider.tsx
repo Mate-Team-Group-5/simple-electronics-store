@@ -4,29 +4,37 @@ import { SliderButton } from '@/components/atoms/SliderButton/SliderButton';
 import { SliderDots } from '@/components/molecules/SliderDots/SliderDots';
 import { Link } from 'react-router';
 import { BannerSlide } from '@/components/molecules/BannerSlide/BannerSlide';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/i18n/en';
 
 const IMG_URL = `${import.meta.env.BASE_URL}img`;
 
-const SLIDES = [
+const SLIDES: {
+  to: string;
+  image: string;
+  title: string;
+  subtitleKey: TranslationKey;
+  bgClassName: string;
+}[] = [
   {
     to: '/phones',
     image: `${IMG_URL}/category-phones.webp`,
     title: 'iPhone 14 Pro',
-    subtitle: 'Pro camera. Pro display. Pro performance.',
+    subtitleKey: 'banner.phonesSubtitle',
     bgClassName: 'bg-linear-to-br from-[#1c1a2e] to-[#3d2f6b]',
   },
   {
     to: '/tablets',
     image: `${IMG_URL}/category-tablets.webp`,
     title: 'iPad Pro',
-    subtitle: 'A big screen for big ideas.',
+    subtitleKey: 'banner.tabletsSubtitle',
     bgClassName: 'bg-linear-to-br from-[#0f172a] to-[#1e3a5f]',
   },
   {
     to: '/accessories',
     image: `${IMG_URL}/category-accessories.webp`,
     title: 'Apple Watch',
-    subtitle: 'Your health and fitness, right on your wrist.',
+    subtitleKey: 'banner.accessoriesSubtitle',
     bgClassName: 'bg-linear-to-br from-[#2a1020] to-[#6b2346]',
   },
 ];
@@ -40,6 +48,7 @@ type BannerSliderProps = {
 };
 
 export function BannerSlider({ className }: BannerSliderProps) {
+  const { t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const intervalRef = useRef<number | undefined>(undefined);
@@ -97,7 +106,7 @@ export function BannerSlider({ className }: BannerSliderProps) {
 
   return (
     <section
-      aria-label="Promo banners"
+      aria-label={t('banner.label')}
       className={cn('flex flex-col gap-2', className)}
     >
       <div className="flex aspect-square gap-4 tablet:aspect-auto tablet:h-47.25 desktop:h-100">
@@ -130,7 +139,7 @@ export function BannerSlider({ className }: BannerSliderProps) {
                   <BannerSlide
                     image={slide.image}
                     title={slide.title}
-                    subtitle={slide.subtitle}
+                    subtitle={t(slide.subtitleKey)}
                     bgClassName={slide.bgClassName}
                   />
                 </Link>
