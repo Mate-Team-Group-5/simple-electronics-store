@@ -53,6 +53,44 @@ export const en = {
   'slider.previous': 'Previous slide',
   'slider.next': 'Next slide',
   'slider.goTo': 'Slide {number}',
+
+  'common.loading': 'Loading...',
+  'common.error': 'Something went wrong. Please try again.',
+  'common.reload': 'Reload',
+  'breadcrumbs.label': 'Breadcrumbs',
+
+  'catalog.filteredCount': {
+    one: '{shown} of {count} model',
+    other: '{shown} of {count} models',
+  },
+  'catalog.empty': 'There are no {category} yet',
+  'catalog.filters': 'Filters',
+  'catalog.noMatches': 'No products match your filters',
+  'catalog.resetFilters': 'Reset filters',
+
+  'sort.label': 'Sort by',
+  'sort.newest': 'Newest',
+  'sort.alphabetically': 'Alphabetically',
+  'sort.cheapest': 'Cheapest',
+  'perPage.label': 'Items on page',
+  'perPage.all': 'All',
+
+  'pagination.label': 'Pagination',
+  'pagination.previous': 'Previous page',
+  'pagination.next': 'Next page',
+  'pagination.page': 'Page {page}',
+
+  'filters.reset': 'Reset ({count})',
+  'filters.search': 'Search',
+  'filters.searchLabel': 'Search by name',
+  'filters.price': 'Price, $',
+  'filters.minPrice': 'Minimum price',
+  'filters.maxPrice': 'Maximum price',
+  'filters.capacity': 'Capacity',
+  'filters.ram': 'RAM',
+  'filters.year': 'Year',
+  'filters.showMore': 'Show more',
+  'filters.showLess': 'Show less',
 } satisfies Record<string, TranslationValue>;
 
 export type TranslationKey = keyof typeof en;

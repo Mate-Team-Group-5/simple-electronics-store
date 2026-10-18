@@ -1,10 +1,13 @@
 import { cn } from 'cn';
+import { useLanguage } from '@/context/LanguageContext';
 
 type LoaderProps = {
   className?: string;
 };
 
 export function Loader({ className }: LoaderProps) {
+  const { t } = useLanguage();
+
   return (
     <div
       role="status"
@@ -14,7 +17,7 @@ export function Loader({ className }: LoaderProps) {
         aria-hidden="true"
         className="size-10 animate-spin rounded-full border-4 border-elements border-t-text-primary"
       />
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only">{t('common.loading')}</span>
     </div>
   );
 }

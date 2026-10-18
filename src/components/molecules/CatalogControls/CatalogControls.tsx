@@ -1,21 +1,18 @@
 import { cn } from 'cn';
 import { Select, type SelectOption } from '@/components/atoms/Select/Select';
 import type { SortType } from '@/utils/sortProducts';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/i18n/en';
 
 export type PerPage = '4' | '8' | '16' | 'all';
 
-const SORT_OPTIONS: SelectOption[] = [
-  { value: 'newest', label: 'Newest' },
-  { value: 'alphabetically', label: 'Alphabetically' },
-  { value: 'cheapest', label: 'Cheapest' },
+const SORT_OPTIONS: { value: SortType; labelKey: TranslationKey }[] = [
+  { value: 'newest', labelKey: 'sort.newest' },
+  { value: 'alphabetically', labelKey: 'sort.alphabetically' },
+  { value: 'cheapest', labelKey: 'sort.cheapest' },
 ];
 
-const PER_PAGE_OPTIONS: SelectOption[] = [
-  { value: '4', label: '4' },
-  { value: '8', label: '8' },
-  { value: '16', label: '16' },
-  { value: 'all', label: 'All' },
-];
+const PER_PAGE_VALUES: PerPage[] = ['4', '8', '16', 'all'];
 
 type CatalogControlsProps = {
   sort: SortType;
@@ -32,20 +29,31 @@ export function CatalogControls({
   onPerPageChange,
   className,
 }: CatalogControlsProps) {
+  const { t } = useLanguage();
+
+  const sortOptions: SelectOption[] = SORT_OPTIONS.map(
+    ({ value, labelKey }) => ({ value, label: t(labelKey) }),
+  );
+
+  const perPageOptions: SelectOption[] = PER_PAGE_VALUES.map((value) => ({
+    value,
+    label: value === 'all' ? t('perPage.all') : value,
+  }));
+
   return (
     <div className={cn('flex gap-4', className)}>
       <Select
-        label="Sort by"
+        label={t('sort.label')}
         value={sort}
-        options={SORT_OPTIONS}
+        options={sortOptions}
         onChange={(value) => onSortChange(value as SortType)}
         className="flex-1 tablet:w-44 tablet:flex-none"
       />
 
       <Select
-        label="Items on page"
+        label={t('perPage.label')}
         value={perPage}
-        options={PER_PAGE_OPTIONS}
+        options={perPageOptions}
         onChange={(value) => onPerPageChange(value as PerPage)}
         className="flex-1 tablet:w-32 tablet:flex-none"
       />

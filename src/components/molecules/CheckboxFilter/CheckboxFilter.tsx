@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { cn } from 'cn';
 import type { FilterOption } from '@/utils/filterProducts';
+import { useLanguage } from '@/context/LanguageContext';
 
 const VISIBLE_COUNT = 5;
 
@@ -16,6 +17,7 @@ export function CheckboxFilter({
   selected,
   onChange,
 }: CheckboxFilterProps) {
+  const { t } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const hasMore = options.length > VISIBLE_COUNT;
@@ -67,7 +69,7 @@ export function CheckboxFilter({
           onClick={() => setIsExpanded((prev) => !prev)}
           className="flex w-fit cursor-pointer items-center gap-1 py-1 text-sm font-semibold text-text-primary transition-colors hover:text-accent-purple"
         >
-          {isExpanded ? 'Show less' : 'Show more'}
+          {t(isExpanded ? 'filters.showLess' : 'filters.showMore')}
           <ChevronDown
             size={16}
             aria-hidden="true"
