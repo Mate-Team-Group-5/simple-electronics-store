@@ -44,7 +44,7 @@ export const AddToCartButton: React.FC<Props> = ({
       >
         {productsCount ?
           <>
-            ea {productsCount}
+            {productsCount} in cart
             <Button
               className="absolute right-1 h-8 w-8 rounded-full"
               variant={'secondary'}
