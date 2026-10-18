@@ -23,7 +23,7 @@ export function Navigation({ vertical = false, className }: NavigationProps) {
       <ul
         className={cn(
           'flex h-full',
-          vertical ? 'flex-col items-center gap-4' : 'gap-6 desktop:gap-16',
+          vertical ? 'flex-col items-center gap-4' : 'gap-4 desktop:gap-16',
         )}
       >
         {NAV_LINKS.map(({ to, labelKey, end }) => (

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Heart, Menu, ShoppingBag, X } from 'lucide-react';
+import { Heart, Menu, MoonIcon, ShoppingBag, SunIcon, X } from 'lucide-react';
 import { Logo } from '@/components/atoms/Logo/Logo';
 import { IconButton } from '@/components/atoms/IconButton/IconButton';
 import { Navigation } from '@/components/molecules/Navigation/Navigation';
@@ -7,13 +7,22 @@ import { BurgerMenu } from '@/components/organisms/BurgerMenu/BurgerMenu';
 import { HeaderActionButton } from '@/components/molecules/HeaderActionButton/HeaderActionButton';
 import { LanguageSwitcher } from '@/components/atoms/LanguageSwitcher/LanguageSwitcher';
 import { useLanguage } from '@/context/LanguageContext';
+import { Theme } from '@/types/Theme';
+import { Button } from '@base-ui/react/button';
 
 type HeaderProps = {
   favouritesCount?: number;
   cartCount?: number;
+  theme?: Theme;
+  onSwithTheme?: () => void;
 };
 
-export function Header({ favouritesCount = 0, cartCount = 0 }: HeaderProps) {
+export function Header({
+  favouritesCount = 0,
+  cartCount = 0,
+  theme = Theme.white,
+  onSwithTheme,
+}: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useLanguage();
 
@@ -27,6 +36,10 @@ export function Header({ favouritesCount = 0, cartCount = 0 }: HeaderProps) {
         <LanguageSwitcher className="px-1 desktop:px-4" />
 
         <div className="hidden h-full tablet:flex">
+          <Button onClick={onSwithTheme}>
+            {theme === Theme.white && <SunIcon />}
+            {theme === Theme.dark && <MoonIcon />}
+          </Button>
           <HeaderActionButton
             to="/favourites"
             label={t('header.favourites')}

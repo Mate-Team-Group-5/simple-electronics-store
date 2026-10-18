@@ -29,19 +29,21 @@ app.get('/', (req, res) => {
   res.json({ status: 'success', message: 'Backend is running on Render!' });
 });
 
+async function readJSONFile(filename) {
+  const filePath = path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    'public',
+    'api',
+    filename,
+  );
+  const data = await fs.readFile(filePath, 'utf-8');
+  return JSON.parse(data);
+}
+
 app.get('/api/products', async (req, res) => {
   try {
     if (!process.env.DB_URL) {
-      const filePath = path.join(
-        path.dirname(fileURLToPath(import.meta.url)),
-        'public',
-        'api',
-        'products.json',
-      );
-
-      const fileData = await fs.readFile(filePath, 'utf-8');
-
-      const products = JSON.parse(fileData);
+      const products = await readJSONFile('products.json');
       res.json(products);
     } else {
       const result = await pool.query('SELECT * FROM products');
@@ -77,18 +79,14 @@ app.get('/api/products/:id', async (req, res) => {
 
 app.get('/api/phones', async (req, res) => {
   try {
-    const filePath = path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      'public',
-      'api',
-      'phones.json',
-    );
+    if (!process.env.DB_URL) {
+      const phones = await readJSONFile('phones.json');
+      res.json(phones);
+    } else {
+      const result = await pool.query('SELECT * FROM phones');
 
-    console.log('Resolved file path:', filePath);
-    const fileData = await fs.readFile(filePath, 'utf-8');
-
-    const phones = JSON.parse(fileData);
-    res.json(phones);
+      res.status(200).json(result.rows);
+    }
   } catch (error) {
     console.error('Error reading phones.json:', error);
     res
@@ -99,18 +97,14 @@ app.get('/api/phones', async (req, res) => {
 
 app.get('/api/tablets', async (req, res) => {
   try {
-    const filePath = path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      'public',
-      'api',
-      'tablets.json',
-    );
+    if (!process.env.DB_URL) {
+      const tablets = await readJSONFile('tablets.json');
+      res.json(tablets);
+    } else {
+      const result = await pool.query('SELECT * FROM tablets');
 
-    console.log('Resolved file path:', filePath);
-    const fileData = await fs.readFile(filePath, 'utf-8');
-
-    const tablets = JSON.parse(fileData);
-    res.json(tablets);
+      res.status(200).json(result.rows);
+    }
   } catch (error) {
     console.error('Error reading tablets.json:', error);
     res
@@ -121,18 +115,14 @@ app.get('/api/tablets', async (req, res) => {
 
 app.get('/api/accessories', async (req, res) => {
   try {
-    const filePath = path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      'public',
-      'api',
-      'accessories.json',
-    );
+    if (!process.env.DB_URL) {
+      const accessories = await readJSONFile('accessories.json');
+      res.json(accessories);
+    } else {
+      const result = await pool.query('SELECT * FROM accessories');
 
-    console.log('Resolved file path:', filePath);
-    const fileData = await fs.readFile(filePath, 'utf-8');
-
-    const accessories = JSON.parse(fileData);
-    res.json(accessories);
+      res.status(200).json(result.rows);
+    }
   } catch (error) {
     console.error('Error reading accessories.json:', error);
     res
