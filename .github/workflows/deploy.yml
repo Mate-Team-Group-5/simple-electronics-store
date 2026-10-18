@@ -33,7 +33,7 @@ jobs:
         run: |
           npm run build
         env:
-          VITE_SERVER_URL: ${{ vars.VITE_SERVER_URL }}
+          VITE_SERVER_URL: ${{ secrets.VITE_SERVER_URL }}
 
       # Розгортання на GitHub Pages
       - name: Deploy to GitHub Pages
