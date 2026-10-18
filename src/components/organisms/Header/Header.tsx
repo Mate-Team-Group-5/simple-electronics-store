@@ -5,6 +5,8 @@ import { IconButton } from '@/components/atoms/IconButton/IconButton';
 import { Navigation } from '@/components/molecules/Navigation/Navigation';
 import { BurgerMenu } from '@/components/organisms/BurgerMenu/BurgerMenu';
 import { HeaderActionButton } from '@/components/molecules/HeaderActionButton/HeaderActionButton';
+import { LanguageSwitcher } from '@/components/atoms/LanguageSwitcher/LanguageSwitcher';
+import { useLanguage } from '@/context/LanguageContext';
 
 type HeaderProps = {
   favouritesCount?: number;
@@ -13,18 +15,21 @@ type HeaderProps = {
 
 export function Header({ favouritesCount = 0, cartCount = 0 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
-    <header className="flex h-12 items-center gap-4 bg-white shadow-[0_1px_0_0_var(--color-elements)] desktop:h-16 desktop:gap-6">
+    <header className="flex h-12 items-center gap-2 bg-white shadow-[0_1px_0_0_var(--color-elements)] desktop:h-16 desktop:gap-6">
       <Logo className="h-full px-4 desktop:px-6" />
 
       <Navigation className="hidden tablet:block" />
 
-      <div className="ml-auto flex h-full">
+      <div className="ml-auto flex h-full items-center">
+        <LanguageSwitcher className="px-1 desktop:px-4" />
+
         <div className="hidden h-full tablet:flex">
           <HeaderActionButton
             to="/favourites"
-            label="Favourites"
+            label={t('header.favourites')}
             count={favouritesCount}
             flyTarget="favourites"
           >
@@ -32,7 +37,7 @@ export function Header({ favouritesCount = 0, cartCount = 0 }: HeaderProps) {
           </HeaderActionButton>
           <HeaderActionButton
             to="/cart"
-            label="Cart"
+            label={t('header.cart')}
             count={cartCount}
             flyTarget="cart"
           >
@@ -41,7 +46,7 @@ export function Header({ favouritesCount = 0, cartCount = 0 }: HeaderProps) {
         </div>
 
         <IconButton
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-label={t(isMenuOpen ? 'header.closeMenu' : 'header.openMenu')}
           aria-expanded={isMenuOpen}
           onClick={() => setIsMenuOpen((prev) => !prev)}
           className="tablet:hidden"
