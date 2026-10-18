@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import type { Product } from '@/types/Product';
 import {
   Card,
@@ -10,6 +11,7 @@ import { FavouriteButton } from '@/components/atoms/FavouriteButton/FavouriteBut
 import { Link } from 'react-router';
 import { AddToCartButton } from '@/components/atoms/AddToCartButton';
 import { useAccountContext } from '@/context/AccountContext';
+import { flyToTarget } from '@/utils/flyToTarget';
 import './ProductCard.css';
 
 type Props = {
@@ -29,13 +31,38 @@ export const ProductCard: React.FC<Props> = ({
   onAddToFavorites,
 }) => {
   const { name, price, fullPrice, image, id, ram, capacity, screen } = product;
+  const imageRef = useRef<HTMLImageElement>(null);
 
-  const { cartItems, addCartItem, removeCartItem } = useAccountContext();
+  const { cartItems, addCartItem, removeCartItem, updateCartItem } =
+    useAccountContext();
   function handleAddCartButton(): void {
     if (cartItems.some((item) => item.id === id)) {
-      removeCartItem(id);
+      updateCartItem(
+        id,
+        (cartItems.find((item) => item.id === id)?.quantity || 0) + 1,
+      );
     } else {
       addCartItem(product, 1);
+
+      if (imageRef.current) {
+        flyToTarget(imageRef.current, 'cart');
+      }
+    }
+  }
+  function handleFavouriteClick() {
+    if (!isFavorite && imageRef.current) {
+      flyToTarget(imageRef.current, 'favourites');
+    }
+
+    onAddToFavorites?.(id);
+  }
+
+  function handleDeleteButton() {
+    const quantity = cartItems.find((item) => item.id === id)?.quantity || 0;
+    if (quantity > 1) {
+      updateCartItem(id, quantity - 1);
+    } else {
+      removeCartItem(id);
     }
   }
 
@@ -46,6 +73,7 @@ export const ProductCard: React.FC<Props> = ({
         className="flex min-h-0 flex-1 items-center justify-center"
       >
         <img
+          ref={imageRef}
           src={image}
           alt={name}
           className="max-h-full max-w-full object-contain"
@@ -82,13 +110,14 @@ export const ProductCard: React.FC<Props> = ({
       </CardContent>
       <CardFooter className="flex-row gap-2 px-0 ">
         <AddToCartButton
-          isAddedToCart={cartItems.some((item) => item.id === id)}
+          productsCount={cartItems.find((item) => item.id === id)?.quantity}
           onAddToCart={handleAddCartButton}
+          onDelete={handleDeleteButton}
         />
 
         <FavouriteButton
           isFavourite={isFavorite}
-          onClick={() => onAddToFavorites?.(id)}
+          onClick={handleFavouriteClick}
         />
       </CardFooter>
     </Card>

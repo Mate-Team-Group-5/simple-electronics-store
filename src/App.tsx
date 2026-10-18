@@ -7,14 +7,19 @@ import { CartPage } from './pages/CartPage';
 import { FavouritesPage } from './pages/FavouritesPage';
 import { CatalogPage } from './pages/CatalogPage';
 import { ProductCategory } from './types/ProductCategory';
+import { ProductDetailsPage } from './pages/ProductDetailsPage';
 import { useAccountContext } from './context/AccountContext';
 import { CheckoutPage } from './pages/CheckoutPage';
 
 function App() {
-  const { favoriteProducts } = useAccountContext();
+  const { favoriteProducts, cartItems } = useAccountContext();
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <div className="flex min-h-screen flex-col">
-      <Header favouritesCount={favoriteProducts.length} />
+      <Header
+        favouritesCount={favoriteProducts.length}
+        cartCount={cartCount}
+      />
       <main className="w-full flex-1 px-4 tablet:px-6 desktop:mx-auto desktop:max-w-[1200px] desktop:px-8">
         <Routes>
           <Route path="/">
@@ -32,6 +37,10 @@ function App() {
               }
             />
             <Route
+              path="/phones/:productId"
+              element={<ProductDetailsPage category={ProductCategory.phones} />}
+            />
+            <Route
               path="/tablets"
               element={
                 <CatalogPage
@@ -41,12 +50,24 @@ function App() {
               }
             />
             <Route
+              path="/tablets/:productId"
+              element={
+                <ProductDetailsPage category={ProductCategory.tablets} />
+              }
+            />
+            <Route
               path="/accessories"
               element={
                 <CatalogPage
                   category={ProductCategory.accessories}
                   title="Accessories"
                 />
+              }
+            />
+            <Route
+              path="/accessories/:productId"
+              element={
+                <ProductDetailsPage category={ProductCategory.accessories} />
               }
             />
             <Route
