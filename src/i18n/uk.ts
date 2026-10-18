@@ -113,4 +113,26 @@ export const uk: Translations = {
   'details.about': 'Опис',
   'details.techSpecs': 'Характеристики',
   'details.alsoLike': 'Вам також може сподобатися',
+
+  'cart.empty': 'Ваш кошик порожній',
+  'cart.total': {
+    one: 'Разом за {count} товар',
+    few: 'Разом за {count} товари',
+    many: 'Разом за {count} товарів',
+    other: 'Разом за {count} товару',
+  },
+  'cart.checkout': 'Оформити замовлення',
+  'cart.remove': 'Видалити з кошика',
+  'quantity.decrease': 'Зменшити кількість',
+  'quantity.increase': 'Збільшити кількість',
+
+  'favourites.empty': 'У вас поки немає обраних товарів',
+  'favourites.count': {
+    one: '{count} товар',
+    few: '{count} товари',
+    many: '{count} товарів',
+    other: '{count} товару',
+  },
+
+  'notFound.title': 'Сторінку не знайдено',
 };

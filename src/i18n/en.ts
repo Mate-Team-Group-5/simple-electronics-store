@@ -114,6 +114,24 @@ export const en = {
   'details.about': 'About',
   'details.techSpecs': 'Tech specs',
   'details.alsoLike': 'You may also like',
+
+  'cart.empty': 'Your cart is empty',
+  'cart.total': {
+    one: 'Total for {count} item',
+    other: 'Total for {count} items',
+  },
+  'cart.checkout': 'Checkout',
+  'cart.remove': 'Remove from cart',
+  'quantity.decrease': 'Decrease quantity',
+  'quantity.increase': 'Increase quantity',
+
+  'favourites.empty': 'You have no favourites yet',
+  'favourites.count': {
+    one: '{count} item',
+    other: '{count} items',
+  },
+
+  'notFound.title': 'Page Not Found',
 } satisfies Record<string, TranslationValue>;
 
 export type TranslationKey = keyof typeof en;

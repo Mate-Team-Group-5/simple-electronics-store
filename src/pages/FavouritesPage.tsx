@@ -7,8 +7,10 @@ import { ProductsGrid } from '@/components/organisms/ProductsGrid/ProductsGrid';
 import { useProducts } from '@/hooks/useProducts';
 import { useAccountContext } from '@/context/AccountContext';
 import { ProductCategory } from '@/types/ProductCategory';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function FavouritesPage() {
+  const { t } = useLanguage();
   const { products, isLoading, hasError, reload } = useProducts(
     ProductCategory.all,
   );
@@ -22,29 +24,31 @@ export function FavouritesPage() {
   return (
     <>
       <Breadcrumbs
-        items={[{ label: 'Favourites' }]}
+        items={[{ label: t('header.favourites') }]}
         className="mt-6"
       />
 
-      <PageTitle className="mt-6 tablet:mt-10">Favourites</PageTitle>
+      <PageTitle className="mt-6 tablet:mt-10">
+        {t('header.favourites')}
+      </PageTitle>
 
       {isLoading && <Loader />}
 
       {hasError && (
         <ErrorMessage
-          message="Something went wrong. Please try again."
+          message={t('common.error')}
           onRetry={reload}
         />
       )}
 
       {!isLoading && !hasError && favourites.length === 0 && (
-        <ErrorMessage message="You have no favourites yet" />
+        <ErrorMessage message={t('favourites.empty')} />
       )}
 
       {!isLoading && !hasError && favourites.length > 0 && (
         <>
           <p className="mt-2 text-sm text-text-secondary">
-            {favourites.length} items
+            {t('favourites.count', { count: favourites.length })}
           </p>
 
           <ProductsGrid
