@@ -10,15 +10,31 @@ import { ProductCategory } from './types/ProductCategory';
 import { ProductDetailsPage } from './pages/ProductDetailsPage';
 import { useAccountContext } from './context/AccountContext';
 import { CheckoutPage } from './pages/CheckoutPage';
+import { useState } from 'react';
+import cn from 'classnames';
+import { Theme } from './types/Theme';
 
 function App() {
   const { favoriteProducts, cartItems } = useAccountContext();
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const [activeTheme, setActiveTheme] = useState<Theme>(Theme.white);
+
+  function handleSwitchTheme() {
+    if (activeTheme === Theme.dark) setActiveTheme(Theme.white);
+    else setActiveTheme(Theme.dark);
+  }
+
   return (
-    <div className="flex min-h-screen flex-col">
+    <div
+      className={cn('flex min-h-screen flex-col', {
+        dark: activeTheme === Theme.dark,
+      })}
+    >
       <Header
         favouritesCount={favoriteProducts.length}
         cartCount={cartCount}
+        theme={activeTheme}
+        onSwithTheme={handleSwitchTheme}
       />
       <main className="w-full flex-1 px-4 tablet:px-6 desktop:mx-auto desktop:max-w-[1200px] desktop:px-8">
         <Routes>

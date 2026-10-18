@@ -97,6 +97,39 @@
 }
 
 @theme inline {
+  /* buttons color */
+  --color-button-background: var(--button-background);
+  --color-button-background-hover: var(--button-background);
+  --color-button-background-active: var(--button-background-active);
+  --color-button-text: var(--button-text);
+  --color-button-text-active: var(--button-text-active);
+
+  /* cards color */
+  --color-card-background: var(--card-background);
+  --color-card-border-background: var(--card-border-background);
+  --color-card-primary-text: var(--card-primary-text);
+  --color-card-Secondary-text: var(--card-Secondary-text);
+
+  /* secondary buttons color */
+  --color-sbns: var(--sbns);
+  --color-sbns-text: var(--sbns-text);
+  --color-sbns-border: var(--sbns-border);
+
+  --color-sbns-hover: var(--sbns-hover);
+  --color-sbns-hover-text: var(--sbns-hover-text);
+  --color-sbns-hover-border: var(--sbns-hover-border);
+
+  --color-sbns-selected: var(--sbns-selected);
+  --color-sbns-selected-text: var(--sbns-selected-text);
+  --color-sbns-selected-border: var(--sbns-selected-border);
+
+  --color-sbns-disabled: var(--sbns-disabled);
+  --color-sbns-disabled-text: var(--sbns-disabled-text);
+  --color-sbns-disabled-border: var(--sbns-disabled-border);
+
+  --color-main-beak: var(--main-beak);
+
+  /* defalt srttings */
   --font-heading: var(--font-sans);
   --font-sans: 'Mont', sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -140,6 +173,39 @@
 }
 
 :root {
+  /* buttons color */
+  --button-background: #313237;
+  --button-background-hover: #313237;
+  --button-background-active: #e2e6e9;
+  --button-text: #ffffff;
+  --button-text-active: #27ae60;
+
+  /* cards color */
+  --card-background: #ffffff;
+  --card-border-background: #e2e6e9;
+  --card-primary-text: #313237;
+  --card-Secondary-text: #89939a;
+
+  /* secondary buttons color */
+  --sbns: #fff;
+  --sbns-text: #313237;
+  --sbns-border: #e2e6e9;
+
+  --sbns-hover: #fff;
+  --sbns-hover-text: #313237;
+  --sbns-hover-border: #313237;
+
+  --sbns-selected: #313237;
+  --sbns-selected-text: #fff;
+  --sbns-selected-border: #313237;
+
+  --sbns-disabled: #fff;
+  --sbns-disabled-text: #b4bdc3;
+  --sbns-disabled-border: #e2e6e9;
+
+  --main-beak: #fff;
+
+  /* defalt srttings */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -175,6 +241,40 @@
 }
 
 .dark {
+  /* cards buttons color */
+  --button-background: #905bff;
+  --button-background-hover: #a378ff;
+  --button-background-active: #323542;
+  --button-text: #f1f2f9;
+  --button-text-active: #f1f2f9;
+
+  /* cards color */
+  --card-background: #161827;
+  --card-border-background: #323542;
+  --card-primary-text: #f1f2f9;
+  --card-Secondary-text: #75767f;
+
+  /* secondary buttons color */
+  --sbns: #161827;
+  --sbns-text: #f1f2f9;
+  --sbns-border: #161827;
+
+  --sbns-hover: #3b3e4a;
+  --sbns-hover-text: #f1f2f9;
+  --sbns-hover-border: #3b3e4a;
+
+  --sbns-selected: #905bff;
+  --sbns-selected-text: #f1f2f9;
+  --sbns-selected-border: #905bff;
+
+  --sbns-disabled: #0f1121;
+  --sbns-disabled-text: #4a4d58;
+  --sbns-disabled-border: #3b3e4a;
+
+  --main-beak: #0f1121;
+
+  /* defalt srttings */
+
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -209,13 +309,11 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
   body {
     @apply bg-background text-foreground;
   }
   html {
     @apply font-sans;
+    background-color: var(--color-main-beak);
   }
 }

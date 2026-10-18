@@ -37,23 +37,25 @@ export const AddToCartButton: React.FC<Props> = ({
           'rounded-none',
           'relative',
           {
-            activButton: productsCount,
+            'bg-button-background': !productsCount,
+            'bg-button-background-active': productsCount,
+            'text-button-text': !productsCount,
+            'text-button-text-active': productsCount,
           },
         )}
         onClick={onAddToCart}
       >
-        {productsCount ?
-          <>
-            ea {productsCount}
-            <Button
-              className="absolute right-1 h-8 w-8 rounded-full"
-              variant={'secondary'}
-            >
-              <PlusIcon />
-            </Button>
-          </>
-        : 'Add to cart'}
+        {productsCount ? `ea ${productsCount}` : 'Add to cart'}
       </Button>
+      {productsCount && (
+        <Button
+          className="absolute right-1 top-1 h-8 w-8 rounded-full"
+          variant={'secondary'}
+          onClick={onAddToCart}
+        >
+          <PlusIcon />
+        </Button>
+      )}
     </div>
   );
 };
