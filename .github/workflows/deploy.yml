@@ -12,6 +12,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      VITE_SERVER_URL: ${{ vars.VITE_SERVER_URL }}
     steps:
       # Отримання коду репозиторію
       - name: Checkout code
