@@ -10,6 +10,9 @@ export const getProducts = () => {
 export const getProductById = (id: number) => {
   return client.get<Product>(`/products/${id}`);
 };
+export const getProductsPaginated = (limit: number, offset: number) => {
+  return client.get<Product[]>(`/products/?limit=${limit}&offset=${offset}`);
+};
 
 // Returns products sorted by year in descending order
 // The most recent products will be at the beginning of the array

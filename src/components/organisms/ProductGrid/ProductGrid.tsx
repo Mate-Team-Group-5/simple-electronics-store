@@ -3,7 +3,7 @@ import type { Product } from '@/types/Product';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type React from 'react';
 import { ProductCard } from '../ProductCard';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { cn } from 'cn';
 import { LoadingProductCard } from '../LoadingProductCard';
 
@@ -12,6 +12,7 @@ type Props = {
   products: (Product | null)[];
   isSaleGrid?: boolean;
   classNames?: string;
+  loadMoreProducts?: (limit: number) => void;
 };
 
 export const ProductGrid: React.FC<Props> = ({
@@ -19,14 +20,13 @@ export const ProductGrid: React.FC<Props> = ({
   products,
   classNames,
   isSaleGrid,
+  loadMoreProducts,
 }) => {
   const [gridSections, setGridSections] = useState<number>(
     Math.ceil(products.length / 4),
   );
 
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {}, []);
 
   function handleLeftButon(): void {
     const container = scrollRef.current;
@@ -64,6 +64,7 @@ export const ProductGrid: React.FC<Props> = ({
           products.length - 4
         : gridSections + 4;
       setGridSections(newValue);
+      loadMoreProducts?.(4);
       container.scrollTo({
         left: 0,
         behavior: 'smooth',

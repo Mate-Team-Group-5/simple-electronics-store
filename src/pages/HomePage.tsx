@@ -1,55 +1,23 @@
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import { BannerSlider } from '@/components/organisms/BannerSlider/BannerSlider';
 import { ProductGrid } from '@/components/organisms/ProductGrid';
-import {
-  getHotPricesProducts,
-  getNewModelsProducts,
-  getProductById,
-} from '@/services/products';
+import { getHotPricesProducts } from '@/services/products';
 import type { Product } from '@/types/Product';
 import { useEffect, useMemo, useState } from 'react';
 import { ShopByCategory } from '@/components/organisms/ShopByCategory/ShopByCategory';
 import type { Category } from '@/hooks/useProducts';
 import { useLanguage } from '@/context/LanguageContext';
+import { useLoadMoreProducts } from '@/hooks/useLoadMoreProducts';
 
 export function HomePage() {
   const { t } = useLanguage();
-  const [newModelsProducts, setNewModelsProducts] = useState<
-    (Product | null)[]
-  >(Array.from({ length: 50 }, () => null));
+  const { products: newModelsProducts, loadMoreProducts } =
+    useLoadMoreProducts(4);
   const [hotPricesProducts, setHotPricesProducts] = useState<
     (Product | null)[]
   >([]);
 
   useEffect(() => {
-    let isActive = true;
-
-    const requests: Promise<Product>[] = [];
-    for (let i = 1; i < 50; i++) {
-      requests.push(getProductById(i));
-    }
-
-    requests.forEach((request, index) => {
-      request
-        .then((product) => {
-          if (!isActive) return;
-          setNewModelsProducts((current) =>
-            current.map((item, i) => (i === index ? product : item)),
-          );
-        })
-        .catch((error) => {
-          console.error(`Could not load product ${[index]}`, error);
-        });
-    });
-
-    return () => {
-      isActive = false;
-    };
-
-    getNewModelsProducts()
-      .then((prod) => setNewModelsProducts(prod))
-      .catch(() => console.error('cant load products in HamePage'));
-
     getHotPricesProducts()
       .then((prod) => setHotPricesProducts(prod))
       .catch(() => console.error('cant load hot prices products in HomePage'));
@@ -65,7 +33,7 @@ export function HomePage() {
       tablets: countByCategory('tablets'),
       accessories: countByCategory('accessories'),
     };
-  }, [newModelsProducts]);
+  }, []);
 
   return (
     <>
@@ -81,6 +49,7 @@ export function HomePage() {
         <ProductGrid
           title={t('home.newModels')}
           products={newModelsProducts}
+          loadMoreProducts={loadMoreProducts}
         />
 
         <ShopByCategory counts={categoryCounts} />
