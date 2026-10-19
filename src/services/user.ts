@@ -5,9 +5,9 @@ export const registerUser = (
   password: string,
   phone: string,
 ) => {
-  return client.post('/api/register', { email, password, phone });
+  return client.post('/register', { email, password, phone });
 };
 
 export const loginUser = (email: string, password: string) => {
-  return client.post('/api/login', { email, password });
+  return client.post('/login', { email, password });
 };
