@@ -1,4 +1,5 @@
 import type { TranslationKey } from '@/i18n/en';
+import type { WarehouseType } from '@/types/NovaPoshta';
 
 export type DeliveryMethod = 'nova-poshta' | 'courier' | 'pickup';
 export type PaymentMethod = 'card' | 'cash';
@@ -12,6 +13,9 @@ export type CheckoutFormValues = {
   branch: string;
   address: string;
   payment: PaymentMethod;
+  cityRef: string;
+  warehouseType: WarehouseType;
+  branchName: string;
 };
 
 export type CheckoutFormErrors = Partial<
@@ -27,6 +31,9 @@ export const EMPTY_CHECKOUT_FORM: CheckoutFormValues = {
   branch: '',
   address: '',
   payment: 'card',
+  cityRef: '',
+  warehouseType: 'branch',
+  branchName: '',
 };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -50,12 +57,15 @@ export function validateCheckout(
     errors.email = 'checkout.errors.email';
   }
 
-  if (values.delivery !== 'pickup' && !values.city) {
+  if (values.delivery !== 'pickup' && !values.cityRef) {
     errors.city = 'checkout.errors.city';
   }
 
   if (values.delivery === 'nova-poshta' && !values.branch) {
-    errors.branch = 'checkout.errors.branch';
+    errors.branch =
+      values.warehouseType === 'postomat' ?
+        'checkout.errors.postomat'
+      : 'checkout.errors.branch';
   }
 
   if (values.delivery === 'courier' && !values.address.trim()) {

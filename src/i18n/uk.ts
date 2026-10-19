@@ -55,6 +55,7 @@ export const uk: Translations = {
   'common.loading': 'Завантаження...',
   'common.error': 'Щось пішло не так. Спробуйте ще раз.',
   'common.reload': 'Оновити',
+  'common.noResults': 'Нічого не знайдено',
   'breadcrumbs.label': 'Навігаційний ланцюжок',
 
   'catalog.filteredCount': {
@@ -161,6 +162,10 @@ export const uk: Translations = {
   'checkout.branch': 'Відділення Нової пошти',
   'checkout.branchPlaceholder': 'Оберіть відділення',
   'checkout.branchCityFirst': 'Спочатку оберіть місто',
+  'checkout.postomat': 'Поштомат Нової пошти',
+  'checkout.postomatPlaceholder': 'Оберіть поштомат',
+  'checkout.warehouseBranch': 'Відділення',
+  'checkout.warehousePostomat': 'Поштомат',
   'checkout.address': 'Адреса',
   'checkout.addressPlaceholder': 'Вулиця, будинок, квартира',
   'checkout.pickupInfo':
@@ -176,6 +181,7 @@ export const uk: Translations = {
   'checkout.errors.email': 'Введіть коректний email',
   'checkout.errors.city': 'Оберіть місто',
   'checkout.errors.branch': 'Оберіть відділення Нової пошти',
+  'checkout.errors.postomat': 'Оберіть поштомат Нової пошти',
   'checkout.errors.address': 'Введіть адресу доставки',
 
   'summary.items': 'Товари ({count})',
