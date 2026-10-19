@@ -7,6 +7,7 @@ import type {
   CheckoutFormErrors,
   CheckoutFormValues,
 } from '@/utils/validateCheckout';
+import { useLanguage } from '@/context/LanguageContext';
 
 const CITY_OPTIONS = DELIVERY_CITIES.map((city) => ({
   value: city,
@@ -31,6 +32,14 @@ export function CheckoutForm({
   onFieldChange,
   onSubmit,
 }: CheckoutFormProps) {
+  const { t } = useLanguage();
+
+  const getError = (field: keyof CheckoutFormErrors) => {
+    const errorKey = errors[field];
+
+    return errorKey ? t(errorKey) : undefined;
+  };
+
   const branchOptions = getNovaPoshtaBranches(values.city).map((branch) => ({
     value: branch.id,
     label: branch.name,
@@ -55,35 +64,35 @@ export function CheckoutForm({
     >
       <fieldset className="flex flex-col gap-4">
         <legend className="mb-4 text-xl font-bold text-text-primary">
-          Contact details
+          {t('checkout.contactDetails')}
         </legend>
 
         <TextField
-          label="Full name"
+          label={t('checkout.fullName')}
           value={values.fullName}
           onChange={(value) => onFieldChange('fullName', value)}
-          error={errors.fullName}
+          error={getError('fullName')}
           autoComplete="name"
-          placeholder="John Smith"
+          placeholder={t('checkout.fullNamePlaceholder')}
         />
 
         <div className="grid gap-4 tablet:grid-cols-2">
           <TextField
-            label="Phone"
+            label={t('checkout.phone')}
             type="tel"
             value={values.phone}
             onChange={(value) => onFieldChange('phone', value)}
-            error={errors.phone}
+            error={getError('phone')}
             autoComplete="tel"
             placeholder="+380 67 123 45 67"
           />
 
           <TextField
-            label="Email"
+            label={t('checkout.email')}
             type="email"
             value={values.email}
             onChange={(value) => onFieldChange('email', value)}
-            error={errors.email}
+            error={getError('email')}
             autoComplete="email"
             placeholder="you@example.com"
           />
@@ -92,7 +101,7 @@ export function CheckoutForm({
 
       <fieldset className="flex flex-col gap-4">
         <legend className="mb-4 text-xl font-bold text-text-primary">
-          Delivery
+          {t('checkout.delivery')}
         </legend>
 
         <div className="grid gap-4 tablet:grid-cols-3">
@@ -101,8 +110,8 @@ export function CheckoutForm({
             value="nova-poshta"
             checked={values.delivery === 'nova-poshta'}
             onChange={() => onFieldChange('delivery', 'nova-poshta')}
-            title="Nova Poshta"
-            description="To a branch in 1–2 days"
+            title={t('checkout.novaPoshta')}
+            description={t('checkout.novaPoshtaHint')}
           />
 
           <ChoiceOption
@@ -110,8 +119,8 @@ export function CheckoutForm({
             value="courier"
             checked={values.delivery === 'courier'}
             onChange={() => onFieldChange('delivery', 'courier')}
-            title="Courier"
-            description="To your door in 1–3 days"
+            title={t('checkout.courier')}
+            description={t('checkout.courierHint')}
           />
 
           <ChoiceOption
@@ -119,59 +128,61 @@ export function CheckoutForm({
             value="pickup"
             checked={values.delivery === 'pickup'}
             onChange={() => onFieldChange('delivery', 'pickup')}
-            title="Pickup from store"
-            description="Free, ready tomorrow"
+            title={t('checkout.pickup')}
+            description={t('checkout.pickupHint')}
           />
         </div>
 
         {values.delivery !== 'pickup' && (
           <Select
-            label="City"
+            label={t('checkout.city')}
             value={values.city}
             options={CITY_OPTIONS}
             onChange={handleCityChange}
-            placeholder="Choose your city"
-            error={errors.city}
+            placeholder={t('checkout.cityPlaceholder')}
+            error={getError('city')}
             selectClassName="h-12 px-4"
           />
         )}
 
         {values.delivery === 'nova-poshta' && (
           <Select
-            label="Nova Poshta branch"
+            label={t('checkout.branch')}
             value={values.branch}
             options={branchOptions}
             onChange={(value) => onFieldChange('branch', value)}
-            placeholder={
-              values.city ? 'Choose a branch' : 'Choose your city first'
-            }
+            placeholder={t(
+              values.city ?
+                'checkout.branchPlaceholder'
+              : 'checkout.branchCityFirst',
+            )}
             disabled={!values.city}
-            error={errors.branch}
+            error={getError('branch')}
             selectClassName="h-12 px-4"
           />
         )}
 
         {values.delivery === 'courier' && (
           <TextField
-            label="Address"
+            label={t('checkout.address')}
             value={values.address}
             onChange={(value) => onFieldChange('address', value)}
-            error={errors.address}
+            error={getError('address')}
             autoComplete="street-address"
-            placeholder="Street, building, apartment"
+            placeholder={t('checkout.addressPlaceholder')}
           />
         )}
 
         {values.delivery === 'pickup' && (
           <p className="text-sm text-text-secondary">
-            Nice Gadgets store: 1 Khreshchatyk St, Kyiv. Open daily 10:00–21:00.
+            {t('checkout.pickupInfo')}
           </p>
         )}
       </fieldset>
 
       <fieldset className="flex flex-col gap-4">
         <legend className="mb-4 text-xl font-bold text-text-primary">
-          Payment
+          {t('checkout.payment')}
         </legend>
 
         <div className="grid gap-4 tablet:grid-cols-2">
@@ -180,8 +191,8 @@ export function CheckoutForm({
             value="card"
             checked={values.payment === 'card'}
             onChange={() => onFieldChange('payment', 'card')}
-            title="Card on delivery"
-            description="Pay by card when you receive the order"
+            title={t('checkout.card')}
+            description={t('checkout.cardHint')}
           />
 
           <ChoiceOption
@@ -189,8 +200,8 @@ export function CheckoutForm({
             value="cash"
             checked={values.payment === 'cash'}
             onChange={() => onFieldChange('payment', 'cash')}
-            title="Cash on delivery"
-            description="Pay in cash when you receive the order"
+            title={t('checkout.cash')}
+            description={t('checkout.cashHint')}
           />
         </div>
       </fieldset>

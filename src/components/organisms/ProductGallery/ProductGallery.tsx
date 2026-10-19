@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 type Props = {
   images: string[];
@@ -6,6 +7,7 @@ type Props = {
 };
 
 export const ProductGallery: React.FC<Props> = ({ images, name }) => {
+  const { t } = useLanguage();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
@@ -30,7 +32,7 @@ export const ProductGallery: React.FC<Props> = ({ images, name }) => {
           >
             <img
               src={image}
-              alt={`${name}, photo ${index + 1}`}
+              alt={t('details.photo', { name, number: index + 1 })}
               className="size-full object-contain"
             />
           </button>

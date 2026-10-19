@@ -13,9 +13,11 @@ import { CheckoutPage } from './pages/CheckoutPage';
 import { useState } from 'react';
 import cn from 'classnames';
 import { Theme } from './types/Theme';
+import { useLanguage } from './context/LanguageContext';
 
 function App() {
   const { favoriteProducts, cartItems } = useAccountContext();
+  const { t } = useLanguage();
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const [activeTheme, setActiveTheme] = useState<Theme>(Theme.white);
 
@@ -48,7 +50,7 @@ function App() {
               element={
                 <CatalogPage
                   category={ProductCategory.phones}
-                  title="Mobile phones"
+                  title={t('category.phones')}
                 />
               }
             />
@@ -61,7 +63,7 @@ function App() {
               element={
                 <CatalogPage
                   category={ProductCategory.tablets}
-                  title="Tablets"
+                  title={t('category.tablets')}
                 />
               }
             />
@@ -76,7 +78,7 @@ function App() {
               element={
                 <CatalogPage
                   category={ProductCategory.accessories}
-                  title="Accessories"
+                  title={t('category.accessories')}
                 />
               }
             />

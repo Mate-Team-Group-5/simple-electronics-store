@@ -21,16 +21,18 @@ import {
 } from '@/utils/filterProducts';
 import { Loader } from '@/components/atoms/Loader/Loader';
 import { ErrorMessage } from '@/components/molecules/ErrorMessage/ErrorMessage';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/i18n/en';
 
 type CatalogPageProps = {
   category: Category;
   title: string;
 };
 
-const CATEGORY_LABELS: Record<Category, string> = {
-  phones: 'Phones',
-  tablets: 'Tablets',
-  accessories: 'Accessories',
+const CATEGORY_LABEL_KEYS: Record<Category, TranslationKey> = {
+  phones: 'nav.phones',
+  tablets: 'nav.tablets',
+  accessories: 'nav.accessories',
 };
 
 const SORT_VALUES: SortType[] = ['newest', 'alphabetically', 'cheapest'];
@@ -81,6 +83,7 @@ function parseFilters(params: URLSearchParams): ProductFilters {
 }
 
 export function CatalogPage({ category, title }: CatalogPageProps) {
+  const { t } = useLanguage();
   const { products, isLoading, hasError, reload } = useProducts(category);
   const [searchParams, setSearchParams] = useSearchParams();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -189,7 +192,7 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
   return (
     <>
       <Breadcrumbs
-        items={[{ label: CATEGORY_LABELS[category] }]}
+        items={[{ label: t(CATEGORY_LABEL_KEYS[category]) }]}
         className="mt-6"
       />
 
@@ -199,25 +202,29 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
 
       {hasError && (
         <ErrorMessage
-          message="Something went wrong. Please try again."
+          message={t('common.error')}
           onRetry={reload}
         />
       )}
 
       {!isLoading && !hasError && products.length === 0 && (
-        <ErrorMessage message={`There are no ${category} yet`} />
+        <ErrorMessage message={t('catalog.empty', { category })} />
       )}
 
       {!isLoading && !hasError && products.length > 0 && (
         <>
           <p className="mt-2 text-sm text-text-secondary">
             {filteredProducts.length === products.length ?
-              `${products.length} models`
-            : `${filteredProducts.length} of ${products.length} models`}
+              t('category.modelsCount', { count: products.length })
+            : t('catalog.filteredCount', {
+                shown: filteredProducts.length,
+                count: products.length,
+              })
+            }
           </p>
 
           <div className="mt-8 mb-20 grid items-start gap-8 desktop:mt-10 desktop:grid-cols-[240px_1fr]">
-            <aside aria-label="Filters">
+            <aside aria-label={t('catalog.filters')}>
               <button
                 type="button"
                 aria-expanded={isFiltersOpen}
@@ -228,7 +235,7 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
                   size={16}
                   aria-hidden="true"
                 />
-                Filters
+                {t('catalog.filters')}
                 {activeFiltersCount > 0 && ` (${activeFiltersCount})`}
               </button>
 
@@ -255,14 +262,14 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
               {filteredProducts.length === 0 ?
                 <div className="flex flex-col items-center gap-4 py-20 text-center">
                   <p className="font-semibold text-text-primary">
-                    No products match your filters
+                    {t('catalog.noMatches')}
                   </p>
                   <button
                     type="button"
                     onClick={handleFiltersReset}
                     className="h-10 cursor-pointer bg-text-primary px-6 text-sm font-semibold text-white transition-shadow hover:shadow-lg"
                   >
-                    Reset filters
+                    {t('catalog.resetFilters')}
                   </button>
                 </div>
               : <>

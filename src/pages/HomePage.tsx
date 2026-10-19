@@ -9,8 +9,10 @@ import type { Product } from '@/types/Product';
 import { useEffect, useMemo, useState } from 'react';
 import { ShopByCategory } from '@/components/organisms/ShopByCategory/ShopByCategory';
 import type { Category } from '@/hooks/useProducts';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function HomePage() {
+  const { t } = useLanguage();
   const [newModelsProducts, setNewModelsProducts] = useState<Product[]>([]);
   const [hotPricesProducts, setHotPricesProducts] = useState<Product[]>([]);
 
@@ -41,21 +43,21 @@ export function HomePage() {
       <div className="flex flex-col gap-14 sm:gap-16 lg:gap-20">
         <div>
           <PageTitle className="mt-6 mb-6 tablet:mt-8 tablet:mb-8 desktop:mt-14 desktop:mb-14">
-            Welcome to Nice Gadgets store!
+            {t('home.title')}
           </PageTitle>
 
           <BannerSlider className="-mx-4 tablet:mx-0" />
         </div>
 
         <ProductGrid
-          title="Brand new models"
+          title={t('home.newModels')}
           products={newModelsProducts}
         />
 
         <ShopByCategory counts={categoryCounts} />
 
         <ProductGrid
-          title="Hot prices"
+          title={t('home.hotPrices')}
           products={hotPricesProducts}
           isSaleGrid={true}
           classNames="mb-14 sm:mb-16 lg:mb-20"

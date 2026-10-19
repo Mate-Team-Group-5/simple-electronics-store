@@ -10,11 +10,13 @@ import { ProductAbout } from '@/components/organisms/ProductAbout';
 import { ProductGrid } from '@/components/organisms/ProductGrid';
 import type { Category } from '@/hooks/useProducts';
 import { useProductDetails } from '@/hooks/useProductDetails';
+import { useLanguage } from '@/context/LanguageContext';
 
 type Props = {
   category: Category;
 };
 export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
+  const { t } = useLanguage();
   const { productId } = useParams();
   const { product, isLoading, hasError, catalogProduct, allProducts } =
     useProductDetails(category, productId);
@@ -23,10 +25,10 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
       return <Loader />;
     }
     if (hasError) {
-      return <ErrorMessage message="Something went wrong. Please try again." />;
+      return <ErrorMessage message={t('common.error')} />;
     }
     if (!product) {
-      return <ErrorMessage message="Product not found" />;
+      return <ErrorMessage message={t('details.notFound')} />;
     }
     return (
       <>
@@ -50,7 +52,7 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
         </section>
 
         <ProductGrid
-          title="You may also like"
+          title={t('details.alsoLike')}
           products={allProducts}
           classNames="mt-20"
         />

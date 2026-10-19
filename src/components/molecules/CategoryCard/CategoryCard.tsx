@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { cn } from 'cn';
+import { useLanguage } from '@/context/LanguageContext';
 
 type CategoryCardProps = {
   to: string;
@@ -16,6 +17,8 @@ export function CategoryCard({
   image,
   imageBgClassName,
 }: CategoryCardProps) {
+  const { t } = useLanguage();
+
   return (
     <Link
       to={to}
@@ -36,7 +39,9 @@ export function CategoryCard({
 
       <h3 className="mt-6 text-xl font-semibold text-text-primary">{title}</h3>
 
-      <p className="mt-1 text-sm text-text-secondary">{count} models</p>
+      <p className="mt-1 text-sm text-text-secondary">
+        {t('category.modelsCount', { count })}
+      </p>
     </Link>
   );
 }

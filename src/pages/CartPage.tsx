@@ -4,11 +4,13 @@ import { CartItem } from '@/components/organisms/CartItem/CartItem';
 import { Button } from '@/components/atoms/Button/Button';
 import { useAccountContext } from '@/context/AccountContext';
 import { useNavigate } from 'react-router';
+import { useLanguage } from '@/context/LanguageContext';
 //import cartIsEmpty from '@/assets/img/cart-is-empty.png';
 
 export const CartPage: React.FC = () => {
   const { cartItems, updateCartItem, removeCartItem } = useAccountContext();
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const onRemove = (id: number) => {
     removeCartItem(id);
@@ -28,12 +30,12 @@ export const CartPage: React.FC = () => {
   return (
     <>
       <PageTitle className="mt-6 mb-6 tablet:mt-8 tablet:mb-8 desktop:mt-14 desktop:mb-14">
-        Cart
+        {t('header.cart')}
       </PageTitle>
       {cartItems.length === 0 ?
         <img
           src={`${import.meta.env.BASE_URL}img/cart-is-empty.png`}
-          alt="Your cart is empty"
+          alt={t('cart.empty')}
           className="mx-auto w-full max-w-100"
         />
       : <div className="flex flex-col gap-8 desktop:flex-row desktop:items-start desktop:gap-4">
@@ -56,7 +58,7 @@ export const CartPage: React.FC = () => {
                 ${totalSum}
               </p>
               <span className="text-sm text-text-secondary">
-                Total for {totalCount} items
+                {t('cart.total', { count: totalCount })}
               </span>
             </div>
 
@@ -67,7 +69,7 @@ export const CartPage: React.FC = () => {
               className="h-12 w-full"
               onClick={() => navigate('/checkout')}
             >
-              Checkout
+              {t('cart.checkout')}
             </Button>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Heart } from 'lucide-react';
 import { cn } from 'cn';
+import { useLanguage } from '@/context/LanguageContext';
 
 type FavouriteButtonProps = {
   isFavourite: boolean;
@@ -13,6 +14,7 @@ export function FavouriteButton({
   onClick,
   className,
 }: FavouriteButtonProps) {
+  const { t } = useLanguage();
   const [isPopping, setIsPopping] = useState(false);
 
   const handleClick = () => {
@@ -27,7 +29,9 @@ export function FavouriteButton({
     <button
       type="button"
       onClick={handleClick}
-      aria-label={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
+      aria-label={t(
+        isFavourite ? 'card.removeFromFavourites' : 'card.addToFavourites',
+      )}
       aria-pressed={isFavourite}
       className={cn(
         'relative flex size-10 shrink-0 cursor-pointer hover:border-text-primary items-center justify-center border transition-colors',

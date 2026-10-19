@@ -1,4 +1,5 @@
 import { cn } from 'cn';
+import { useLanguage } from '@/context/LanguageContext';
 
 type ErrorMessageProps = {
   message: string;
@@ -11,6 +12,8 @@ export function ErrorMessage({
   onRetry,
   className,
 }: ErrorMessageProps) {
+  const { t } = useLanguage();
+
   return (
     <div
       role="alert"
@@ -27,7 +30,7 @@ export function ErrorMessage({
           onClick={onRetry}
           className="h-10 bg-text-primary px-6 text-sm font-semibold text-white transition-shadow hover:shadow-[0_3px_13px_0_rgba(23,32,49,0.26)]"
         >
-          Reload
+          {t('common.reload')}
         </button>
       )}
     </div>

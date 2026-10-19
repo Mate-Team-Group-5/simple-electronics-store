@@ -1,3 +1,5 @@
+import type { TranslationKey } from '@/i18n/en';
+
 export type DeliveryMethod = 'nova-poshta' | 'courier' | 'pickup';
 export type PaymentMethod = 'card' | 'cash';
 
@@ -13,7 +15,7 @@ export type CheckoutFormValues = {
 };
 
 export type CheckoutFormErrors = Partial<
-  Record<keyof CheckoutFormValues, string>
+  Record<keyof CheckoutFormValues, TranslationKey>
 >;
 
 export const EMPTY_CHECKOUT_FORM: CheckoutFormValues = {
@@ -35,29 +37,29 @@ export function validateCheckout(
   const errors: CheckoutFormErrors = {};
 
   if (values.fullName.trim().length < 2) {
-    errors.fullName = 'Enter your full name';
+    errors.fullName = 'checkout.errors.fullName';
   }
 
   const phoneDigits = values.phone.replace(/\D/g, '');
 
   if (phoneDigits.length < 10 || phoneDigits.length > 13) {
-    errors.phone = 'Enter a valid phone number';
+    errors.phone = 'checkout.errors.phone';
   }
 
   if (!EMAIL_PATTERN.test(values.email.trim())) {
-    errors.email = 'Enter a valid email';
+    errors.email = 'checkout.errors.email';
   }
 
   if (values.delivery !== 'pickup' && !values.city) {
-    errors.city = 'Choose your city';
+    errors.city = 'checkout.errors.city';
   }
 
   if (values.delivery === 'nova-poshta' && !values.branch) {
-    errors.branch = 'Choose a Nova Poshta branch';
+    errors.branch = 'checkout.errors.branch';
   }
 
   if (values.delivery === 'courier' && !values.address.trim()) {
-    errors.address = 'Enter your delivery address';
+    errors.address = 'checkout.errors.address';
   }
 
   return errors;

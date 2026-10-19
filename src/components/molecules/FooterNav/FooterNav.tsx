@@ -1,15 +1,17 @@
 import { cn } from 'cn';
 import { FooterLink } from '@/components/atoms/FooterLink/FooterLink';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/i18n/en';
 
-const FOOTER_LINKS = [
+const FOOTER_LINKS: { href: string; labelKey: TranslationKey }[] = [
   {
     href: 'https://github.com/Mate-Team-Group-5/simple-electronics-store',
-    label: 'Github',
+    labelKey: 'footer.github',
   },
-  { href: 'https://github.com/Mate-Team-Group-5', label: 'Contacts' },
+  { href: 'https://github.com/Mate-Team-Group-5', labelKey: 'footer.contacts' },
   {
     href: 'https://github.com/Mate-Team-Group-5/simple-electronics-store',
-    label: 'Rights',
+    labelKey: 'footer.rights',
   },
 ];
 
@@ -18,9 +20,11 @@ type FooterNavProps = {
 };
 
 export function FooterNav({ className }: FooterNavProps) {
+  const { t } = useLanguage();
+
   return (
     <nav
-      aria-label="Footer"
+      aria-label={t('footer.label')}
       className={className}
     >
       <ul
@@ -29,9 +33,9 @@ export function FooterNav({ className }: FooterNavProps) {
           'tablet:flex-row tablet:items-center tablet:justify-between',
         )}
       >
-        {FOOTER_LINKS.map(({ href, label }) => (
-          <li key={label}>
-            <FooterLink href={href}>{label}</FooterLink>
+        {FOOTER_LINKS.map(({ href, labelKey }) => (
+          <li key={labelKey}>
+            <FooterLink href={href}>{t(labelKey)}</FooterLink>
           </li>
         ))}
       </ul>

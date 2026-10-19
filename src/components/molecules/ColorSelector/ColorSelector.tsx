@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { buildProductId } from '@/utils/buildProductId';
 import { PRODUCT_COLORS } from '@/types/productColors';
+import { useLanguage } from '@/context/LanguageContext';
 type Props = {
   category: Category;
   colors: string[];
@@ -19,10 +20,14 @@ export const ColorSelector: React.FC<Props> = ({
   selectedColor,
   catalogId,
 }) => {
+  const { t } = useLanguage();
+
   return (
     <div>
       <div className="flex flex-row w-full place-content-between">
-        <p className="text-xs text-text-secondary mb-2">Available colors</p>
+        <p className="text-xs text-text-secondary mb-2">
+          {t('details.availableColors')}
+        </p>
         {catalogId !== null && (
           <span className="text-xs text-icons">ID: {catalogId}</span>
         )}

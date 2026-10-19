@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Link } from 'react-router';
 import { ChevronRight, House } from 'lucide-react';
 import { cn } from 'cn';
+import { useLanguage } from '@/context/LanguageContext';
 
 type BreadcrumbItem = {
   label: string;
@@ -14,16 +15,18 @@ type BreadcrumbsProps = {
 };
 
 export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
+  const { t } = useLanguage();
+
   return (
     <nav
-      aria-label="Breadcrumbs"
+      aria-label={t('breadcrumbs.label')}
       className={className}
     >
       <ol className="flex items-center gap-2 text-xs font-semibold">
         <li>
           <Link
             to="/"
-            aria-label="Home"
+            aria-label={t('nav.home')}
             className="flex text-text-primary transition-colors hover:text-text-secondary"
           >
             <House size={16} />

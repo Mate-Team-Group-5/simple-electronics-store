@@ -3,6 +3,7 @@ import { NavLink } from 'react-router';
 import { cn } from 'cn';
 import { Counter } from '@/components/atoms/Counter/Counter';
 import type { FlyTarget } from '@/utils/flyToTarget';
+import { useLanguage } from '@/context/LanguageContext';
 
 type HeaderActionButtonProps = {
   to: string;
@@ -21,7 +22,9 @@ export function HeaderActionButton({
   children,
   className,
 }: HeaderActionButtonProps) {
-  const ariaLabel = count > 0 ? `${label}, ${count} items` : label;
+  const { t } = useLanguage();
+  const ariaLabel =
+    count > 0 ? t('header.itemsCount', { label, count }) : label;
 
   return (
     <NavLink

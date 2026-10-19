@@ -1,4 +1,5 @@
 import { cn } from 'cn';
+import { useLanguage } from '@/context/LanguageContext';
 
 type BannerSlideProps = {
   image: string;
@@ -13,6 +14,8 @@ export function BannerSlide({
   subtitle,
   bgClassName,
 }: BannerSlideProps) {
+  const { t } = useLanguage();
+
   return (
     <div
       className={cn(
@@ -23,7 +26,7 @@ export function BannerSlide({
     >
       <div className="flex shrink-0 flex-col gap-2 tablet:w-2/5 desktop:gap-4">
         <p className="text-xs font-semibold tracking-widest text-white/60 uppercase">
-          Now available
+          {t('banner.nowAvailable')}
         </p>
 
         <h2 className="text-2xl font-bold text-white desktop:text-5xl">
@@ -33,7 +36,7 @@ export function BannerSlide({
         <p className="text-sm text-white/70 desktop:text-base">{subtitle}</p>
 
         <span className="mt-2 hidden w-fit border border-white px-6 py-2 text-xs font-bold tracking-wider text-white uppercase transition-colors group-hover:bg-white group-hover:text-text-primary tablet:inline-block desktop:mt-6">
-          Order now
+          {t('banner.orderNow')}
         </span>
       </div>
 
