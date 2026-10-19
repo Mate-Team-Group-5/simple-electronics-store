@@ -5,14 +5,17 @@ import './index.css';
 import App from './App.tsx';
 import { AccountProvider } from './context/AccountContext.tsx';
 import { LanguageProvider } from './context/LanguageContext.tsx';
+import { AuthProvider } from './context/AuthContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HashRouter>
       <LanguageProvider>
-        <AccountProvider>
-          <App />
-        </AccountProvider>
+        <AuthProvider>
+          <AccountProvider>
+            <App />
+          </AccountProvider>
+        </AuthProvider>
       </LanguageProvider>
     </HashRouter>
   </StrictMode>,

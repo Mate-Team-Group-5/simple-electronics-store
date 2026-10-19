@@ -12,6 +12,7 @@ export const uk: Translations = {
   'header.cart': 'Кошик',
   'header.openMenu': 'Відкрити меню',
   'header.closeMenu': 'Закрити меню',
+  'header.account': 'Особистий кабінет',
   'header.itemsCount': {
     one: '{label}, {count} товар',
     few: '{label}, {count} товари',
@@ -185,4 +186,46 @@ export const uk: Translations = {
   'success.order': 'Замовлення',
   'success.placed': 'оформлено. Деталі надішлемо на',
   'success.continue': 'Продовжити покупки',
+
+  'auth.registerSubtitle':
+    'Зберігайте обране й кошик та оформлюйте замовлення швидше.',
+  'auth.password': 'Пароль',
+  'auth.passwordHint': 'Щонайменше {min} символів',
+  'auth.confirmPassword': 'Повторіть пароль',
+  'auth.register': 'Зареєструватися',
+  'auth.registering': 'Реєструємо…',
+  'auth.errors.passwordShort': 'Пароль має містити щонайменше 6 символів',
+  'auth.errors.passwordMismatch': 'Паролі не збігаються',
+  'auth.errors.emailTaken': 'Акаунт з таким email уже існує',
+  'auth.showPassword': 'Показати пароль',
+  'auth.hidePassword': 'Сховати пароль',
+  'auth.capsLock': 'Увімкнено Caps Lock',
+  'auth.strength.weak': 'Слабкий',
+  'auth.strength.medium': 'Середній',
+  'auth.strength.strong': 'Надійний',
+  'auth.acceptTerms':
+    'Я погоджуюся з умовами використання та політикою конфіденційності',
+  'auth.errors.terms': 'Щоб продовжити, погодьтеся з умовами',
+  'auth.benefits.title': 'Навіщо реєструватися',
+  'auth.benefits.syncTitle': 'Обране й кошик всюди',
+  'auth.benefits.syncText':
+    'Збережені товари доступні на будь-якому пристрої після входу.',
+  'auth.benefits.fastTitle': 'Швидше оформлення',
+  'auth.benefits.fastText': 'Контактні дані заповнюються автоматично.',
+  'auth.benefits.historyTitle': 'Історія замовлень',
+  'auth.benefits.historyText':
+    'Стежте за замовленнями й повторюйте їх в один клік.',
+  'auth.tabs.login': 'Вхід',
+  'auth.tabs.register': 'Реєстрація',
+  'auth.loginSubtitle': 'З поверненням! Увійдіть у свій акаунт.',
+  'auth.login': 'Увійти',
+  'auth.loggingIn': 'Входимо…',
+  'auth.errors.passwordRequired': 'Введіть пароль',
+  'auth.errors.invalidCredentials': 'Невірний email або пароль',
+
+  'account.greeting': 'Вітаємо!',
+  'account.signedInAs': 'Ви увійшли як {email}',
+  'account.logout': 'Вийти',
+
+  'checkout.haveAccount': 'Вже маєте акаунт?',
 };

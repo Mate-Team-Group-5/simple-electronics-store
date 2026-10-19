@@ -1,10 +1,11 @@
 import type { MouseEvent } from 'react';
-import { Heart, ShoppingBag, X } from 'lucide-react';
+import { Heart, ShoppingBag, UserRound, X, UserRoundCheck } from 'lucide-react';
 import { Logo } from '@/components/atoms/Logo/Logo';
 import { IconButton } from '@/components/atoms/IconButton/IconButton';
 import { Navigation } from '@/components/molecules/Navigation/Navigation';
 import { HeaderActionButton } from '@/components/molecules/HeaderActionButton/HeaderActionButton';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
 
 type BurgerMenuProps = {
   onClose: () => void;
@@ -18,6 +19,7 @@ export function BurgerMenu({
   cartCount,
 }: BurgerMenuProps) {
   const { t } = useLanguage();
+  const { isAuthenticated } = useAuth();
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
 
@@ -61,6 +63,15 @@ export function BurgerMenu({
           className="h-16 flex-1"
         >
           <ShoppingBag size={16} />
+        </HeaderActionButton>
+        <HeaderActionButton
+          to="/account"
+          label={t('header.account')}
+          className="h-16 flex-1"
+        >
+          {isAuthenticated ?
+            <UserRoundCheck size={16} />
+          : <UserRound size={16} />}
         </HeaderActionButton>
       </div>
     </div>

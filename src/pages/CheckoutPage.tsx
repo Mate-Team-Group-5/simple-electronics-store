@@ -16,6 +16,7 @@ import {
   type CheckoutFormValues,
 } from '@/utils/validateCheckout';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
 
 const CHECKOUT_FORM_ID = 'checkout-form';
 
@@ -26,8 +27,13 @@ type CompletedOrder = {
 
 export function CheckoutPage() {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const { cartItems, clearCart } = useAccountContext();
-  const [values, setValues] = useState<CheckoutFormValues>(EMPTY_CHECKOUT_FORM);
+  const [values, setValues] = useState<CheckoutFormValues>(() => ({
+    ...EMPTY_CHECKOUT_FORM,
+    email: user?.email ?? '',
+    phone: user?.phone ?? '',
+  }));
   const [errors, setErrors] = useState<CheckoutFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSubmitError, setHasSubmitError] = useState(false);
@@ -110,6 +116,19 @@ export function CheckoutPage() {
     return (
       <div className="mt-8 mb-20 grid items-start gap-8 desktop:grid-cols-[1fr_368px] desktop:gap-16">
         <section aria-label={t('checkout.formLabel')}>
+          {!user && (
+            <p className="mb-8 border border-elements p-4 text-sm text-text-secondary">
+              {t('checkout.haveAccount')}{' '}
+              <Link
+                to="/account"
+                state={{ from: '/checkout' }}
+                className="font-semibold text-text-primary underline underline-offset-4"
+              >
+                {t('auth.login')}
+              </Link>
+            </p>
+          )}
+
           <CheckoutForm
             id={CHECKOUT_FORM_ID}
             values={values}

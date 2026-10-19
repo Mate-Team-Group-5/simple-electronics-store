@@ -19,6 +19,7 @@ export const en = {
   'header.cart': 'Cart',
   'header.openMenu': 'Open menu',
   'header.closeMenu': 'Close menu',
+  'header.account': 'Account',
   'header.itemsCount': {
     one: '{label}, {count} item',
     other: '{label}, {count} items',
@@ -182,6 +183,46 @@ export const en = {
   'success.order': 'Order',
   'success.placed': 'has been placed. We will send the details to',
   'success.continue': 'Continue shopping',
+
+  'auth.registerSubtitle':
+    'Save your favourites and cart and check out faster.',
+  'auth.password': 'Password',
+  'auth.passwordHint': 'At least {min} characters',
+  'auth.confirmPassword': 'Repeat password',
+  'auth.register': 'Sign up',
+  'auth.registering': 'Signing up…',
+  'auth.errors.passwordShort': 'Password must be at least 6 characters',
+  'auth.errors.passwordMismatch': 'Passwords do not match',
+  'auth.errors.emailTaken': 'An account with this email already exists',
+  'auth.showPassword': 'Show password',
+  'auth.hidePassword': 'Hide password',
+  'auth.capsLock': 'Caps Lock is on',
+  'auth.strength.weak': 'Weak',
+  'auth.strength.medium': 'Medium',
+  'auth.strength.strong': 'Strong',
+  'auth.acceptTerms': 'I agree to the terms of use and privacy policy',
+  'auth.errors.terms': 'Please accept the terms to continue',
+  'auth.benefits.title': 'Why create an account',
+  'auth.benefits.syncTitle': 'Favourites and cart everywhere',
+  'auth.benefits.syncText':
+    'Your saved products are available on any device after you sign in.',
+  'auth.benefits.fastTitle': 'Faster checkout',
+  'auth.benefits.fastText': 'Your contact details are filled in automatically.',
+  'auth.benefits.historyTitle': 'Order history',
+  'auth.benefits.historyText': 'Track your orders and reorder in one click.',
+  'auth.tabs.login': 'Sign in',
+  'auth.tabs.register': 'Sign up',
+  'auth.loginSubtitle': 'Welcome back! Sign in to your account.',
+  'auth.login': 'Sign in',
+  'auth.loggingIn': 'Signing in…',
+  'auth.errors.passwordRequired': 'Enter your password',
+  'auth.errors.invalidCredentials': 'Wrong email or password',
+
+  'account.greeting': 'Hello!',
+  'account.signedInAs': 'You are signed in as {email}',
+  'account.logout': 'Sign out',
+
+  'checkout.haveAccount': 'Already have an account?',
 } satisfies Record<string, TranslationValue>;
 
 export type TranslationKey = keyof typeof en;
