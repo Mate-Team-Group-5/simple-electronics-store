@@ -96,7 +96,17 @@ app.post('/api/login', async (req, res) => {
     }
 
     const token = jwt.sign(payload, secret, { expiresIn: '1h' });
-    return res.json({ message: 'Login successful', token, user });
+    return res.json({
+      message: 'Login successful',
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        phone: user.phone,
+        favorites: user.favorites,
+        cart: user.cart,
+      },
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: 'Server error during login' });
