@@ -1,5 +1,5 @@
 import type { MouseEvent } from 'react';
-import { Heart, ShoppingBag, X } from 'lucide-react';
+import { Heart, ShoppingBag, UserRound, X } from 'lucide-react';
 import { Logo } from '@/components/atoms/Logo/Logo';
 import { IconButton } from '@/components/atoms/IconButton/IconButton';
 import { Navigation } from '@/components/molecules/Navigation/Navigation';
@@ -61,6 +61,13 @@ export function BurgerMenu({
           className="h-16 flex-1"
         >
           <ShoppingBag size={16} />
+        </HeaderActionButton>
+        <HeaderActionButton
+          to="/account"
+          label={t('header.account')}
+          className="h-16 flex-1"
+        >
+          <UserRound size={16} />
         </HeaderActionButton>
       </div>
     </div>

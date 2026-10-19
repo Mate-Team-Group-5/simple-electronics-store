@@ -14,6 +14,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { Theme } from './types/Theme';
 import { useLanguage } from './context/LanguageContext';
+import { AccountPage } from './pages/AccountPage';
 
 function App() {
   const { favoriteProducts, cartItems } = useAccountContext();
@@ -99,6 +100,10 @@ function App() {
             <Route
               path="favourites"
               element={<FavouritesPage />}
+            />
+            <Route
+              path="account"
+              element={<AccountPage />}
             />
           </Route>
           <Route

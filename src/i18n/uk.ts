@@ -12,6 +12,7 @@ export const uk: Translations = {
   'header.cart': 'Кошик',
   'header.openMenu': 'Відкрити меню',
   'header.closeMenu': 'Закрити меню',
+  'header.account': 'Особистий кабінет',
   'header.itemsCount': {
     one: '{label}, {count} товар',
     few: '{label}, {count} товари',

@@ -19,6 +19,7 @@ export const en = {
   'header.cart': 'Cart',
   'header.openMenu': 'Open menu',
   'header.closeMenu': 'Close menu',
+  'header.account': 'Account',
   'header.itemsCount': {
     one: '{label}, {count} item',
     other: '{label}, {count} items',
