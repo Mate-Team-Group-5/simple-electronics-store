@@ -6,7 +6,7 @@ import { PasswordStrength } from '@/components/molecules/PasswordStrength/Passwo
 import { Button } from '@/components/atoms/Button/Button';
 import { useLanguage } from '@/context/LanguageContext';
 import type { TranslationKey } from '@/i18n/en';
-import { register, type User } from '@/services/auth';
+import { useAuth } from '@/context/AuthContext';
 import { ApiError } from '@/utils/fetchClient';
 import {
   EMPTY_REGISTER_FORM,
@@ -17,11 +17,12 @@ import {
 } from '@/utils/validateRegister';
 
 type RegisterFormProps = {
-  onSuccess: (user: User) => void;
+  onSuccess: () => void;
 };
 
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const { t } = useLanguage();
+  const { register } = useAuth();
   const [values, setValues] = useState<RegisterFormValues>(EMPTY_REGISTER_FORM);
   const [errors, setErrors] = useState<RegisterFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,13 +61,13 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
     setSubmitError(null);
 
     try {
-      const { user } = await register({
+      await register({
         email: values.email.trim(),
         phone: values.phone.trim(),
         password: values.password,
       });
 
-      onSuccess(user);
+      onSuccess();
     } catch (error) {
       if (error instanceof ApiError && error.status === 409) {
         setSubmitError('auth.errors.emailTaken');

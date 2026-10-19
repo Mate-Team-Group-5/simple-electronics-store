@@ -7,6 +7,7 @@ import {
   SunIcon,
   UserRound,
   X,
+  UserRoundCheck,
 } from 'lucide-react';
 import { Logo } from '@/components/atoms/Logo/Logo';
 import { IconButton } from '@/components/atoms/IconButton/IconButton';
@@ -17,6 +18,7 @@ import { LanguageSwitcher } from '@/components/atoms/LanguageSwitcher/LanguageSw
 import { useLanguage } from '@/context/LanguageContext';
 import { Theme } from '@/types/Theme';
 import { Button } from '@base-ui/react/button';
+import { useAuth } from '@/context/AuthContext';
 
 type HeaderProps = {
   favouritesCount?: number;
@@ -33,6 +35,7 @@ export function Header({
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useLanguage();
+  const { isAuthenticated } = useAuth();
 
   return (
     <header className="flex h-12 items-center gap-2 bg-white shadow-[0_1px_0_0_var(--color-elements)] desktop:h-16 desktop:gap-6">
@@ -68,7 +71,9 @@ export function Header({
             to="/account"
             label={t('header.account')}
           >
-            <UserRound size={16} />
+            {isAuthenticated ?
+              <UserRoundCheck size={16} />
+            : <UserRound size={16} />}
           </HeaderActionButton>
         </div>
 

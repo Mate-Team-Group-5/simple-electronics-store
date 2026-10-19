@@ -40,7 +40,10 @@ function request<T>(
     if (!response.ok) {
       const body = await response.json().catch(() => null);
 
-      throw new ApiError(response.status, body?.message ?? response.statusText);
+      throw new ApiError(
+        response.status,
+        body?.message ?? body?.error ?? response.statusText,
+      );
     }
 
     return response.json();

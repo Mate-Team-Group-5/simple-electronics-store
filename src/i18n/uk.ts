@@ -187,7 +187,6 @@ export const uk: Translations = {
   'success.placed': 'оформлено. Деталі надішлемо на',
   'success.continue': 'Продовжити покупки',
 
-  'auth.registerTitle': 'Створення акаунта',
   'auth.registerSubtitle':
     'Зберігайте обране й кошик та оформлюйте замовлення швидше.',
   'auth.password': 'Пароль',
@@ -195,8 +194,6 @@ export const uk: Translations = {
   'auth.confirmPassword': 'Повторіть пароль',
   'auth.register': 'Зареєструватися',
   'auth.registering': 'Реєструємо…',
-  'auth.registered': 'Акаунт створено!',
-  'auth.registeredText': 'Ви зареєструвалися як {email}.',
   'auth.errors.passwordShort': 'Пароль має містити щонайменше 6 символів',
   'auth.errors.passwordMismatch': 'Паролі не збігаються',
   'auth.errors.emailTaken': 'Акаунт з таким email уже існує',
@@ -218,4 +215,17 @@ export const uk: Translations = {
   'auth.benefits.historyTitle': 'Історія замовлень',
   'auth.benefits.historyText':
     'Стежте за замовленнями й повторюйте їх в один клік.',
+  'auth.tabs.login': 'Вхід',
+  'auth.tabs.register': 'Реєстрація',
+  'auth.loginSubtitle': 'З поверненням! Увійдіть у свій акаунт.',
+  'auth.login': 'Увійти',
+  'auth.loggingIn': 'Входимо…',
+  'auth.errors.passwordRequired': 'Введіть пароль',
+  'auth.errors.invalidCredentials': 'Невірний email або пароль',
+
+  'account.greeting': 'Вітаємо!',
+  'account.signedInAs': 'Ви увійшли як {email}',
+  'account.logout': 'Вийти',
+
+  'checkout.haveAccount': 'Вже маєте акаунт?',
 };

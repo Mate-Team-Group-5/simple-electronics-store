@@ -184,7 +184,6 @@ export const en = {
   'success.placed': 'has been placed. We will send the details to',
   'success.continue': 'Continue shopping',
 
-  'auth.registerTitle': 'Create an account',
   'auth.registerSubtitle':
     'Save your favourites and cart and check out faster.',
   'auth.password': 'Password',
@@ -192,8 +191,6 @@ export const en = {
   'auth.confirmPassword': 'Repeat password',
   'auth.register': 'Sign up',
   'auth.registering': 'Signing up…',
-  'auth.registered': 'Account created!',
-  'auth.registeredText': 'You signed up as {email}.',
   'auth.errors.passwordShort': 'Password must be at least 6 characters',
   'auth.errors.passwordMismatch': 'Passwords do not match',
   'auth.errors.emailTaken': 'An account with this email already exists',
@@ -213,6 +210,19 @@ export const en = {
   'auth.benefits.fastText': 'Your contact details are filled in automatically.',
   'auth.benefits.historyTitle': 'Order history',
   'auth.benefits.historyText': 'Track your orders and reorder in one click.',
+  'auth.tabs.login': 'Sign in',
+  'auth.tabs.register': 'Sign up',
+  'auth.loginSubtitle': 'Welcome back! Sign in to your account.',
+  'auth.login': 'Sign in',
+  'auth.loggingIn': 'Signing in…',
+  'auth.errors.passwordRequired': 'Enter your password',
+  'auth.errors.invalidCredentials': 'Wrong email or password',
+
+  'account.greeting': 'Hello!',
+  'account.signedInAs': 'You are signed in as {email}',
+  'account.logout': 'Sign out',
+
+  'checkout.haveAccount': 'Already have an account?',
 } satisfies Record<string, TranslationValue>;
 
 export type TranslationKey = keyof typeof en;
