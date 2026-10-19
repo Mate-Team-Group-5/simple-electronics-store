@@ -1,38 +1,52 @@
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
 import { BannerSlider } from '@/components/organisms/BannerSlider/BannerSlider';
 import { ProductGrid } from '@/components/organisms/ProductGrid';
-import { getHotPricesProducts } from '@/services/products';
+import {
+  getAccessoriesCount,
+  getHotPricesProducts,
+  getPhonesCount,
+  getTabletsCount,
+} from '@/services/products';
 import type { Product } from '@/types/Product';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ShopByCategory } from '@/components/organisms/ShopByCategory/ShopByCategory';
-import type { Category } from '@/hooks/useProducts';
 import { useLanguage } from '@/context/LanguageContext';
 import { useLoadMoreProducts } from '@/hooks/useLoadMoreProducts';
 
 export function HomePage() {
   const { t } = useLanguage();
   const { products: newModelsProducts, loadMoreProducts } =
-    useLoadMoreProducts(4);
+    useLoadMoreProducts(8);
   const [hotPricesProducts, setHotPricesProducts] = useState<
     (Product | null)[]
   >([]);
+
+  const [categoryCounts, setCategoryCounts] = useState({
+    phones: 0,
+    tablets: 0,
+    accessories: 0,
+  });
 
   useEffect(() => {
     getHotPricesProducts()
       .then((prod) => setHotPricesProducts(prod))
       .catch(() => console.error('cant load hot prices products in HomePage'));
-  }, []);
 
-  const categoryCounts = useMemo(() => {
-    const countByCategory = (category: Category) =>
-      newModelsProducts.filter((product) => product?.category === category)
-        .length;
-
-    return {
-      phones: countByCategory('phones'),
-      tablets: countByCategory('tablets'),
-      accessories: countByCategory('accessories'),
+    const loadProductCount = async () => {
+      try {
+        const phones = await getPhonesCount();
+        const tablets = await getTabletsCount();
+        const accessories = await getAccessoriesCount();
+        setCategoryCounts({
+          phones,
+          tablets,
+          accessories,
+        });
+      } catch {
+        console.error('cant load product count');
+      }
     };
+    loadProductCount();
   }, []);
 
   return (

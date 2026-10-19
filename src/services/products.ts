@@ -46,11 +46,22 @@ export async function getHotPricesProducts() {
 export const getPhones = () => {
   return client.get<Phone[]>(`/phones`);
 };
+export const getPhonesCount = () => {
+  return client.get<number>(`/phones/count`);
+};
 
 export const getTablets = () => {
   return client.get<Tablet[]>(`/tablets`);
 };
 
+export const getTabletsCount = () => {
+  return client.get<number>(`/tablets/count`);
+};
+
 export const getAccessories = () => {
   return client.get<Accessory[]>(`/accessories`);
+};
+
+export const getAccessoriesCount = () => {
+  return client.get<number>(`/accessories/count`);
 };

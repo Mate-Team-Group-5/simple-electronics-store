@@ -261,6 +261,23 @@ app.get('/api/products/:id', async (req, res) => {
   }
 });
 
+app.get('/api/phones/count', async (req, res) => {
+  try {
+    if (!process.env.DB_URL) {
+      const phones = await readJSONFile('phones.json');
+      res.json(phones.length);
+    } else {
+      const result = await pool.query('SELECT COUNT(*) AS total FROM phones');
+
+      res.status(200).json(result.rows[0].total);
+    }
+  } catch (error) {
+    console.error('Error reading phones.json:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error: Could not load phones' });
+  }
+});
 app.get('/api/phones', async (req, res) => {
   try {
     if (!process.env.DB_URL) {
@@ -278,7 +295,23 @@ app.get('/api/phones', async (req, res) => {
       .json({ error: 'Internal Server Error: Could not load phones' });
   }
 });
+app.get('/api/tablets/count', async (req, res) => {
+  try {
+    if (!process.env.DB_URL) {
+      const phones = await readJSONFile('phones.json');
+      res.json(phones.length);
+    } else {
+      const result = await pool.query('SELECT COUNT(*) AS total FROM tablets');
 
+      res.status(200).json(result.rows[0].total);
+    }
+  } catch (error) {
+    console.error('Error reading phones.json:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error: Could not load phones' });
+  }
+});
 app.get('/api/tablets', async (req, res) => {
   try {
     if (!process.env.DB_URL) {
@@ -296,7 +329,25 @@ app.get('/api/tablets', async (req, res) => {
       .json({ error: 'Internal Server Error: Could not load tablets' });
   }
 });
+app.get('/api/accessories/count', async (req, res) => {
+  try {
+    if (!process.env.DB_URL) {
+      const phones = await readJSONFile('phones.json');
+      res.json(phones.length);
+    } else {
+      const result = await pool.query(
+        'SELECT COUNT(*) AS total FROM accessories',
+      );
 
+      res.status(200).json(result.rows[0].total);
+    }
+  } catch (error) {
+    console.error('Error reading phones.json:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error: Could not load phones' });
+  }
+});
 app.get('/api/accessories', async (req, res) => {
   try {
     if (!process.env.DB_URL) {
