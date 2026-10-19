@@ -4,6 +4,7 @@ import { Logo } from '@/components/atoms/Logo/Logo';
 import { IconButton } from '@/components/atoms/IconButton/IconButton';
 import { Navigation } from '@/components/molecules/Navigation/Navigation';
 import { HeaderActionButton } from '@/components/molecules/HeaderActionButton/HeaderActionButton';
+import { useLanguage } from '@/context/LanguageContext';
 
 type BurgerMenuProps = {
   onClose: () => void;
@@ -16,6 +17,7 @@ export function BurgerMenu({
   favouritesCount,
   cartCount,
 }: BurgerMenuProps) {
+  const { t } = useLanguage();
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
 
@@ -32,7 +34,7 @@ export function BurgerMenu({
       <div className="flex h-12 shrink-0 items-center justify-between shadow-[0_1px_0_0_var(--color-elements)]">
         <Logo className="h-full px-4" />
         <IconButton
-          aria-label="Close menu"
+          aria-label={t('header.closeMenu')}
           onClick={onClose}
         >
           <X size={16} />
@@ -46,7 +48,7 @@ export function BurgerMenu({
       <div className="flex shrink-0 shadow-[0_-1px_0_0_var(--color-elements)]">
         <HeaderActionButton
           to="/favourites"
-          label="Favourites"
+          label={t('header.favourites')}
           count={favouritesCount}
           className="h-16 flex-1"
         >
@@ -54,7 +56,7 @@ export function BurgerMenu({
         </HeaderActionButton>
         <HeaderActionButton
           to="/cart"
-          label="Cart"
+          label={t('header.cart')}
           count={cartCount}
           className="h-16 flex-1"
         >

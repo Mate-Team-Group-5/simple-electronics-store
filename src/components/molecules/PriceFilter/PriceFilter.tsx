@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Slider } from '@base-ui/react/slider';
+import { useLanguage } from '@/context/LanguageContext';
 
 export type PriceRange = [number, number];
 
@@ -11,6 +12,7 @@ type PriceFilterProps = {
 };
 
 export function PriceFilter({ min, max, value, onChange }: PriceFilterProps) {
+  const { t } = useLanguage();
   const [draft, setDraft] = useState<PriceRange>(value);
 
   const commit = ([from, to]: PriceRange) => {
@@ -41,7 +43,7 @@ export function PriceFilter({ min, max, value, onChange }: PriceFilterProps) {
         <input
           type="number"
           inputMode="numeric"
-          aria-label="Minimum price"
+          aria-label={t('filters.minPrice')}
           value={draft[0]}
           min={min}
           max={max}
@@ -56,7 +58,7 @@ export function PriceFilter({ min, max, value, onChange }: PriceFilterProps) {
         <input
           type="number"
           inputMode="numeric"
-          aria-label="Maximum price"
+          aria-label={t('filters.maxPrice')}
           value={draft[1]}
           min={min}
           max={max}
@@ -80,13 +82,13 @@ export function PriceFilter({ min, max, value, onChange }: PriceFilterProps) {
 
             <Slider.Thumb
               index={0}
-              getAriaLabel={() => 'Minimum price'}
+              getAriaLabel={() => t('filters.minPrice')}
               className="size-5 rounded-full border-2 border-text-primary bg-white shadow-sm outline-none focus-visible:ring-4 focus-visible:ring-accent-purple/30"
             />
 
             <Slider.Thumb
               index={1}
-              getAriaLabel={() => 'Maximum price'}
+              getAriaLabel={() => t('filters.maxPrice')}
               className="size-5 rounded-full border-2 border-text-primary bg-white shadow-sm outline-none focus-visible:ring-4 focus-visible:ring-accent-purple/30"
             />
           </Slider.Track>

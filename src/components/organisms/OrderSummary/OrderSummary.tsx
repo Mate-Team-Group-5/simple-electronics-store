@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { cn } from 'cn';
 import type { CartProduct } from '@/types/Cart';
+import { useLanguage } from '@/context/LanguageContext';
 
 type OrderSummaryProps = {
   items: CartProduct[];
@@ -13,6 +14,7 @@ export function OrderSummary({
   children,
   className,
 }: OrderSummaryProps) {
+  const { t } = useLanguage();
   const totalCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
@@ -26,7 +28,9 @@ export function OrderSummary({
         className,
       )}
     >
-      <h2 className="text-xl font-bold text-text-primary">Your order</h2>
+      <h2 className="text-xl font-bold text-text-primary">
+        {t('checkout.yourOrder')}
+      </h2>
 
       <ul className="flex flex-col gap-4">
         {items.map(({ id, quantity, product }) => (
@@ -60,17 +64,21 @@ export function OrderSummary({
 
       <dl className="flex flex-col gap-2 text-sm">
         <div className="flex justify-between">
-          <dt className="text-text-secondary">Items ({totalCount})</dt>
+          <dt className="text-text-secondary">
+            {t('summary.items', { count: totalCount })}
+          </dt>
           <dd className="text-text-primary">${totalPrice}</dd>
         </div>
         <div className="flex justify-between">
-          <dt className="text-text-secondary">Delivery</dt>
-          <dd className="text-text-primary">Free</dd>
+          <dt className="text-text-secondary">{t('checkout.delivery')}</dt>
+          <dd className="text-text-primary">{t('summary.free')}</dd>
         </div>
       </dl>
 
       <div className="flex items-baseline justify-between">
-        <span className="font-semibold text-text-primary">Total</span>
+        <span className="font-semibold text-text-primary">
+          {t('summary.total')}
+        </span>
         <span className="text-[32px] font-bold text-text-primary">
           ${totalPrice}
         </span>

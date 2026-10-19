@@ -2,6 +2,7 @@ import type { Category } from '@/hooks/useProducts';
 import React from 'react';
 import { Link } from 'react-router';
 import { buildProductId } from '@/utils/buildProductId';
+import { useLanguage } from '@/context/LanguageContext';
 type Props = {
   category: Category;
   capacity: string;
@@ -16,9 +17,13 @@ export const CapacitySelector: React.FC<Props> = ({
   selectedColor,
   capacity,
 }) => {
+  const { t } = useLanguage();
+
   return (
     <div>
-      <p className="text-xs text-text-secondary mb-2">Select capacity</p>
+      <p className="text-xs text-text-secondary mb-2">
+        {t('details.selectCapacity')}
+      </p>
       <div className="flex gap-2">
         {capacities.map((capacityLocal) => (
           <Link

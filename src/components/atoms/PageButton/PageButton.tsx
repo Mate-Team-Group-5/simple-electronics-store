@@ -1,4 +1,5 @@
 import { cn } from 'cn';
+import { useLanguage } from '@/context/LanguageContext';
 
 type PageButtonProps = {
   page: number;
@@ -7,11 +8,13 @@ type PageButtonProps = {
 };
 
 export function PageButton({ page, isActive, onClick }: PageButtonProps) {
+  const { t } = useLanguage();
+
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label={`Page ${page}`}
+      aria-label={t('pagination.page', { page })}
       aria-current={isActive ? 'page' : undefined}
       className={cn(
         'flex size-8 items-center justify-center text-sm leading-[21px] transition-colors',

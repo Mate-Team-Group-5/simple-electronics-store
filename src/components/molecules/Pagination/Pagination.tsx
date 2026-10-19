@@ -2,6 +2,7 @@ import { cn } from 'cn';
 import { SliderButton } from '@/components/atoms/SliderButton/SliderButton';
 import { PageButton } from '@/components/atoms/PageButton/PageButton';
 import { getVisiblePages } from '@/utils/getVisiblePages';
+import { useLanguage } from '@/context/LanguageContext';
 
 type PaginationProps = {
   currentPage: number;
@@ -16,6 +17,8 @@ export function Pagination({
   onPageChange,
   className,
 }: PaginationProps) {
+  const { t } = useLanguage();
+
   if (totalPages <= 1) {
     return null;
   }
@@ -26,12 +29,12 @@ export function Pagination({
 
   return (
     <nav
-      aria-label="Pagination"
+      aria-label={t('pagination.label')}
       className={cn('flex items-center justify-center gap-4', className)}
     >
       <SliderButton
         direction="left"
-        aria-label="Previous page"
+        aria-label={t('pagination.previous')}
         disabled={isFirst}
         onClick={() => onPageChange(currentPage - 1)}
         className="h-8 disabled:cursor-not-allowed disabled:border-elements disabled:text-icons"
@@ -51,7 +54,7 @@ export function Pagination({
 
       <SliderButton
         direction="right"
-        aria-label="Next page"
+        aria-label={t('pagination.next')}
         disabled={isLast}
         onClick={() => onPageChange(currentPage + 1)}
         className="h-8 disabled:cursor-not-allowed disabled:border-elements disabled:text-icons"

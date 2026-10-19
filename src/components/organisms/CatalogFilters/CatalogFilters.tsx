@@ -19,11 +19,13 @@ import {
   type FilterKey,
   type ProductFilters,
 } from '@/utils/filterProducts';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/i18n/en';
 
-const FILTER_TITLES: Record<FilterKey, string> = {
-  capacity: 'Capacity',
-  ram: 'RAM',
-  year: 'Year',
+const FILTER_TITLE_KEYS: Record<FilterKey, TranslationKey> = {
+  capacity: 'filters.capacity',
+  ram: 'filters.ram',
+  year: 'filters.year',
 };
 
 type CatalogFiltersProps = {
@@ -41,6 +43,7 @@ export function CatalogFilters({
   onReset,
   className,
 }: CatalogFiltersProps) {
+  const { t } = useLanguage();
   const bounds = useMemo(() => getPriceBounds(products), [products]);
   const activeCount = countActiveFilters(filters);
 
@@ -59,7 +62,9 @@ export function CatalogFilters({
   return (
     <div className={cn('flex flex-col', className)}>
       <div className="flex items-center justify-between pb-2">
-        <h2 className="text-xl font-bold text-text-primary">Filters</h2>
+        <h2 className="text-xl font-bold text-text-primary">
+          {t('catalog.filters')}
+        </h2>
 
         {activeCount > 0 && (
           <button
@@ -71,7 +76,7 @@ export function CatalogFilters({
               size={14}
               aria-hidden="true"
             />
-            Reset ({activeCount})
+            {t('filters.reset', { count: activeCount })}
           </button>
         )}
       </div>
@@ -82,7 +87,7 @@ export function CatalogFilters({
       >
         <AccordionItem
           value="search"
-          title="Search"
+          title={t('filters.search')}
         >
           <label className="relative flex items-center">
             <Search
@@ -92,7 +97,7 @@ export function CatalogFilters({
             />
             <input
               type="search"
-              aria-label="Search by name"
+              aria-label={t('filters.searchLabel')}
               placeholder="iPhone 14 Pro…"
               value={filters.query}
               onChange={(event) => onChange({ query: event.target.value })}
@@ -103,7 +108,7 @@ export function CatalogFilters({
 
         <AccordionItem
           value="price"
-          title="Price, $"
+          title={t('filters.price')}
           badge={`${bounds.min}–${bounds.max}`}
         >
           <PriceFilter
@@ -119,7 +124,7 @@ export function CatalogFilters({
           <AccordionItem
             key={key}
             value={key}
-            title={FILTER_TITLES[key]}
+            title={t(FILTER_TITLE_KEYS[key])}
             badge={filters[key].length > 0 ? filters[key].length : undefined}
           >
             <CheckboxFilter

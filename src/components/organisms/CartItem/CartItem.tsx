@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { X } from 'lucide-react';
 import type { CartProduct } from '@/types/Cart';
 import { QuantityCounter } from '@/components/molecules/QuantityCounter/QuantityCounter';
+import { useLanguage } from '@/context/LanguageContext';
 
 type CartItemProps = {
   item: CartProduct;
@@ -17,6 +18,7 @@ export const CartItem: React.FC<CartItemProps> = ({
   onDecrease,
   onRemove,
 }) => {
+  const { t } = useLanguage();
   const { product, quantity } = item;
 
   return (
@@ -24,7 +26,7 @@ export const CartItem: React.FC<CartItemProps> = ({
       <div className="flex items-center gap-4 tablet:flex-1 tablet:gap-6">
         <button
           type="button"
-          aria-label="Remove from cart"
+          aria-label={t('cart.remove')}
           onClick={onRemove}
           className="text-icons transition-colors hover:text-text-primary"
         >

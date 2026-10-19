@@ -1,5 +1,6 @@
 import React from 'react';
 import { Minus, Plus } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 type QuantityCounterProps = {
   value: number;
   onIncrease: () => void;
@@ -10,11 +11,13 @@ export const QuantityCounter: React.FC<QuantityCounterProps> = ({
   onIncrease,
   onDecrease,
 }) => {
+  const { t } = useLanguage();
+
   return (
     <div className="flex items-center">
       <button
         type="button"
-        aria-label="Decrease quantity"
+        aria-label={t('quantity.decrease')}
         onClick={onDecrease}
         disabled={value <= 1}
         className="flex size-8 items-center justify-center border border-icons text-text-primary transition-colors enabled:hover:border-text-primary disabled:border-elements disabled:text-icons"
@@ -26,7 +29,7 @@ export const QuantityCounter: React.FC<QuantityCounterProps> = ({
 
       <button
         type="button"
-        aria-label="Increase quantity"
+        aria-label={t('quantity.increase')}
         onClick={onIncrease}
         className="flex size-8 items-center justify-center border border-icons text-text-primary transition-colors enabled:hover:border-text-primary"
       >
