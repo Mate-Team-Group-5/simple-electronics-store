@@ -5,6 +5,7 @@ export type RegisterFormValues = {
   phone: string;
   password: string;
   confirmPassword: string;
+  acceptTerms: boolean;
 };
 
 export type RegisterFormErrors = Partial<
@@ -16,6 +17,7 @@ export const EMPTY_REGISTER_FORM: RegisterFormValues = {
   phone: '',
   password: '',
   confirmPassword: '',
+  acceptTerms: false,
 };
 
 export const MIN_PASSWORD_LENGTH = 6;
@@ -43,6 +45,10 @@ export function validateRegister(
 
   if (values.confirmPassword !== values.password) {
     errors.confirmPassword = 'auth.errors.passwordMismatch';
+  }
+
+  if (!values.acceptTerms) {
+    errors.acceptTerms = 'auth.errors.terms';
   }
 
   return errors;

@@ -1,6 +1,8 @@
 import { useState, type SubmitEvent } from 'react';
 import { LoaderCircle } from 'lucide-react';
 import { TextField } from '@/components/atoms/TextField/TextField';
+import { PasswordField } from '@/components/atoms/PasswordField/PasswordField';
+import { PasswordStrength } from '@/components/molecules/PasswordStrength/PasswordStrength';
 import { Button } from '@/components/atoms/Button/Button';
 import { useLanguage } from '@/context/LanguageContext';
 import type { TranslationKey } from '@/i18n/en';
@@ -25,9 +27,9 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<TranslationKey | null>(null);
 
-  const handleFieldChange = (
-    field: keyof RegisterFormValues,
-    value: string,
+  const handleFieldChange = <K extends keyof RegisterFormValues>(
+    field: K,
+    value: RegisterFormValues[K],
   ) => {
     setValues((prev) => ({ ...prev, [field]: value }));
     setErrors((prev) => ({ ...prev, [field]: undefined }));
@@ -102,24 +104,43 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         placeholder="+380 67 123 45 67"
       />
 
-      <TextField
+      <PasswordField
         label={t('auth.password')}
-        type="password"
         value={values.password}
         onChange={(value) => handleFieldChange('password', value)}
         error={getError('password')}
         autoComplete="new-password"
         placeholder={t('auth.passwordHint', { min: MIN_PASSWORD_LENGTH })}
-      />
+      >
+        <PasswordStrength password={values.password} />
+      </PasswordField>
 
-      <TextField
+      <PasswordField
         label={t('auth.confirmPassword')}
-        type="password"
         value={values.confirmPassword}
         onChange={(value) => handleFieldChange('confirmPassword', value)}
         error={getError('confirmPassword')}
         autoComplete="new-password"
       />
+
+      <div className="flex flex-col gap-1">
+        <label className="flex cursor-pointer items-start gap-3 text-sm text-text-secondary">
+          <input
+            type="checkbox"
+            checked={values.acceptTerms}
+            onChange={(event) =>
+              handleFieldChange('acceptTerms', event.target.checked)
+            }
+            aria-invalid={Boolean(errors.acceptTerms)}
+            className="mt-0.5 size-4 shrink-0 cursor-pointer accent-text-primary"
+          />
+          {t('auth.acceptTerms')}
+        </label>
+
+        {errors.acceptTerms && (
+          <p className="text-xs text-red">{t(errors.acceptTerms)}</p>
+        )}
+      </div>
 
       {submitError && (
         <p

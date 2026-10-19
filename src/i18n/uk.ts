@@ -200,4 +200,22 @@ export const uk: Translations = {
   'auth.errors.passwordShort': 'Пароль має містити щонайменше 6 символів',
   'auth.errors.passwordMismatch': 'Паролі не збігаються',
   'auth.errors.emailTaken': 'Акаунт з таким email уже існує',
+  'auth.showPassword': 'Показати пароль',
+  'auth.hidePassword': 'Сховати пароль',
+  'auth.capsLock': 'Увімкнено Caps Lock',
+  'auth.strength.weak': 'Слабкий',
+  'auth.strength.medium': 'Середній',
+  'auth.strength.strong': 'Надійний',
+  'auth.acceptTerms':
+    'Я погоджуюся з умовами використання та політикою конфіденційності',
+  'auth.errors.terms': 'Щоб продовжити, погодьтеся з умовами',
+  'auth.benefits.title': 'Навіщо реєструватися',
+  'auth.benefits.syncTitle': 'Обране й кошик всюди',
+  'auth.benefits.syncText':
+    'Збережені товари доступні на будь-якому пристрої після входу.',
+  'auth.benefits.fastTitle': 'Швидше оформлення',
+  'auth.benefits.fastText': 'Контактні дані заповнюються автоматично.',
+  'auth.benefits.historyTitle': 'Історія замовлень',
+  'auth.benefits.historyText':
+    'Стежте за замовленнями й повторюйте їх в один клік.',
 };
