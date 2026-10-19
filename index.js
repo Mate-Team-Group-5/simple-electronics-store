@@ -87,15 +87,16 @@ app.post('/api/login', async (req, res) => {
       },
     };
 
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ message: 'Login successful', token: token });
-      },
-    );
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      console.error('JWT_SECRET is not configured');
+      return res
+        .status(500)
+        .json({ error: 'Authentication is not configured' });
+    }
+
+    const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+    return res.json({ message: 'Login successful', token, user });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: 'Server error during login' });
