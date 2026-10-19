@@ -57,6 +57,7 @@ export const en = {
   'common.loading': 'Loading...',
   'common.error': 'Something went wrong. Please try again.',
   'common.reload': 'Reload',
+  'common.noResults': 'Nothing found',
   'breadcrumbs.label': 'Breadcrumbs',
 
   'catalog.filteredCount': {
@@ -157,6 +158,10 @@ export const en = {
   'checkout.branch': 'Nova Poshta branch',
   'checkout.branchPlaceholder': 'Choose a branch',
   'checkout.branchCityFirst': 'Choose your city first',
+  'checkout.postomat': 'Nova Poshta parcel locker',
+  'checkout.postomatPlaceholder': 'Choose a parcel locker',
+  'checkout.warehouseBranch': 'Branch',
+  'checkout.warehousePostomat': 'Parcel locker',
   'checkout.address': 'Address',
   'checkout.addressPlaceholder': 'Street, building, apartment',
   'checkout.pickupInfo':
@@ -172,6 +177,7 @@ export const en = {
   'checkout.errors.email': 'Enter a valid email',
   'checkout.errors.city': 'Choose your city',
   'checkout.errors.branch': 'Choose a Nova Poshta branch',
+  'checkout.errors.postomat': 'Choose a Nova Poshta parcel locker',
   'checkout.errors.address': 'Enter your delivery address',
 
   'summary.items': 'Items ({count})',

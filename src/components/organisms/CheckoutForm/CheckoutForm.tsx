@@ -104,6 +104,18 @@ export function CheckoutForm({
     onFieldChange('branchName', option.label);
   };
 
+  const isPostomat = values.warehouseType === 'postomat';
+
+  const getBranchPlaceholder = () => {
+    if (!values.cityRef) {
+      return 'checkout.branchCityFirst';
+    }
+
+    return isPostomat ?
+        'checkout.postomatPlaceholder'
+      : 'checkout.branchPlaceholder';
+  };
+
   return (
     <form
       id={id}
@@ -203,7 +215,7 @@ export function CheckoutForm({
               value="branch"
               checked={values.warehouseType === 'branch'}
               onChange={() => handleWarehouseTypeChange('branch')}
-              title="Branch"
+              title={t('checkout.warehouseBranch')}
             />
 
             <ChoiceOption
@@ -211,25 +223,21 @@ export function CheckoutForm({
               value="postomat"
               checked={values.warehouseType === 'postomat'}
               onChange={() => handleWarehouseTypeChange('postomat')}
-              title="Parcel locker"
+              title={t('checkout.warehousePostomat')}
             />
           </div>
         )}
 
         {values.delivery === 'nova-poshta' && (
           <SearchSelect
-            label={t('checkout.branch')}
+            label={t(isPostomat ? 'checkout.postomat' : 'checkout.branch')}
             query={branchQuery}
             onQueryChange={handleBranchQueryChange}
             options={branchOptions}
             onSelect={handleBranchSelect}
             isLoading={isWarehousesLoading}
             hasError={hasWarehousesError}
-            placeholder={t(
-              values.cityRef ?
-                'checkout.branchPlaceholder'
-              : 'checkout.branchCityFirst',
-            )}
+            placeholder={t(getBranchPlaceholder())}
             disabled={!values.cityRef}
             error={getError('branch')}
           />

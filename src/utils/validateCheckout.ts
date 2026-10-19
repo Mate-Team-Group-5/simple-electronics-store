@@ -62,7 +62,10 @@ export function validateCheckout(
   }
 
   if (values.delivery === 'nova-poshta' && !values.branch) {
-    errors.branch = 'checkout.errors.branch';
+    errors.branch =
+      values.warehouseType === 'postomat' ?
+        'checkout.errors.postomat'
+      : 'checkout.errors.branch';
   }
 
   if (values.delivery === 'courier' && !values.address.trim()) {

@@ -1,6 +1,7 @@
 import { useId, useState, type FocusEvent } from 'react';
 import { cn } from 'cn';
 import type { SelectOption } from '@/components/atoms/Select/Select';
+import { useLanguage } from '@/context/LanguageContext';
 
 type SearchSelectProps = {
   label: string;
@@ -29,6 +30,7 @@ export function SearchSelect({
   disabled = false,
   className,
 }: SearchSelectProps) {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const id = useId();
   const errorId = `${id}-error`;
@@ -52,20 +54,22 @@ export function SearchSelect({
   const renderListContent = () => {
     if (isLoading) {
       return (
-        <li className="px-4 py-3 text-sm text-text-secondary">Loading...</li>
+        <li className="px-4 py-3 text-sm text-text-secondary">
+          {t('common.loading')}
+        </li>
       );
     }
 
     if (hasError) {
       return (
-        <li className="px-4 py-3 text-sm text-red">Something went wrong</li>
+        <li className="px-4 py-3 text-sm text-red">{t('common.error')}</li>
       );
     }
 
     if (options.length === 0) {
       return query.trim() ?
           <li className="px-4 py-3 text-sm text-text-secondary">
-            Nothing found
+            {t('common.noResults')}
           </li>
         : null;
     }
