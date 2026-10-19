@@ -183,6 +183,20 @@ export const en = {
   'success.order': 'Order',
   'success.placed': 'has been placed. We will send the details to',
   'success.continue': 'Continue shopping',
+
+  'auth.registerTitle': 'Create an account',
+  'auth.registerSubtitle':
+    'Save your favourites and cart and check out faster.',
+  'auth.password': 'Password',
+  'auth.passwordHint': 'At least {min} characters',
+  'auth.confirmPassword': 'Repeat password',
+  'auth.register': 'Sign up',
+  'auth.registering': 'Signing up…',
+  'auth.registered': 'Account created!',
+  'auth.registeredText': 'You signed up as {email}.',
+  'auth.errors.passwordShort': 'Password must be at least 6 characters',
+  'auth.errors.passwordMismatch': 'Passwords do not match',
+  'auth.errors.emailTaken': 'An account with this email already exists',
 } satisfies Record<string, TranslationValue>;
 
 export type TranslationKey = keyof typeof en;

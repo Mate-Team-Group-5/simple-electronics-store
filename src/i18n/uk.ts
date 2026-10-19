@@ -186,4 +186,18 @@ export const uk: Translations = {
   'success.order': 'Замовлення',
   'success.placed': 'оформлено. Деталі надішлемо на',
   'success.continue': 'Продовжити покупки',
+
+  'auth.registerTitle': 'Створення акаунта',
+  'auth.registerSubtitle':
+    'Зберігайте обране й кошик та оформлюйте замовлення швидше.',
+  'auth.password': 'Пароль',
+  'auth.passwordHint': 'Щонайменше {min} символів',
+  'auth.confirmPassword': 'Повторіть пароль',
+  'auth.register': 'Зареєструватися',
+  'auth.registering': 'Реєструємо…',
+  'auth.registered': 'Акаунт створено!',
+  'auth.registeredText': 'Ви зареєструвалися як {email}.',
+  'auth.errors.passwordShort': 'Пароль має містити щонайменше 6 символів',
+  'auth.errors.passwordMismatch': 'Паролі не збігаються',
+  'auth.errors.emailTaken': 'Акаунт з таким email уже існує',
 };
