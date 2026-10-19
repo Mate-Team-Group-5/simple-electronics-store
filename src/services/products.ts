@@ -7,6 +7,9 @@ import type { Accessory } from '../types/Accessory';
 export const getProducts = () => {
   return client.get<Product[]>(`/products`);
 };
+export const getProductById = (id: number) => {
+  return client.get<Product>(`/products/${id}`);
+};
 
 // Returns products sorted by year in descending order
 // The most recent products will be at the beginning of the array

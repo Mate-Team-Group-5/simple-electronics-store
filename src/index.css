@@ -127,6 +127,8 @@
   --color-sbns-disabled-text: var(--sbns-disabled-text);
   --color-sbns-disabled-border: var(--sbns-disabled-border);
 
+  --color-header-border: var(--header-border);
+
   --color-main-beak: var(--main-beak);
 
   /* defalt srttings */
@@ -203,6 +205,8 @@
   --sbns-disabled-text: #b4bdc3;
   --sbns-disabled-border: #e2e6e9;
 
+  --header-border: #e2e6e9;
+
   --main-beak: #fff;
 
   /* defalt srttings */
@@ -270,6 +274,8 @@
   --sbns-disabled: #0f1121;
   --sbns-disabled-text: #4a4d58;
   --sbns-disabled-border: #3b3e4a;
+
+  --header-border: #323542;
 
   --main-beak: #0f1121;
 

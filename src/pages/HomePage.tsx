@@ -4,6 +4,7 @@ import { ProductGrid } from '@/components/organisms/ProductGrid';
 import {
   getHotPricesProducts,
   getNewModelsProducts,
+  getProductById,
 } from '@/services/products';
 import type { Product } from '@/types/Product';
 import { useEffect, useMemo, useState } from 'react';
@@ -15,16 +16,35 @@ export function HomePage() {
   const { t } = useLanguage();
   const [newModelsProducts, setNewModelsProducts] = useState<
     (Product | null)[]
-  >([]);
+  >(Array.from({ length: 50 }, () => null));
   const [hotPricesProducts, setHotPricesProducts] = useState<
     (Product | null)[]
   >([]);
 
   useEffect(() => {
-    // const requests: Promise<Product>[] = [];
-    for (let i = 0; i < 50; i++) {
-      // requests.push(getProductById(i));
+    let isActive = true;
+
+    const requests: Promise<Product>[] = [];
+    for (let i = 1; i < 50; i++) {
+      requests.push(getProductById(i));
     }
+
+    requests.forEach((request, index) => {
+      request
+        .then((product) => {
+          if (!isActive) return;
+          setNewModelsProducts((current) =>
+            current.map((item, i) => (i === index ? product : item)),
+          );
+        })
+        .catch((error) => {
+          console.error(`Could not load product ${[index]}`, error);
+        });
+    });
+
+    return () => {
+      isActive = false;
+    };
 
     getNewModelsProducts()
       .then((prod) => setNewModelsProducts(prod))
