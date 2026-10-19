@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import pool from './server/db.js';
 import readJSONFile from './server/readjson.js';
+import authMiddleware from './server/auth.js';
 
 dotenv.config();
 
@@ -19,6 +20,93 @@ app.use(cors());
 // Simple health-check / root route
 app.get('/', (req, res) => {
   res.json({ status: 'success', message: 'Backend is running on Render!' });
+});
+
+app.get('/api/user', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const userData = await pool.query(
+      'SELECT id, email, phone, favorites, cart FROM users WHERE id = $1',
+      [userId],
+    );
+
+    if (userData.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const user = userData.rows[0];
+
+    res.json({ user });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: 'Server error fetching user data' });
+  }
+});
+
+app.put('/api/user', authMiddleware, async (req, res) => {
+  try {
+    const { email, phone, favorites, cart } = req.body;
+    const userId = req.user.id;
+
+    const userData = await pool.query(
+      'SELECT id, email, password, phone, favorites, cart FROM users WHERE id = $1',
+      [userId],
+    );
+
+    if (userData.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const currentUser = userData.rows[0];
+
+    if (email && email !== currentUser.email) {
+      const emailCheck = await pool.query(
+        'SELECT id FROM users WHERE email = $1',
+        [email],
+      );
+      if (emailCheck.rows.length > 0) {
+        return res.status(409).json({ error: 'Email already in use' });
+      }
+    }
+
+    const updatedEmail = email || currentUser.email;
+    const updatedPhone = phone || currentUser.phone;
+    const updatedFavorites = favorites || currentUser.favorites;
+    const updatedCart = cart || currentUser.cart;
+    let updatedPassword = currentUser.password;
+
+    if (req.body.password) {
+      const salt = await bcrypt.genSalt(10);
+      updatedPassword = await bcrypt.hash(req.body.password, salt);
+    }
+
+    const updatedUser = await pool.query(
+      'UPDATE users SET email = $1, password = $2, phone = $3, favorites = $4, cart = $5 WHERE id = $6 RETURNING id, email, phone, favorites, cart',
+      [
+        updatedEmail,
+        updatedPassword,
+        updatedPhone,
+        updatedFavorites,
+        updatedCart,
+        userId,
+      ],
+    );
+
+    res.json({
+      message: 'User data updated successfully',
+      user: {
+        id: updatedUser.rows[0].id,
+        email: updatedUser.rows[0].email,
+        phone: updatedUser.rows[0].phone,
+        favorites: updatedUser.rows[0].favorites,
+        cart: updatedUser.rows[0].cart,
+      },
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: 'Server error updating user data' });
+  }
 });
 
 app.post('/api/register', async (req, res) => {
