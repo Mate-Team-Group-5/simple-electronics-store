@@ -310,10 +310,9 @@
 
 @layer base {
   body {
-    @apply bg-background text-foreground;
+    @apply bg-main-beak text-foreground;
   }
   html {
     @apply font-sans;
-    background-color: var(--color-main-beak);
   }
 }

@@ -29,7 +29,7 @@ function App() {
 
   return (
     <div
-      className={cn('flex min-h-screen flex-col', {
+      className={cn('flex min-h-screen flex-col', 'bg-main-beak', {
         dark: activeTheme === Theme.dark,
       })}
     >

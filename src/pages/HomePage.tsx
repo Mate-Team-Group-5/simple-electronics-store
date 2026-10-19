@@ -13,10 +13,19 @@ import { useLanguage } from '@/context/LanguageContext';
 
 export function HomePage() {
   const { t } = useLanguage();
-  const [newModelsProducts, setNewModelsProducts] = useState<Product[]>([]);
-  const [hotPricesProducts, setHotPricesProducts] = useState<Product[]>([]);
+  const [newModelsProducts, setNewModelsProducts] = useState<
+    (Product | null)[]
+  >([]);
+  const [hotPricesProducts, setHotPricesProducts] = useState<
+    (Product | null)[]
+  >([]);
 
   useEffect(() => {
+    // const requests: Promise<Product>[] = [];
+    for (let i = 0; i < 50; i++) {
+      // requests.push(getProductById(i));
+    }
+
     getNewModelsProducts()
       .then((prod) => setNewModelsProducts(prod))
       .catch(() => console.error('cant load products in HamePage'));
@@ -28,7 +37,7 @@ export function HomePage() {
 
   const categoryCounts = useMemo(() => {
     const countByCategory = (category: Category) =>
-      newModelsProducts.filter((product) => product.category === category)
+      newModelsProducts.filter((product) => product?.category === category)
         .length;
 
     return {

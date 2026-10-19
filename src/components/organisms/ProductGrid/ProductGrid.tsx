@@ -5,11 +5,11 @@ import type React from 'react';
 import { ProductCard } from '../ProductCard';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from 'cn';
-import { useFavourites } from '@/hooks/useFavourites';
+import { LoadingProductCard } from '../LoadingProductCard';
 
 type Props = {
   title: string;
-  products: Product[];
+  products: (Product | null)[];
   isSaleGrid?: boolean;
   classNames?: string;
 };
@@ -25,7 +25,6 @@ export const ProductGrid: React.FC<Props> = ({
   );
 
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { isFavourite, toggleFavourite } = useFavourites();
 
   useEffect(() => {}, []);
 
@@ -117,16 +116,13 @@ export const ProductGrid: React.FC<Props> = ({
         ref={scrollRef}
       >
         {products.slice(gridSections, gridSections + 4).map((product) => {
-          return (
-            <ProductCard
-              key={product.id}
-              product={product}
-              isAddedToCart={false}
-              isSale={isSaleGrid}
-              isFavorite={isFavourite(product.id)}
-              onAddToFavorites={toggleFavourite}
-            />
-          );
+          return product ?
+              <ProductCard
+                key={product.id}
+                product={product}
+                isSale={isSaleGrid}
+              />
+            : <LoadingProductCard />;
         })}
       </div>
     </div>
