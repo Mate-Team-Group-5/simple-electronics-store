@@ -5,6 +5,7 @@ import path from 'path';
 async function readJSONFile(filename) {
   const filePath = path.join(
     path.dirname(fileURLToPath(import.meta.url)),
+    '..',
     'public',
     'api',
     filename,
