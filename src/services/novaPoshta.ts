@@ -1,38 +1,116 @@
-export type NovaPoshtaBranch = {
-  id: string;
-  name: string;
+import type {
+  WarehouseType,
+  NovaPoshtaCity,
+  NovaPoshtaWarehouse,
+} from '@/types/NovaPoshta';
+
+type RawSettlement = {
+  Present: string;
+  DeliveryCity: string;
+  Warehouses: number;
 };
 
-// Stub data: a few cities and branches instead of the real Nova Poshta API.
-// Later it can be replaced with a request to api.novaposhta.ua.
-const BRANCHES_BY_CITY: Record<string, NovaPoshtaBranch[]> = {
-  Kyiv: [
-    { id: 'kyiv-1', name: 'Branch No. 1: 2 Pyrohivskyi Shliakh St' },
-    { id: 'kyiv-5', name: 'Branch No. 5: 22 Fedorova St' },
-    { id: 'kyiv-12', name: 'Branch No. 12: 14 Khreshchatyk St' },
-    { id: 'kyiv-31', name: 'Branch No. 31: 3 Lesi Ukrainky Blvd' },
-  ],
-  Lviv: [
-    { id: 'lviv-1', name: 'Branch No. 1: 5 Horodotska St' },
-    { id: 'lviv-7', name: 'Branch No. 7: 21 Svobody Ave' },
-    { id: 'lviv-15', name: 'Branch No. 15: 8 Stryiska St' },
-  ],
-  Kharkiv: [
-    { id: 'kharkiv-3', name: 'Branch No. 3: 10 Nauky Ave' },
-    { id: 'kharkiv-9', name: 'Branch No. 9: 42 Sumska St' },
-  ],
-  Odesa: [
-    { id: 'odesa-2', name: 'Branch No. 2: 16 Derybasivska St' },
-    { id: 'odesa-11', name: 'Branch No. 11: 7 Shevchenka Ave' },
-  ],
-  Dnipro: [
-    { id: 'dnipro-4', name: 'Branch No. 4: 30 Yavornytskoho Ave' },
-    { id: 'dnipro-8', name: 'Branch No. 8: 12 Hlinky St' },
-  ],
+type SearchSettlementsData = {
+  Addresses: RawSettlement[];
 };
 
-export const DELIVERY_CITIES = Object.keys(BRANCHES_BY_CITY);
+async function callNovaPoshta<T>(
+  calledMethod: string,
+  methodProperties: Record<string, string>,
+): Promise<T[]> {
+  const urlNovaPoshtaAPI = 'https://api.novaposhta.ua/v2.0/json/';
+  const response = await fetch(urlNovaPoshtaAPI, {
+    method: 'POST',
+    body: JSON.stringify({
+      apiKey: '',
+      modelName: 'Address',
+      calledMethod,
+      methodProperties,
+    }),
+    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+  const json = await response.json();
+  if (!json.success) {
+    throw new Error(json.errors[0]);
+  }
+  return json.data;
+}
 
-export function getNovaPoshtaBranches(city: string): NovaPoshtaBranch[] {
-  return BRANCHES_BY_CITY[city] ?? [];
+export async function searchCities(query: string): Promise<NovaPoshtaCity[]> {
+  const trimmed = query.trim();
+
+  if (!trimmed) {
+    return [];
+  }
+
+  const data = await callNovaPoshta<SearchSettlementsData>(
+    'searchSettlements',
+    { CityName: trimmed, Limit: '20', Page: '1' },
+  );
+
+  const addresses = data[0]?.Addresses ?? [];
+
+  return addresses
+    .filter((address) => address.Warehouses > 0)
+    .map((address) => ({
+      ref: address.DeliveryCity,
+      name: address.Present,
+    }));
+}
+
+const WAREHOUSE_TYPE_REFS: Record<WarehouseType, string[]> = {
+  branch: [
+    '841339c7-591a-42e2-8233-7a0a00f0ed6f', // Поштове
+    '9a68df70-0267-42a8-bb5c-37f427e36ee4', // Вантажне
+  ],
+  postomat: ['f9316480-5f2d-425d-bc2c-ac7cd29decf0'], // Поштомат
+};
+
+type RawWarehouse = {
+  Ref: string;
+  Description: string;
+  Number: string;
+  WarehouseStatus: string;
+  DenyToSelect: string;
+  PostMachineType: string;
+};
+
+export async function getWarehouses(
+  cityRef: string,
+  type: WarehouseType,
+  query: string,
+): Promise<NovaPoshtaWarehouse[]> {
+  if (!cityRef) {
+    return [];
+  }
+
+  const results = await Promise.all(
+    WAREHOUSE_TYPE_REFS[type].map((typeRef) =>
+      callNovaPoshta<RawWarehouse>('getWarehouses', {
+        CityRef: cityRef,
+        TypeOfWarehouseRef: typeRef,
+        FindByString: query.trim(),
+        Limit: '20',
+        Page: '1',
+      }),
+    ),
+  );
+
+  return results
+    .flat()
+    .filter(
+      (warehouse) =>
+        warehouse.WarehouseStatus === 'Working' &&
+        warehouse.DenyToSelect === '0' &&
+        warehouse.PostMachineType !== 'ForResidentsOfEntrance',
+    )
+    .map((warehouse) => ({
+      ref: warehouse.Ref,
+      name: warehouse.Description,
+      number: warehouse.Number,
+    }))
+    .sort((a, b) => Number(a.number) - Number(b.number));
 }

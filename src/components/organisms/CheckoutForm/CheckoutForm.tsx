@@ -1,18 +1,16 @@
-import type { SubmitEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 import { TextField } from '@/components/atoms/TextField/TextField';
 import { ChoiceOption } from '@/components/atoms/ChoiceOption/ChoiceOption';
-import { Select } from '@/components/atoms/Select/Select';
-import { DELIVERY_CITIES, getNovaPoshtaBranches } from '@/services/novaPoshta';
+import type { SelectOption } from '@/components/atoms/Select/Select';
+import { SearchSelect } from '@/components/molecules/SearchSelect/SearchSelect';
+import { useCitySearch } from '@/hooks/useCitySearch';
+import { useWarehouses } from '@/hooks/useWarehouses';
+import type { WarehouseType } from '@/types/NovaPoshta';
 import type {
   CheckoutFormErrors,
   CheckoutFormValues,
 } from '@/utils/validateCheckout';
 import { useLanguage } from '@/context/LanguageContext';
-
-const CITY_OPTIONS = DELIVERY_CITIES.map((city) => ({
-  value: city,
-  label: city,
-}));
 
 type CheckoutFormProps = {
   id: string;
@@ -33,6 +31,30 @@ export function CheckoutForm({
   onSubmit,
 }: CheckoutFormProps) {
   const { t } = useLanguage();
+  const [cityQuery, setCityQuery] = useState(values.city);
+  const [branchQuery, setBranchQuery] = useState(values.branchName);
+
+  const {
+    cities,
+    isLoading: isCitiesLoading,
+    hasError: hasCitiesError,
+  } = useCitySearch(cityQuery);
+
+  const {
+    warehouses,
+    isLoading: isWarehousesLoading,
+    hasError: hasWarehousesError,
+  } = useWarehouses(values.cityRef, values.warehouseType, branchQuery);
+
+  const cityOptions = cities.map((city) => ({
+    value: city.ref,
+    label: city.name,
+  }));
+
+  const branchOptions = warehouses.map((warehouse) => ({
+    value: warehouse.ref,
+    label: warehouse.name,
+  }));
 
   const getError = (field: keyof CheckoutFormErrors) => {
     const errorKey = errors[field];
@@ -40,19 +62,46 @@ export function CheckoutForm({
     return errorKey ? t(errorKey) : undefined;
   };
 
-  const branchOptions = getNovaPoshtaBranches(values.city).map((branch) => ({
-    value: branch.id,
-    label: branch.name,
-  }));
-
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit();
   };
 
-  const handleCityChange = (city: string) => {
-    onFieldChange('city', city);
+  const resetBranch = () => {
     onFieldChange('branch', '');
+    onFieldChange('branchName', '');
+    setBranchQuery('');
+  };
+
+  const handleCityQueryChange = (query: string) => {
+    setCityQuery(query);
+    onFieldChange('city', '');
+    onFieldChange('cityRef', '');
+    resetBranch();
+  };
+
+  const handleCitySelect = (option: SelectOption) => {
+    setCityQuery(option.label);
+    onFieldChange('city', option.label);
+    onFieldChange('cityRef', option.value);
+    resetBranch();
+  };
+
+  const handleWarehouseTypeChange = (type: WarehouseType) => {
+    onFieldChange('warehouseType', type);
+    resetBranch();
+  };
+
+  const handleBranchQueryChange = (query: string) => {
+    setBranchQuery(query);
+    onFieldChange('branch', '');
+    onFieldChange('branchName', '');
+  };
+
+  const handleBranchSelect = (option: SelectOption) => {
+    setBranchQuery(option.label);
+    onFieldChange('branch', option.value);
+    onFieldChange('branchName', option.label);
   };
 
   return (
@@ -134,31 +183,55 @@ export function CheckoutForm({
         </div>
 
         {values.delivery !== 'pickup' && (
-          <Select
+          <SearchSelect
             label={t('checkout.city')}
-            value={values.city}
-            options={CITY_OPTIONS}
-            onChange={handleCityChange}
+            query={cityQuery}
+            onQueryChange={handleCityQueryChange}
+            options={cityOptions}
+            onSelect={handleCitySelect}
+            isLoading={isCitiesLoading}
+            hasError={hasCitiesError}
             placeholder={t('checkout.cityPlaceholder')}
             error={getError('city')}
-            selectClassName="h-12 px-4"
           />
         )}
 
+        {values.delivery === 'nova-poshta' && values.cityRef && (
+          <div className="grid gap-4 tablet:grid-cols-2">
+            <ChoiceOption
+              name="warehouseType"
+              value="branch"
+              checked={values.warehouseType === 'branch'}
+              onChange={() => handleWarehouseTypeChange('branch')}
+              title="Branch"
+            />
+
+            <ChoiceOption
+              name="warehouseType"
+              value="postomat"
+              checked={values.warehouseType === 'postomat'}
+              onChange={() => handleWarehouseTypeChange('postomat')}
+              title="Parcel locker"
+            />
+          </div>
+        )}
+
         {values.delivery === 'nova-poshta' && (
-          <Select
+          <SearchSelect
             label={t('checkout.branch')}
-            value={values.branch}
+            query={branchQuery}
+            onQueryChange={handleBranchQueryChange}
             options={branchOptions}
-            onChange={(value) => onFieldChange('branch', value)}
+            onSelect={handleBranchSelect}
+            isLoading={isWarehousesLoading}
+            hasError={hasWarehousesError}
             placeholder={t(
-              values.city ?
+              values.cityRef ?
                 'checkout.branchPlaceholder'
               : 'checkout.branchCityFirst',
             )}
-            disabled={!values.city}
+            disabled={!values.cityRef}
             error={getError('branch')}
-            selectClassName="h-12 px-4"
           />
         )}
 
