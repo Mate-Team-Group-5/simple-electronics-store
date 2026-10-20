@@ -2,6 +2,7 @@ import readJSONFile from './readjson.js';
 
 const SIZE_PATTERN = /\s\d+(GB|TB|mm)\b.*$/;
 
+let cachedProducts = null;
 let cachedCatalog = null;
 
 function getModelName(productName) {
@@ -12,6 +13,14 @@ function sizeToNumber(size) {
   const value = parseFloat(size);
 
   return size.endsWith('TB') ? value * 1024 : value;
+}
+
+async function getProducts() {
+  if (!cachedProducts) {
+    cachedProducts = await readJSONFile('products.json');
+  }
+
+  return cachedProducts;
 }
 
 function buildCatalogText(products) {
@@ -30,6 +39,7 @@ function buildCatalogText(products) {
         colors: new Set(),
         minPrice: product.price,
         maxPrice: product.price,
+        id: product.itemId,
       });
     }
 
@@ -37,8 +47,12 @@ function buildCatalogText(products) {
 
     model.sizes.add(product.capacity);
     model.colors.add(product.color);
-    model.minPrice = Math.min(model.minPrice, product.price);
     model.maxPrice = Math.max(model.maxPrice, product.price);
+
+    if (product.price < model.minPrice) {
+      model.minPrice = product.price;
+      model.id = product.itemId;
+    }
   }
 
   return [...models.values()]
@@ -52,17 +66,21 @@ function buildCatalogText(products) {
           `$${model.minPrice}`
         : `$${model.minPrice}-$${model.maxPrice}`;
 
-      return `- ${model.name} (${model.category}, ${model.year}): ${sizes}; colors: ${colors}; price: ${price}`;
+      return `- ${model.name} [[${model.id}]] (${model.category}, ${model.year}): ${sizes}; colors: ${colors}; price: ${price}`;
     })
     .join('\n');
 }
 
 export async function getCatalogText() {
   if (!cachedCatalog) {
-    const products = await readJSONFile('products.json');
-
-    cachedCatalog = buildCatalogText(products);
+    cachedCatalog = buildCatalogText(await getProducts());
   }
 
   return cachedCatalog;
+}
+
+export async function findProduct(itemId) {
+  const products = await getProducts();
+
+  return products.find((product) => product.itemId === itemId) ?? null;
 }
