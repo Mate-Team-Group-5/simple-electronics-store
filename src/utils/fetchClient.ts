@@ -18,7 +18,7 @@ export class ApiError extends Error {
 }
 
 // To have autocompletion and avoid mistypes
-type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
+type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
 
 function request<T>(
   url: string,
@@ -29,18 +29,18 @@ function request<T>(
   const requestUrl = isHasBackend ? url : `${url}.json`;
   const options: RequestInit = { method };
 
-  if (token) {
-    options.headers = {
-      ...options.headers,
-      Authorization: `Bearer ${token}`,
-    };
-  }
-
   if (data) {
     // We add body and Content-Type only for the requests with data
     options.body = JSON.stringify(data);
     options.headers = {
       'Content-Type': 'application/json; charset=UTF-8',
+    };
+  }
+
+  if (token) {
+    options.headers = {
+      ...options.headers,
+      Authorization: `Bearer ${token}`,
     };
   }
 
@@ -62,5 +62,7 @@ export const client = {
   get: <T>(url: string, token: string) => request<T>(url, 'GET', null, token),
   post: <T>(url: string, data: any) => request<T>(url, 'POST', data),
   patch: <T>(url: string, data: any) => request<T>(url, 'PATCH', data),
+  put: <T>(url: string, data: any, token: string) =>
+    request<T>(url, 'PUT', data, token),
   delete: (url: string) => request(url, 'DELETE'),
 };

@@ -1,3 +1,4 @@
+import type { CartProduct } from '@/types/Cart';
 import { client } from '../utils/fetchClient';
 import type { User } from '@/types/User';
 
@@ -26,4 +27,12 @@ export const loginUser = (email: string, password: string) => {
 
 export const getUser = (token: string) => {
   return client.get<User>('/user', token);
+};
+
+export const updateUserFavorites = (ids: number[], token: string) => {
+  return client.put('/user', { favorites: ids }, token);
+};
+
+export const updateUserCart = (products: CartProduct[], token: string) => {
+  return client.put('/user', { cart: products }, token);
 };

@@ -27,7 +27,7 @@ export function AccountPage() {
       updateFavorites(user.favorites);
       updateCart(user.cart as CartProduct[]);
     }
-  }, [user]);
+  }, [user, updateFavorites, updateCart]);
 
   const handleAuthSuccess = () => {
     if (from) {

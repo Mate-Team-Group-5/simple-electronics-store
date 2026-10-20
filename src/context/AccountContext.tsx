@@ -1,6 +1,7 @@
 import type { CartProduct } from '@/types/Cart';
 import type { Product } from '@/types/Product';
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { updateUserCart, updateUserFavorites } from '@/services/user';
 
 interface AccountContextType {
   favoriteProducts: number[];
@@ -28,6 +29,10 @@ export const AccountProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts));
+    const token = sessionStorage.getItem('auth_jwt_token');
+    if (token) {
+      updateUserFavorites(favoriteProducts, token);
+    }
   }, [favoriteProducts]);
 
   const [cartItems, setCartItems] = useState<CartProduct[]>(() => {
@@ -38,6 +43,10 @@ export const AccountProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    const token = sessionStorage.getItem('auth_jwt_token');
+    if (token) {
+      updateUserCart(cartItems, token);
+    }
   }, [cartItems]);
 
   function addFavorites(id: number) {
