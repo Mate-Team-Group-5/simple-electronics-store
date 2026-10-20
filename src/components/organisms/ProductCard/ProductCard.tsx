@@ -17,27 +17,25 @@ import './ProductCard.css';
 
 type Props = {
   product: Product;
-  isAddedToCart: boolean;
-  isFavorite: boolean;
   isSale?: boolean;
-
-  onAddToCart?: (id: number) => void;
-  onAddToFavorites?: (id: number) => void;
 };
 
-export const ProductCard: React.FC<Props> = ({
-  product,
-  isFavorite,
-  isSale,
-  onAddToFavorites,
-}) => {
+export const ProductCard: React.FC<Props> = ({ product, isSale }) => {
   const { t } = useLanguage();
   const { name, price, fullPrice, image, id, ram, capacity, screen } = product;
   const productLink = `/${product.category}/${product.itemId}`;
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const { cartItems, addCartItem, removeCartItem, updateCartItem } =
-    useAccountContext();
+  const {
+    cartItems,
+    addCartItem,
+    removeCartItem,
+    updateCartItem,
+    favoriteProducts,
+    addFavorites,
+    removeFavorites,
+  } = useAccountContext();
+
   function handleAddCartButton(): void {
     if (cartItems.some((item) => item.id === id)) {
       updateCartItem(
@@ -53,11 +51,12 @@ export const ProductCard: React.FC<Props> = ({
     }
   }
   function handleFavouriteClick() {
-    if (!isFavorite && imageRef.current) {
+    if (!favoriteProducts.includes(id) && imageRef.current) {
       flyToTarget(imageRef.current, 'favourites');
+      addFavorites(id);
+    } else {
+      removeFavorites(id);
     }
-
-    onAddToFavorites?.(id);
   }
 
   function handleDeleteButton() {
@@ -70,7 +69,7 @@ export const ProductCard: React.FC<Props> = ({
   }
 
   return (
-    <Card className="shrink-0 w-68 h-126.5 border-box p-8 flex-col gap-0 snap-x snap-mandatory scroll-smooth hoverAnimations bg-card-background ">
+    <Card className="shrink-0 w-68 h-126.5 border-box p-8 flex-col gap-0 snap-x snap-mandatory scroll-smooth hover:shadow-lg hover:shadow-black/10 bg-card-background ">
       <Link
         to={productLink}
         className="flex min-h-0 flex-1 items-center justify-center"
@@ -126,7 +125,7 @@ export const ProductCard: React.FC<Props> = ({
         />
 
         <FavouriteButton
-          isFavourite={isFavorite}
+          isFavourite={favoriteProducts.includes(id)}
           onClick={handleFavouriteClick}
         />
       </CardFooter>

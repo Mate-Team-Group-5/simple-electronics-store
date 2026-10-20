@@ -7,6 +7,12 @@ import type { Accessory } from '../types/Accessory';
 export const getProducts = () => {
   return client.get<Product[]>(`/products`);
 };
+export const getProductById = (id: number) => {
+  return client.get<Product>(`/products/${id}`);
+};
+export const getProductsPaginated = (limit: number, offset: number) => {
+  return client.get<Product[]>(`/products/?limit=${limit}&offset=${offset}`);
+};
 
 // Returns products sorted by year in descending order
 // The most recent products will be at the beginning of the array
@@ -40,11 +46,22 @@ export async function getHotPricesProducts() {
 export const getPhones = () => {
   return client.get<Phone[]>(`/phones`);
 };
+export const getPhonesCount = () => {
+  return client.get<number>(`/phones/count`);
+};
 
 export const getTablets = () => {
   return client.get<Tablet[]>(`/tablets`);
 };
 
+export const getTabletsCount = () => {
+  return client.get<number>(`/tablets/count`);
+};
+
 export const getAccessories = () => {
   return client.get<Accessory[]>(`/accessories`);
+};
+
+export const getAccessoriesCount = () => {
+  return client.get<number>(`/accessories/count`);
 };
