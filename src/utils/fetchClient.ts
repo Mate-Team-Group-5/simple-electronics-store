@@ -18,12 +18,13 @@ export class ApiError extends Error {
 }
 
 // To have autocompletion and avoid mistypes
-type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
+type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
 
 function request<T>(
   url: string,
   method: RequestMethod = 'GET',
   data: any = null, // we can send any data to the server
+  token: string | null = null, // we can send a token to the server
 ): Promise<T> {
   const requestUrl = isHasBackend ? url : `${url}.json`;
   const options: RequestInit = { method };
@@ -33,6 +34,13 @@ function request<T>(
     options.body = JSON.stringify(data);
     options.headers = {
       'Content-Type': 'application/json; charset=UTF-8',
+    };
+  }
+
+  if (token) {
+    options.headers = {
+      ...options.headers,
+      Authorization: `Bearer ${token}`,
     };
   }
 
@@ -51,8 +59,10 @@ function request<T>(
 }
 
 export const client = {
-  get: <T>(url: string) => request<T>(url),
+  get: <T>(url: string, token?: string) => request<T>(url, 'GET', null, token),
   post: <T>(url: string, data: any) => request<T>(url, 'POST', data),
   patch: <T>(url: string, data: any) => request<T>(url, 'PATCH', data),
+  put: <T>(url: string, data: any, token: string) =>
+    request<T>(url, 'PUT', data, token),
   delete: (url: string) => request(url, 'DELETE'),
 };

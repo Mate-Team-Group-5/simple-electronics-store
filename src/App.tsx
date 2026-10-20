@@ -14,6 +14,7 @@ import cn from 'classnames';
 import { Theme } from './types/Theme';
 import { useLanguage } from './context/LanguageContext';
 import { AccountPage } from './pages/AccountPage';
+import { ChatWidget } from './components/organisms/ChatWidget/ChatWidget';
 import { useCookie } from './hooks/useCookie';
 
 function App() {
@@ -113,6 +114,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
+      <ChatWidget />
     </div>
   );
 }

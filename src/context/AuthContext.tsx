@@ -2,6 +2,8 @@ import { createContext, useContext, useState, type ReactNode } from 'react';
 import { useAuthToken } from '@/hooks/useAuthToken';
 import { loginUser, registerUser } from '@/services/user';
 import type { User } from '@/types/User';
+import { useAccountContext } from '@/context/AccountContext';
+import type { CartProduct } from '@/types/Cart';
 
 const USER_KEY = 'auth_user';
 
@@ -47,6 +49,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const { token, setToken, clearToken } = useAuthToken();
   const [user, setUser] = useState<User | null>(readSavedUser);
+  const { updateFavorites, updateCart } = useAccountContext();
 
   const saveUser = (nextUser: User | null) => {
     setUser(nextUser);
@@ -54,6 +57,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       if (nextUser) {
         sessionStorage.setItem(USER_KEY, JSON.stringify(nextUser));
+        updateFavorites(nextUser.favorites);
+        updateCart(nextUser.cart as CartProduct[]);
       } else {
         sessionStorage.removeItem(USER_KEY);
       }
