@@ -22,8 +22,11 @@ export function BackToTopButton({ className }: BackToTopButtonProps) {
       <span className="text-xs font-semibold text-text-secondary transition-colors group-hover:text-text-primary">
         {t('footer.backToTop')}
       </span>
-      <span className="flex size-8 items-center justify-center border border-icons text-text-primary transition-colors group-hover:border-text-primary">
-        <ChevronUp size={16} />
+      <span className="flex size-8 items-center justify-center border border-icons text-text-primary transition-colors group-hover:border-text-primary bg-background-active">
+        <ChevronUp
+          size={16}
+          className="bg-background-active text-card-primary-text"
+        />
       </span>
     </button>
   );

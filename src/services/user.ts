@@ -1,13 +1,25 @@
 import { client } from '../utils/fetchClient';
+import type { User } from '@/types/User';
+
+type RegisterResponse = {
+  message: string;
+  user: User;
+};
+
+type LoginResponse = {
+  message: string;
+  token: string;
+  user: User;
+};
 
 export const registerUser = (
   email: string,
   password: string,
   phone: string,
 ) => {
-  return client.post('/register', { email, password, phone });
+  return client.post<RegisterResponse>('/register', { email, password, phone });
 };
 
 export const loginUser = (email: string, password: string) => {
-  return client.post('/login', { email, password });
+  return client.post<LoginResponse>('/login', { email, password });
 };

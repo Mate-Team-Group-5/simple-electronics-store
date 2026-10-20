@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { Heart, Menu, MoonIcon, ShoppingBag, SunIcon, X } from 'lucide-react';
+import {
+  Heart,
+  Menu,
+  MoonIcon,
+  ShoppingBag,
+  SunIcon,
+  UserRound,
+  X,
+  UserRoundCheck,
+} from 'lucide-react';
 import { Logo } from '@/components/atoms/Logo/Logo';
 import { IconButton } from '@/components/atoms/IconButton/IconButton';
 import { Navigation } from '@/components/molecules/Navigation/Navigation';
@@ -9,6 +18,7 @@ import { LanguageSwitcher } from '@/components/atoms/LanguageSwitcher/LanguageSw
 import { useLanguage } from '@/context/LanguageContext';
 import { Theme } from '@/types/Theme';
 import { Button } from '@base-ui/react/button';
+import { useAuth } from '@/context/AuthContext';
 
 type HeaderProps = {
   favouritesCount?: number;
@@ -25,21 +35,28 @@ export function Header({
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useLanguage();
+  const { isAuthenticated } = useAuth();
 
   return (
-    <header className="flex h-12 items-center gap-2 bg-white shadow-[0_1px_0_0_var(--color-elements)] desktop:h-16 desktop:gap-6">
+    <header className="flex h-12 items-center gap-2 bg-main-beak shadow-[0_1px_0_0_var(--header-border)] desktop:h-16 desktop:gap-6">
       <Logo className="h-full px-4 desktop:px-6" />
 
       <Navigation className="hidden tablet:block" />
 
       <div className="ml-auto flex h-full items-center">
         <LanguageSwitcher className="px-1 desktop:px-4" />
-
+        <Button
+          onClick={onSwithTheme}
+          className="pr-2 desktop:pr-4 "
+        >
+          {theme === Theme.white && (
+            <SunIcon className="w-4 h-4 text-card-primary-text" />
+          )}
+          {theme === Theme.dark && (
+            <MoonIcon className="w-4 h-4 text-card-primary-text" />
+          )}
+        </Button>
         <div className="hidden h-full tablet:flex">
-          <Button onClick={onSwithTheme}>
-            {theme === Theme.white && <SunIcon />}
-            {theme === Theme.dark && <MoonIcon />}
-          </Button>
           <HeaderActionButton
             to="/favourites"
             label={t('header.favourites')}
@@ -56,13 +73,21 @@ export function Header({
           >
             <ShoppingBag size={16} />
           </HeaderActionButton>
+          <HeaderActionButton
+            to="/account"
+            label={t('header.account')}
+          >
+            {isAuthenticated ?
+              <UserRoundCheck size={16} />
+            : <UserRound size={16} />}
+          </HeaderActionButton>
         </div>
 
         <IconButton
           aria-label={t(isMenuOpen ? 'header.closeMenu' : 'header.openMenu')}
           aria-expanded={isMenuOpen}
           onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="tablet:hidden"
+          className="tablet:hidden bg-main-beak hover:bg-main-beak "
         >
           {isMenuOpen ?
             <X size={16} />

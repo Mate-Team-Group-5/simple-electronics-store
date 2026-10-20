@@ -6,6 +6,17 @@ const BASE_URL =
     `${import.meta.env.VITE_SERVER_URL}/api`
   : `${import.meta.env.BASE_URL}api`;
 
+// Error with the HTTP status, so the UI can react differently
+// (for example, 409 = email is already taken)
+export class ApiError extends Error {
+  status: number;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
+}
+
 // To have autocompletion and avoid mistypes
 type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
@@ -25,9 +36,14 @@ function request<T>(
     };
   }
 
-  return fetch(BASE_URL + requestUrl, options).then((response) => {
+  return fetch(BASE_URL + requestUrl, options).then(async (response) => {
     if (!response.ok) {
-      throw new Error();
+      const body = await response.json().catch(() => null);
+
+      throw new ApiError(
+        response.status,
+        body?.message ?? body?.error ?? response.statusText,
+      );
     }
 
     return response.json();

@@ -3,31 +3,30 @@ import type { Product } from '@/types/Product';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type React from 'react';
 import { ProductCard } from '../ProductCard';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { cn } from 'cn';
-import { useFavourites } from '@/hooks/useFavourites';
+import { LoadingProductCard } from '../LoadingProductCard';
 
 type Props = {
   title: string;
-  products: Product[];
+  products: (Product | null)[];
   isSaleGrid?: boolean;
   classNames?: string;
+  loadMoreProducts?: (limit: number) => void;
 };
 
 export const ProductGrid: React.FC<Props> = ({
   title,
   products,
-  classNames,
   isSaleGrid,
+  classNames,
+  loadMoreProducts,
 }) => {
   const [gridSections, setGridSections] = useState<number>(
     Math.ceil(products.length / 4),
   );
 
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { isFavourite, toggleFavourite } = useFavourites();
-
-  useEffect(() => {}, []);
 
   function handleLeftButon(): void {
     const container = scrollRef.current;
@@ -65,6 +64,7 @@ export const ProductGrid: React.FC<Props> = ({
           products.length - 4
         : gridSections + 4;
       setGridSections(newValue);
+      loadMoreProducts?.(4);
       container.scrollTo({
         left: 0,
         behavior: 'smooth',
@@ -80,7 +80,9 @@ export const ProductGrid: React.FC<Props> = ({
   return (
     <div className={cn(classNames)}>
       <div className="flex justify-between mb-5">
-        <h2 className="text-[22px] sm:text-[32px] font-bold">{title}</h2>
+        <h2 className="text-[22px] text-card-primary-text sm:text-[32px] font-bold">
+          {title}
+        </h2>
         <div className="h-fit gap-4 flex flex-row ">
           <Button
             variant="outline"
@@ -116,18 +118,17 @@ export const ProductGrid: React.FC<Props> = ({
         className="overflow-x-auto flex flex-row gap-4 scrollbar-hide p-1 -mx-1"
         ref={scrollRef}
       >
-        {products.slice(gridSections, gridSections + 4).map((product) => {
-          return (
-            <ProductCard
-              key={product.id}
-              product={product}
-              isAddedToCart={false}
-              isSale={isSaleGrid}
-              isFavorite={isFavourite(product.id)}
-              onAddToFavorites={toggleFavourite}
-            />
-          );
-        })}
+        {products
+          .slice(gridSections, gridSections + 4)
+          .map((product, index) => {
+            return product ?
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  isSale={isSaleGrid}
+                />
+              : <LoadingProductCard key={`loading-${index}`} />;
+          })}
       </div>
     </div>
   );

@@ -35,7 +35,12 @@ export function FooterNav({ className }: FooterNavProps) {
       >
         {FOOTER_LINKS.map(({ href, labelKey }) => (
           <li key={labelKey}>
-            <FooterLink href={href}>{t(labelKey)}</FooterLink>
+            <FooterLink
+              href={href}
+              className="text-card-primary-text"
+            >
+              {t(labelKey)}
+            </FooterLink>
           </li>
         ))}
       </ul>

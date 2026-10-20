@@ -10,16 +10,17 @@ import { ProductCategory } from './types/ProductCategory';
 import { ProductDetailsPage } from './pages/ProductDetailsPage';
 import { useAccountContext } from './context/AccountContext';
 import { CheckoutPage } from './pages/CheckoutPage';
-import { useState } from 'react';
 import cn from 'classnames';
 import { Theme } from './types/Theme';
 import { useLanguage } from './context/LanguageContext';
+import { AccountPage } from './pages/AccountPage';
+import { useCookie } from './hooks/useCookie';
 
 function App() {
   const { favoriteProducts, cartItems } = useAccountContext();
   const { t } = useLanguage();
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const [activeTheme, setActiveTheme] = useState<Theme>(Theme.white);
+  const [activeTheme, setActiveTheme] = useCookie('theme', Theme.white);
 
   function handleSwitchTheme() {
     if (activeTheme === Theme.dark) setActiveTheme(Theme.white);
@@ -28,7 +29,7 @@ function App() {
 
   return (
     <div
-      className={cn('flex min-h-screen flex-col', {
+      className={cn('flex min-h-screen flex-col', 'bg-main-beak', {
         dark: activeTheme === Theme.dark,
       })}
     >
@@ -99,6 +100,10 @@ function App() {
             <Route
               path="favourites"
               element={<FavouritesPage />}
+            />
+            <Route
+              path="account"
+              element={<AccountPage />}
             />
           </Route>
           <Route
