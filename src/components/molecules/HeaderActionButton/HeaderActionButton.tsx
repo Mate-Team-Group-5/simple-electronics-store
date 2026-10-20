@@ -34,10 +34,10 @@ export function HeaderActionButton({
       className={({ isActive }) =>
         cn(
           'relative flex h-12 w-12 shrink-0 items-center justify-center desktop:h-16 desktop:w-16',
-          'bg-white text-text-primary transition-colors hover:bg-hover-bg',
-          'shadow-[-1px_0_0_0_var(--color-elements)]',
+          'bg-main-beak text-primary transition-colors hover:bg-sbns-hover',
+          'shadow-[-1px_0_0_0_var(--header-border)]',
           isActive &&
-            'after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:bg-text-primary',
+            'after:absolute after:inset-x-0 after:bottom-0 after:h-0.75 after:bg-primary',
           className,
         )
       }

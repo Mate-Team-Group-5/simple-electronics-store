@@ -17,9 +17,9 @@ export function NavItem({ to, children, end, className }: NavItemProps) {
       className={({ isActive }) =>
         cn(
           'flex h-full items-center border-b-3 border-transparent',
-          'text-xs leading-[11px] font-bold tracking-[0.04em] uppercase',
-          'text-text-secondary transition-colors hover:text-text-primary',
-          isActive && 'border-text-primary text-text-primary',
+          'text-xs leading-2.75 font-bold tracking-[0.04em] uppercase',
+          'text-secondary transition-colors hover:text-primary',
+          isActive && 'border-primary text-primary',
           className,
         )
       }

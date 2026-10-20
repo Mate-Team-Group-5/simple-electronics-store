@@ -49,7 +49,7 @@ export function HomePage() {
     <>
       <div className="flex flex-col gap-14 sm:gap-16 lg:gap-20">
         <div>
-          <PageTitle className="mt-6 mb-6 tablet:mt-8 tablet:mb-8 desktop:mt-14 desktop:mb-14">
+          <PageTitle className="mt-6 mb-6 tablet:mt-8 tablet:mb-8 desktop:mt-14 desktop:mb-14 text-primary">
             {t('home.title')}
           </PageTitle>
 

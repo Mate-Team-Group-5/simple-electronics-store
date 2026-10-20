@@ -54,10 +54,8 @@ export const CartPage: React.FC = () => {
           </div>
           <div className="flex flex-col items-center gap-4 border border-elements p-4 tablet:p-6 desktop:w-92">
             <div className="flex flex-col items-center">
-              <p className="text-[41px] font-bold text-text-primary">
-                ${totalSum}
-              </p>
-              <span className="text-sm text-text-secondary">
+              <p className="text-[41px] font-bold text-primary">${totalSum}</p>
+              <span className="text-sm text-secondary">
                 {t('cart.total', { count: totalCount })}
               </span>
             </div>

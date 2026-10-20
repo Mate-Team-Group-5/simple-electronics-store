@@ -47,7 +47,7 @@ export function FavouritesPage() {
 
       {!isLoading && !hasError && favourites.length > 0 && (
         <>
-          <p className="mt-2 text-sm text-text-secondary">
+          <p className="mt-2 text-sm text-secondary">
             {t('favourites.count', { count: favourites.length })}
           </p>
 

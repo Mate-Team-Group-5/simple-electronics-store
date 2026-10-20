@@ -44,19 +44,16 @@ export function CheckboxFilter({
                   type="checkbox"
                   checked={isChecked}
                   onChange={() => toggleOption(value)}
-                  className="size-4 shrink-0 cursor-pointer accent-text-primary"
+                  className="size-4 shrink-0 cursor-pointer accent-primary"
                 />
 
                 <span
-                  className={cn(
-                    'text-text-primary',
-                    isChecked && 'font-semibold',
-                  )}
+                  className={cn('text-primary', isChecked && 'font-semibold')}
                 >
                   {value}
                 </span>
 
-                <span className="text-xs text-text-secondary">({count})</span>
+                <span className="text-xs text-secondary">({count})</span>
               </label>
             </li>
           );
@@ -67,7 +64,7 @@ export function CheckboxFilter({
         <button
           type="button"
           onClick={() => setIsExpanded((prev) => !prev)}
-          className="flex w-fit cursor-pointer items-center gap-1 py-1 text-sm font-semibold text-text-primary transition-colors hover:text-accent-purple"
+          className="flex w-fit cursor-pointer items-center gap-1 py-1 text-sm font-semibold text-primary transition-colors hover:text-accent-purple"
         >
           {t(isExpanded ? 'filters.showLess' : 'filters.showMore')}
           <ChevronDown

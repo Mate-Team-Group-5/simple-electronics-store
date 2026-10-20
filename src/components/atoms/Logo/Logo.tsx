@@ -16,7 +16,7 @@ export function Logo({ className, imageClassName }: LogoProps) {
       <img
         src={`${import.meta.env.BASE_URL}img/header/logo.svg`}
         alt="Nice Gadgets"
-        className={cn('h-[22px] w-16 desktop:h-7 desktop:w-20', imageClassName)}
+        className={cn('h-5.5 w-16 desktop:h-7 desktop:w-20', imageClassName)}
       />
     </Link>
   );

@@ -34,7 +34,7 @@ export function AuthBenefits({ className }: AuthBenefitsProps) {
 
   return (
     <section className={cn('flex flex-col gap-6', className)}>
-      <h2 className="text-xl font-bold text-text-primary">
+      <h2 className="text-xl font-bold text-primary">
         {t('auth.benefits.title')}
       </h2>
 
@@ -44,7 +44,7 @@ export function AuthBenefits({ className }: AuthBenefitsProps) {
             key={titleKey}
             className="flex gap-4"
           >
-            <span className="flex size-10 shrink-0 items-center justify-center bg-hover-bg text-accent-purple">
+            <span className="flex size-10 shrink-0 items-center justify-center bg-main-beak text-accent-purple">
               <Icon
                 size={20}
                 aria-hidden="true"
@@ -52,10 +52,10 @@ export function AuthBenefits({ className }: AuthBenefitsProps) {
             </span>
 
             <div className="flex flex-col gap-1">
-              <h3 className="text-sm font-semibold text-text-primary">
+              <h3 className="text-sm font-semibold text-primary">
                 {t(titleKey)}
               </h3>
-              <p className="text-sm text-text-secondary">{t(textKey)}</p>
+              <p className="text-sm text-secondary">{t(textKey)}</p>
             </div>
           </li>
         ))}

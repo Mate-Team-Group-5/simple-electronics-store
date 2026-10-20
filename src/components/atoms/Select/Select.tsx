@@ -37,7 +37,7 @@ export function Select({
     <div className={cn('flex flex-col gap-1', className)}>
       <label
         htmlFor={id}
-        className="text-xs font-semibold text-text-secondary"
+        className="text-xs font-semibold text-secondary"
       >
         {label}
       </label>
@@ -51,12 +51,12 @@ export function Select({
           aria-invalid={Boolean(error)}
           aria-describedby={error ? errorId : undefined}
           className={cn(
-            'h-10 w-full cursor-pointer appearance-none bg-white pr-10 pl-3',
-            'border text-sm leading-[21px] font-semibold [&>option]:text-text-primary',
-            'transition-colors outline-none focus:border-text-primary',
-            'disabled:cursor-not-allowed disabled:bg-hover-bg disabled:text-icons',
-            error ? 'border-red' : 'border-icons hover:border-text-secondary',
-            value === '' ? 'text-icons' : 'text-text-primary',
+            'h-10 w-full cursor-pointer appearance-none bg-sbns pr-10 pl-3',
+            'border text-sm leading-5.25 font-semibold [&>option]:text-primary',
+            'transition-colors outline-none focus:border-primary ',
+            'disabled:cursor-not-allowed disabled:bg-sbns-hover disabled:text-icons',
+            error ? 'border-red' : 'border-icons hover:border-secondary',
+            value === '' ? 'text-icons' : 'text-primary',
             selectClassName,
           )}
         >
@@ -82,7 +82,7 @@ export function Select({
         <ChevronDown
           size={16}
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-text-secondary"
+          className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-secondary"
         />
       </div>
 

@@ -196,7 +196,7 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
         className="mt-6"
       />
 
-      <PageTitle className="mt-6 tablet:mt-10">{title}</PageTitle>
+      <PageTitle className="mt-6 tablet:mt-10 text-primary">{title}</PageTitle>
 
       {isLoading && <Loader />}
 
@@ -213,7 +213,7 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
 
       {!isLoading && !hasError && products.length > 0 && (
         <>
-          <p className="mt-2 text-sm text-text-secondary">
+          <p className="mt-2 text-sm text-secondary">
             {filteredProducts.length === products.length ?
               t('category.modelsCount', { count: products.length })
             : t('catalog.filteredCount', {
@@ -224,12 +224,15 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
           </p>
 
           <div className="mt-8 mb-20 grid items-start gap-8 desktop:mt-10 desktop:grid-cols-[240px_1fr]">
-            <aside aria-label={t('catalog.filters')}>
+            <aside
+              className="text-primary"
+              aria-label={t('catalog.filters')}
+            >
               <button
                 type="button"
                 aria-expanded={isFiltersOpen}
                 onClick={() => setIsFiltersOpen((prev) => !prev)}
-                className="flex h-10 w-full cursor-pointer items-center justify-center gap-2 border border-icons text-sm font-semibold text-text-primary transition-colors hover:border-text-primary desktop:hidden"
+                className="flex h-10 w-full cursor-pointer items-center justify-center gap-2 border border-icons text-sm font-semibold text-primary transition-colors hover:border-primary desktop:hidden"
               >
                 <SlidersHorizontal
                   size={16}
@@ -261,13 +264,13 @@ export function CatalogPage({ category, title }: CatalogPageProps) {
 
               {filteredProducts.length === 0 ?
                 <div className="flex flex-col items-center gap-4 py-20 text-center">
-                  <p className="font-semibold text-text-primary">
+                  <p className="font-semibold text-primary">
                     {t('catalog.noMatches')}
                   </p>
                   <button
                     type="button"
                     onClick={handleFiltersReset}
-                    className="h-10 cursor-pointer bg-text-primary px-6 text-sm font-semibold text-white transition-shadow hover:shadow-lg"
+                    className="h-10 cursor-pointer bg-main-beak px-6 text-sm font-semibold text-primary transition-shadow hover:shadow-lg"
                   >
                     {t('catalog.resetFilters')}
                   </button>

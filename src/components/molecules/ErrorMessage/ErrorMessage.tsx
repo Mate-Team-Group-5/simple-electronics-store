@@ -22,13 +22,13 @@ export function ErrorMessage({
         className,
       )}
     >
-      <p className="text-base font-semibold text-text-primary">{message}</p>
+      <p className="text-base font-semibold text-primary">{message}</p>
 
       {onRetry && (
         <button
           type="button"
           onClick={onRetry}
-          className="h-10 bg-text-primary px-6 text-sm font-semibold text-white transition-shadow hover:shadow-[0_3px_13px_0_rgba(23,32,49,0.26)]"
+          className="h-10 bg-primary px-6 text-sm font-semibold text-white transition-shadow hover:shadow-[0_3px_13px_0_rgba(23,32,49,0.26)]"
         >
           {t('common.reload')}
         </button>

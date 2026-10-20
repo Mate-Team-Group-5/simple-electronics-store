@@ -54,7 +54,7 @@ export function SearchSelect({
   const renderListContent = () => {
     if (isLoading) {
       return (
-        <li className="px-4 py-3 text-sm text-text-secondary">
+        <li className="px-4 py-3 text-sm text-secondary">
           {t('common.loading')}
         </li>
       );
@@ -68,7 +68,7 @@ export function SearchSelect({
 
     if (options.length === 0) {
       return query.trim() ?
-          <li className="px-4 py-3 text-sm text-text-secondary">
+          <li className="px-4 py-3 text-sm text-secondary">
             {t('common.noResults')}
           </li>
         : null;
@@ -80,7 +80,7 @@ export function SearchSelect({
           type="button"
           onMouseDown={(event) => event.preventDefault()}
           onClick={() => handleSelect(option)}
-          className="w-full px-4 py-3 text-left text-sm text-text-primary outline-none hover:bg-hover-bg focus:bg-hover-bg"
+          className="w-full px-4 py-3 text-left text-sm text-primary outline-none hover:bg-second-beak focus:bg-hover-bg"
         >
           {option.label}
         </button>
@@ -97,7 +97,7 @@ export function SearchSelect({
     >
       <label
         htmlFor={id}
-        className="text-xs font-semibold text-text-secondary"
+        className="text-xs font-semibold text-secondary"
       >
         {label}
       </label>
@@ -120,14 +120,21 @@ export function SearchSelect({
           aria-invalid={Boolean(error)}
           aria-describedby={error ? errorId : undefined}
           className={cn(
-            'h-12 w-full border px-4 text-sm text-text-primary transition-colors outline-none placeholder:text-icons focus:border-accent-purple',
-            'disabled:cursor-not-allowed disabled:bg-hover-bg disabled:text-icons',
-            error ? 'border-red' : 'border-icons hover:border-text-primary',
+            'h-12 w-full border px-4 text-sm text-primary transition-colors outline-none placeholder:text-icons focus:border-accent-purple',
+            'disabled:cursor-not-allowed disabled:bg-sbns-disabled disabled:text-sbns-disabled-text',
+            error ? 'border-red' : 'border-icons hover:border-primary',
           )}
         />
 
         {isOpen && listContent && (
-          <ul className="absolute top-full left-0 z-10 mt-1 max-h-64 w-full overflow-y-auto border border-icons bg-white">
+          <ul
+            className={cn(
+              'absolute top-full left-0 z-10 mt-1 max-h-64 w-full',
+              'overflow-y-auto border border-icons',
+              'bg-main-beak',
+              'text-secondary',
+            )}
+          >
             {listContent}
           </ul>
         )}

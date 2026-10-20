@@ -28,7 +28,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           type="button"
           aria-label={t('cart.remove')}
           onClick={onRemove}
-          className="text-icons transition-colors hover:text-text-primary"
+          className="text-icons transition-colors hover:text-primary"
         >
           <X className="size-4" />
         </button>
@@ -41,7 +41,7 @@ export const CartItem: React.FC<CartItemProps> = ({
 
         <Link
           to={`/${product.category}/${product.itemId}`}
-          className="text-sm text-text-primary"
+          className="text-sm text-primary hover:text-secondary"
         >
           {product.name}
         </Link>
@@ -54,7 +54,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           onDecrease={onDecrease}
         />
 
-        <p className="w-20 text-right text-[22px] font-bold text-text-primary">
+        <p className="w-20 text-right text-[22px] font-bold text-primary">
           ${product.price * quantity}
         </p>
       </div>

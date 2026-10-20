@@ -28,7 +28,7 @@ export function OrderSummary({
         className,
       )}
     >
-      <h2 className="text-xl font-bold text-text-primary">
+      <h2 className="text-xl font-bold text-primary">
         {t('checkout.yourOrder')}
       </h2>
 
@@ -45,15 +45,13 @@ export function OrderSummary({
             />
 
             <div className="flex min-w-0 flex-1 flex-col gap-1">
-              <p className="truncate text-sm text-text-primary">
-                {product.name}
-              </p>
-              <p className="text-xs text-text-secondary">
+              <p className="truncate text-sm text-primary">{product.name}</p>
+              <p className="text-xs text-secondary">
                 {quantity} × ${product.price}
               </p>
             </div>
 
-            <p className="text-sm font-semibold text-text-primary">
+            <p className="text-sm font-semibold text-primary">
               ${product.price * quantity}
             </p>
           </li>
@@ -64,22 +62,20 @@ export function OrderSummary({
 
       <dl className="flex flex-col gap-2 text-sm">
         <div className="flex justify-between">
-          <dt className="text-text-secondary">
+          <dt className="text-secondary">
             {t('summary.items', { count: totalCount })}
           </dt>
-          <dd className="text-text-primary">${totalPrice}</dd>
+          <dd className="text-primary">${totalPrice}</dd>
         </div>
         <div className="flex justify-between">
-          <dt className="text-text-secondary">{t('checkout.delivery')}</dt>
-          <dd className="text-text-primary">{t('summary.free')}</dd>
+          <dt className="text-secondary">{t('checkout.delivery')}</dt>
+          <dd className="text-primary">{t('summary.free')}</dd>
         </div>
       </dl>
 
       <div className="flex items-baseline justify-between">
-        <span className="font-semibold text-text-primary">
-          {t('summary.total')}
-        </span>
-        <span className="text-[32px] font-bold text-text-primary">
+        <span className="font-semibold text-primary">{t('summary.total')}</span>
+        <span className="text-[32px] font-bold text-primary">
           ${totalPrice}
         </span>
       </div>

@@ -13,7 +13,7 @@ type AuthTabsProps = {
 };
 
 const tabClassName =
-  'h-12 flex-1 cursor-pointer text-sm font-semibold text-text-secondary transition-colors hover:text-text-primary data-[active]:text-text-primary';
+  'h-12 flex-1 cursor-pointer text-sm font-semibold text-secondary transition-colors hover:text-primary data-[active]:text-primary';
 
 export function AuthTabs({ onSuccess, className }: AuthTabsProps) {
   const { t } = useLanguage();
@@ -46,9 +46,7 @@ export function AuthTabs({ onSuccess, className }: AuthTabsProps) {
         value="login"
         className="p-6 tablet:p-8"
       >
-        <p className="mb-6 text-sm text-text-secondary">
-          {t('auth.loginSubtitle')}
-        </p>
+        <p className="mb-6 text-sm text-primary">{t('auth.loginSubtitle')}</p>
         <LoginForm onSuccess={onSuccess} />
       </Tabs.Panel>
 
@@ -56,7 +54,7 @@ export function AuthTabs({ onSuccess, className }: AuthTabsProps) {
         value="register"
         className="p-6 tablet:p-8"
       >
-        <p className="mb-6 text-sm text-text-secondary">
+        <p className="mb-6 text-sm text-primary">
           {t('auth.registerSubtitle')}
         </p>
         <RegisterForm onSuccess={onSuccess} />

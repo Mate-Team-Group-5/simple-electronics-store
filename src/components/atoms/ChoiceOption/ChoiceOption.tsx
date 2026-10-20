@@ -30,13 +30,13 @@ export function ChoiceOption({
         value={value}
         checked={checked}
         onChange={onChange}
-        className="mt-0.5 size-4 shrink-0 cursor-pointer accent-text-primary"
+        className="mt-0.5 size-4 shrink-0 cursor-pointer accent-primary"
       />
 
       <span className="flex flex-col gap-1">
-        <span className="text-sm font-semibold text-text-primary">{title}</span>
+        <span className="text-sm font-semibold text-primary">{title}</span>
         {description && (
-          <span className="text-xs text-text-secondary">{description}</span>
+          <span className="text-xs text-secondary">{description}</span>
         )}
       </span>
     </label>
