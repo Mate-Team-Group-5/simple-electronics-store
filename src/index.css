@@ -88,6 +88,19 @@
       transform: scale(1);
     }
   }
+
+  --animate-gradient: gradient 2s ease infinite;
+
+  @keyframes gradient {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -126,6 +139,8 @@
   --color-sbns-disabled: var(--sbns-disabled);
   --color-sbns-disabled-text: var(--sbns-disabled-text);
   --color-sbns-disabled-border: var(--sbns-disabled-border);
+
+  --color-header-border: var(--header-border);
 
   --color-main-beak: var(--main-beak);
 
@@ -203,6 +218,8 @@
   --sbns-disabled-text: #b4bdc3;
   --sbns-disabled-border: #e2e6e9;
 
+  --header-border: #e2e6e9;
+
   --main-beak: #fff;
 
   /* defalt srttings */
@@ -271,6 +288,8 @@
   --sbns-disabled-text: #4a4d58;
   --sbns-disabled-border: #3b3e4a;
 
+  --header-border: #323542;
+
   --main-beak: #0f1121;
 
   /* defalt srttings */
@@ -310,10 +329,9 @@
 
 @layer base {
   body {
-    @apply bg-background text-foreground;
+    @apply bg-main-beak text-foreground;
   }
   html {
     @apply font-sans;
-    background-color: var(--color-main-beak);
   }
 }

@@ -30,10 +30,10 @@ export function BurgerMenu({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col bg-white tablet:hidden"
+      className="fixed inset-0 z-50 flex flex-col bg-main-beak tablet:hidden"
       onClick={handleClick}
     >
-      <div className="flex h-12 shrink-0 items-center justify-between shadow-[0_1px_0_0_var(--color-elements)]">
+      <div className="flex h-12 shrink-0 items-center justify-between shadow-[0_1px_0_0_var(--header-border)]">
         <Logo className="h-full px-4" />
         <IconButton
           aria-label={t('header.closeMenu')}
