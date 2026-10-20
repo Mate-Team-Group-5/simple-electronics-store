@@ -29,10 +29,7 @@ export function Navigation({ vertical = false, className }: NavigationProps) {
         {NAV_LINKS.map(({ to, labelKey, end }) => (
           <li
             key={to}
-            className={cn(
-              !vertical && 'h-full',
-              !vertical && to === '/' && 'hidden desktop:block',
-            )}
+            className={cn(!vertical && 'h-full')}
           >
             <NavItem
               to={to}

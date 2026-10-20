@@ -1,8 +1,8 @@
-import { useState, type AnimationEvent } from 'react';
+// import { useState, type AnimationEvent } from 'react';
+// import { useFavourites } from '@/hooks/useFavourites';
 import { cn } from 'cn';
 import type { Product } from '@/types/Product';
 import { ProductCard } from '@/components/organisms/ProductCard/ProductCard';
-import { useFavourites } from '@/hooks/useFavourites';
 
 type ProductsGridProps = {
   products: Product[];
@@ -10,35 +10,31 @@ type ProductsGridProps = {
   className?: string;
 };
 
-export function ProductsGrid({
-  products,
-  animateRemoval = false,
-  className,
-}: ProductsGridProps) {
-  const { isFavourite, toggleFavourite } = useFavourites();
-  const [removingIds, setRemovingIds] = useState<number[]>([]);
+export function ProductsGrid({ products, className }: ProductsGridProps) {
+  // const { isFavourite, toggleFavourite } = useFavourites();
+  // const [removingIds, setRemovingIds] = useState<number[]>([]);
 
-  const handleFavouriteClick = (id: number) => {
-    if (animateRemoval && isFavourite(id)) {
-      setRemovingIds((prev) => [...prev, id]);
+  // const handleFavouriteClick = (id: number) => {
+  //   if (animateRemoval && isFavourite(id)) {
+  //     setRemovingIds((prev) => [...prev, id]);
 
-      return;
-    }
+  //     return;
+  //   }
 
-    toggleFavourite(id);
-  };
+  //   toggleFavourite(id);
+  // };
 
-  const handleAnimationEnd = (
-    event: AnimationEvent<HTMLLIElement>,
-    id: number,
-  ) => {
-    if (event.target !== event.currentTarget) {
-      return;
-    }
+  // const handleAnimationEnd = (
+  //   event: AnimationEvent<HTMLLIElement>,
+  //   id: number,
+  // ) => {
+  //   if (event.target !== event.currentTarget) {
+  //     return;
+  //   }
 
-    toggleFavourite(id);
-    setRemovingIds((prev) => prev.filter((removingId) => removingId !== id));
-  };
+  //   toggleFavourite(id);
+  //   setRemovingIds((prev) => prev.filter((removingId) => removingId !== id));
+  // };
 
   return (
     <ul
@@ -48,23 +44,18 @@ export function ProductsGrid({
       )}
     >
       {products.map((product) => {
-        const isRemoving = removingIds.includes(product.id);
+        // const isRemoving = removingIds.includes(product.id);
 
         return (
           <li
             key={product.id}
             className={cn(
               'flex justify-center',
-              isRemoving && 'pointer-events-none animate-card-out',
+              // isRemoving && 'pointer-events-none animate-card-out',
             )}
-            onAnimationEnd={(event) => handleAnimationEnd(event, product.id)}
+            // onAnimationEnd={(event) => handleAnimationEnd(event, product.id)}
           >
-            <ProductCard
-              product={product}
-              isAddedToCart={false}
-              isFavorite={isFavourite(product.id)}
-              onAddToFavorites={handleFavouriteClick}
-            />
+            <ProductCard product={product} />
           </li>
         );
       })}
