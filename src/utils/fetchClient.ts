@@ -59,7 +59,7 @@ function request<T>(
 }
 
 export const client = {
-  get: <T>(url: string, token: string) => request<T>(url, 'GET', null, token),
+  get: <T>(url: string, token?: string) => request<T>(url, 'GET', null, token),
   post: <T>(url: string, data: any) => request<T>(url, 'POST', data),
   patch: <T>(url: string, data: any) => request<T>(url, 'PATCH', data),
   put: <T>(url: string, data: any, token: string) =>
