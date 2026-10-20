@@ -5,9 +5,6 @@ import { AccountDetails } from '@/components/organisms/AccountDetails/AccountDet
 import { AuthBenefits } from '@/components/molecules/AuthBenefits/AuthBenefits';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
-import { useAccountContext } from '@/context/AccountContext';
-import { useEffect } from 'react';
-import type { CartProduct } from '@/types/Cart';
 
 type LocationState = {
   from?: string;
@@ -18,16 +15,8 @@ export function AccountPage() {
   const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const { updateFavorites, updateCart } = useAccountContext();
 
   const from = (location.state as LocationState)?.from;
-
-  useEffect(() => {
-    if (user) {
-      updateFavorites(user.favorites);
-      updateCart(user.cart as CartProduct[]);
-    }
-  }, [user, updateFavorites, updateCart]);
 
   const handleAuthSuccess = () => {
     if (from) {

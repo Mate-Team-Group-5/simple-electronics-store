@@ -11,11 +11,11 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HashRouter>
       <LanguageProvider>
-        <AuthProvider>
-          <AccountProvider>
+        <AccountProvider>
+          <AuthProvider>
             <App />
-          </AccountProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </AccountProvider>
       </LanguageProvider>
     </HashRouter>
   </StrictMode>,
