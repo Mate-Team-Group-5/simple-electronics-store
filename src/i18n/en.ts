@@ -229,6 +229,23 @@ export const en = {
   'account.logout': 'Sign out',
 
   'checkout.haveAccount': 'Already have an account?',
+  'chat.open': 'Open chat assistant',
+  'chat.close': 'Close chat',
+  'chat.title': 'Nice Gadgets assistant',
+  'chat.subtitle': 'AI · replies in a few seconds',
+  'chat.greeting':
+    "Hi! I'm the Nice Gadgets assistant. I'll help you choose a phone, tablet or watch and answer questions about delivery.",
+  'chat.placeholder': 'Type a message…',
+  'chat.send': 'Send',
+  'chat.clear': 'Clear chat',
+  'chat.typing': 'Assistant is typing',
+  'chat.suggestions.photo': 'Which phone is best for photos?',
+  'chat.suggestions.budget': 'What can I buy under $500?',
+  'chat.suggestions.delivery': 'How does delivery work?',
+  'chat.errors.common': 'Something went wrong. Please try again.',
+  'chat.openProduct': 'Open',
+  'chat.suggestions.thisProduct': 'Tell me about this product',
+  'chat.errors.tooManyRequests': 'Too many requests. Please wait a minute.',
 } satisfies Record<string, TranslationValue>;
 
 export type TranslationKey = keyof typeof en;

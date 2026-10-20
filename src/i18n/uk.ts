@@ -234,4 +234,21 @@ export const uk: Translations = {
   'account.logout': 'Вийти',
 
   'checkout.haveAccount': 'Вже маєте акаунт?',
+  'chat.open': 'Відкрити чат-помічника',
+  'chat.close': 'Закрити чат',
+  'chat.title': 'Помічник Nice Gadgets',
+  'chat.subtitle': 'ШІ · відповідає за кілька секунд',
+  'chat.greeting':
+    'Привіт! Я помічник Nice Gadgets. Допоможу обрати телефон, планшет чи годинник і відповім на питання про доставку.',
+  'chat.placeholder': 'Напишіть повідомлення…',
+  'chat.send': 'Надіслати',
+  'chat.clear': 'Очистити чат',
+  'chat.typing': 'Помічник друкує',
+  'chat.suggestions.photo': 'Який телефон найкращий для фото?',
+  'chat.suggestions.budget': 'Що можна купити до 500 доларів?',
+  'chat.suggestions.delivery': 'Як працює доставка?',
+  'chat.errors.common': 'Щось пішло не так. Спробуйте ще раз.',
+  'chat.openProduct': 'Відкрити',
+  'chat.suggestions.thisProduct': 'Розкажи про цей товар',
+  'chat.errors.tooManyRequests': 'Забагато запитів. Зачекайте хвилину.',
 };
