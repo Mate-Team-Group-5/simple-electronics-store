@@ -1,6 +1,6 @@
 const SITE_URL =
   'https://mate-team-group-5.github.io/simple-electronics-store/';
-const TRACKING_URL = 'https://novaposhtaglobal.ua/track/?Tracking_ID=';
+const TRACKING_URL = 'https://novaposhta.ua/tracking/';
 const FONT = 'Mont, Arial, Helvetica, sans-serif';
 
 const COLORS = {
