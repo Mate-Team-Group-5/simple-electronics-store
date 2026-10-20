@@ -23,3 +23,7 @@ export const registerUser = (
 export const loginUser = (email: string, password: string) => {
   return client.post<LoginResponse>('/login', { email, password });
 };
+
+export const getUser = (token: string) => {
+  return client.get<User>('/user', token);
+};

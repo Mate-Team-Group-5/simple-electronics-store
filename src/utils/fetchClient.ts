@@ -24,9 +24,17 @@ function request<T>(
   url: string,
   method: RequestMethod = 'GET',
   data: any = null, // we can send any data to the server
+  token: string | null = null, // we can send a token to the server
 ): Promise<T> {
   const requestUrl = isHasBackend ? url : `${url}.json`;
   const options: RequestInit = { method };
+
+  if (token) {
+    options.headers = {
+      ...options.headers,
+      Authorization: `Bearer ${token}`,
+    };
+  }
 
   if (data) {
     // We add body and Content-Type only for the requests with data
@@ -51,7 +59,7 @@ function request<T>(
 }
 
 export const client = {
-  get: <T>(url: string) => request<T>(url),
+  get: <T>(url: string, token: string) => request<T>(url, 'GET', null, token),
   post: <T>(url: string, data: any) => request<T>(url, 'POST', data),
   patch: <T>(url: string, data: any) => request<T>(url, 'PATCH', data),
   delete: (url: string) => request(url, 'DELETE'),
