@@ -7,6 +7,7 @@ import pool from './server/db.js';
 import readJSONFile from './server/readjson.js';
 import authMiddleware from './server/auth.js';
 import chatHandler from './server/chat.js';
+import orderHandler from './server/order.js';
 
 dotenv.config();
 
@@ -368,6 +369,8 @@ app.get('/api/accessories', async (req, res) => {
 });
 
 app.post('/api/chat', chatHandler);
+
+app.post('/api/order', orderHandler);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
