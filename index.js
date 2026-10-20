@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import pool from './server/db.js';
 import readJSONFile from './server/readjson.js';
 import authMiddleware from './server/auth.js';
+import chatHandler from './server/chat.js';
 
 dotenv.config();
 
@@ -291,6 +292,8 @@ app.get('/api/accessories', async (req, res) => {
       .json({ error: 'Internal Server Error: Could not load accessories' });
   }
 });
+
+app.post('/api/chat', chatHandler);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
