@@ -143,7 +143,7 @@ export function ChatWidget() {
 
           <div
             aria-live="polite"
-            className="flex flex-1 flex-col gap-3 overflow-y-auto px-4 py-4"
+            className="flex flex-1 flex-col gap-3 overflow-y-auto px-4 py-4 [scrollbar-color:var(--card-border-background)_transparent] [scrollbar-width:thin]"
           >
             <ChatBubble role="assistant">{t('chat.greeting')}</ChatBubble>
 
