@@ -62,7 +62,7 @@ export function CatalogFilters({
   return (
     <div className={cn('flex flex-col', className)}>
       <div className="flex items-center justify-between pb-2">
-        <h2 className="text-xl font-bold text-text-primary">
+        <h2 className="text-xl font-bold text-primary">
           {t('catalog.filters')}
         </h2>
 
@@ -70,7 +70,7 @@ export function CatalogFilters({
           <button
             type="button"
             onClick={onReset}
-            className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-text-secondary transition-colors hover:text-text-primary"
+            className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-secondary transition-colors hover:text -primary"
           >
             <X
               size={14}
@@ -93,7 +93,7 @@ export function CatalogFilters({
             <Search
               size={16}
               aria-hidden="true"
-              className="pointer-events-none absolute left-3 text-text-secondary"
+              className="pointer-events-none absolute left-3 text-secondary"
             />
             <input
               type="search"
@@ -101,7 +101,7 @@ export function CatalogFilters({
               placeholder="iPhone 14 Pro…"
               value={filters.query}
               onChange={(event) => onChange({ query: event.target.value })}
-              className="h-10 w-full border border-icons pr-3 pl-9 text-sm text-text-primary transition-colors outline-none placeholder:text-icons hover:border-text-primary focus:border-accent-purple"
+              className="h-10 w-full border border-icons pr-3 pl-9 text-sm text-primary transition-colors outline-none placeholder:text-icons hover:border-primary focus:border-button-background"
             />
           </label>
         </AccordionItem>

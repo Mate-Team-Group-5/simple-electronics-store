@@ -3,11 +3,9 @@ import { BannerSlider } from '@/components/organisms/BannerSlider/BannerSlider';
 import { ProductGrid } from '@/components/organisms/ProductGrid';
 import {
   getAccessoriesCount,
-  getHotPricesProducts,
   getPhonesCount,
   getTabletsCount,
 } from '@/services/products';
-import type { Product } from '@/types/Product';
 import { useEffect, useState } from 'react';
 import { ShopByCategory } from '@/components/organisms/ShopByCategory/ShopByCategory';
 import { useLanguage } from '@/context/LanguageContext';
@@ -15,11 +13,9 @@ import { useLoadMoreProducts } from '@/hooks/useLoadMoreProducts';
 
 export function HomePage() {
   const { t } = useLanguage();
-  const { products: newModelsProducts, loadMoreProducts } =
-    useLoadMoreProducts(8);
-  const [hotPricesProducts, setHotPricesProducts] = useState<
-    (Product | null)[]
-  >([]);
+  const newModelsProducts = useLoadMoreProducts(4);
+
+  const hotPricesProducts = useLoadMoreProducts(4);
 
   const [categoryCounts, setCategoryCounts] = useState({
     phones: 0,
@@ -28,9 +24,9 @@ export function HomePage() {
   });
 
   useEffect(() => {
-    getHotPricesProducts()
-      .then((prod) => setHotPricesProducts(prod))
-      .catch(() => console.error('cant load hot prices products in HomePage'));
+    newModelsProducts.loadMoreProducts();
+
+    hotPricesProducts.loadMoreProducts();
 
     const loadProductCount = async () => {
       try {
@@ -53,7 +49,7 @@ export function HomePage() {
     <>
       <div className="flex flex-col gap-14 sm:gap-16 lg:gap-20">
         <div>
-          <PageTitle className="mt-6 mb-6 tablet:mt-8 tablet:mb-8 desktop:mt-14 desktop:mb-14">
+          <PageTitle className="mt-6 mb-6 tablet:mt-8 tablet:mb-8 desktop:mt-14 desktop:mb-14 text-primary">
             {t('home.title')}
           </PageTitle>
 
@@ -62,15 +58,20 @@ export function HomePage() {
 
         <ProductGrid
           title={t('home.newModels')}
-          products={newModelsProducts}
-          loadMoreProducts={loadMoreProducts}
+          products={newModelsProducts.products}
+          loadMoreProducts={newModelsProducts.loadMoreProducts}
+          isLoading={newModelsProducts.isLoading}
+          hasMore={newModelsProducts.hasMore}
         />
 
         <ShopByCategory counts={categoryCounts} />
 
         <ProductGrid
           title={t('home.hotPrices')}
-          products={hotPricesProducts}
+          products={hotPricesProducts.products}
+          loadMoreProducts={hotPricesProducts.loadMoreProducts}
+          isLoading={hotPricesProducts.isLoading}
+          hasMore={hotPricesProducts.hasMore}
           isSaleGrid={true}
           classNames="mb-14 sm:mb-16 lg:mb-20"
         />

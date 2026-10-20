@@ -47,7 +47,7 @@ export function CatalogControls({
         value={sort}
         options={sortOptions}
         onChange={(value) => onSortChange(value as SortType)}
-        className="flex-1 tablet:w-44 tablet:flex-none"
+        className="flex-1 tablet:w-44 tablet:flex-none "
       />
 
       <Select

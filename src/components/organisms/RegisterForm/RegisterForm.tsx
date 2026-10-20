@@ -125,7 +125,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       />
 
       <div className="flex flex-col gap-1">
-        <label className="flex cursor-pointer items-start gap-3 text-sm text-text-secondary">
+        <label className="flex cursor-pointer items-start gap-3 text-sm text-secondary">
           <input
             type="checkbox"
             checked={values.acceptTerms}
@@ -133,7 +133,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
               handleFieldChange('acceptTerms', event.target.checked)
             }
             aria-invalid={Boolean(errors.acceptTerms)}
-            className="mt-0.5 size-4 shrink-0 cursor-pointer accent-text-primary"
+            className="mt-0.5 size-4 shrink-0 cursor-pointer accent-primary"
           />
           {t('auth.acceptTerms')}
         </label>

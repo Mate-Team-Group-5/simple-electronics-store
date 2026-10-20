@@ -102,10 +102,10 @@ export function CheckoutPage() {
     if (cartItems.length === 0) {
       return (
         <div className="flex flex-col items-center gap-4 py-20 text-center">
-          <p className="text-text-secondary">{t('cart.empty')}</p>
+          <p className="text-secondary">{t('cart.empty')}</p>
           <Link
             to="/"
-            className="font-semibold text-text-primary underline underline-offset-4"
+            className="font-semibold text-primary underline underline-offset-4"
           >
             {t('checkout.goShopping')}
           </Link>
@@ -117,12 +117,12 @@ export function CheckoutPage() {
       <div className="mt-8 mb-20 grid items-start gap-8 desktop:grid-cols-[1fr_368px] desktop:gap-16">
         <section aria-label={t('checkout.formLabel')}>
           {!user && (
-            <p className="mb-8 border border-elements p-4 text-sm text-text-secondary">
+            <p className="mb-8 border border-elements p-4 text-sm text-secondary">
               {t('checkout.haveAccount')}{' '}
               <Link
                 to="/account"
                 state={{ from: '/checkout' }}
-                className="font-semibold text-text-primary underline underline-offset-4"
+                className="font-semibold text-primary underline underline-offset-4"
               >
                 {t('auth.login')}
               </Link>

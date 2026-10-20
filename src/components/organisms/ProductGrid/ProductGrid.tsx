@@ -1,6 +1,6 @@
 import { Button } from '@/components/atoms/Button';
 import type { Product } from '@/types/Product';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react';
 import type React from 'react';
 import { ProductCard } from '../ProductCard';
 import { useRef, useState } from 'react';
@@ -13,7 +13,11 @@ type Props = {
   isSaleGrid?: boolean;
   classNames?: string;
   loadMoreProducts?: (limit: number) => void;
+  isLoading?: boolean;
+  hasMore?: boolean;
 };
+
+const ITEMS_PER_VIEW = 4;
 
 export const ProductGrid: React.FC<Props> = ({
   title,
@@ -21,60 +25,67 @@ export const ProductGrid: React.FC<Props> = ({
   isSaleGrid,
   classNames,
   loadMoreProducts,
+  isLoading,
+  hasMore,
 }) => {
-  const [gridSections, setGridSections] = useState<number>(
-    Math.ceil(products.length / 4),
-  );
+  const [gridSections, setGridSections] = useState<number>(0);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  function handleLeftButon(): void {
+  const isLeftEnd = gridSections === 0;
+  const isRightEnd = isLoading && hasMore;
+
+  function handleLeftButton(): void {
     const container = scrollRef.current;
 
     if (!container) return;
 
-    const isAtLeftEnd = container.scrollLeft <= 1;
-
-    if (isAtLeftEnd) {
-      const newValue = gridSections - 4 < 0 ? 0 : gridSections - 4;
-      setGridSections(newValue);
-      container.scrollTo({
-        left: container.scrollWidth,
-        behavior: 'smooth',
-      });
-    } else {
+    if (container.scrollLeft > 1) {
       container.scrollBy({
-        left: container.clientWidth * -1,
+        left: -container.clientWidth,
         behavior: 'smooth',
       });
+      return;
     }
+
+    const newValue =
+      gridSections - ITEMS_PER_VIEW < 0 ? 0 : gridSections - ITEMS_PER_VIEW;
+    setGridSections(newValue);
+    container.scrollTo({
+      left: container.scrollWidth,
+      behavior: 'smooth',
+    });
   }
 
   function handleRightButon(): void {
     const container = scrollRef.current;
 
-    if (!container) return;
+    if (!container || isLoading) return;
 
     const isAtRightEnd =
       container.scrollLeft + container.clientWidth >= container.scrollWidth - 1;
 
-    if (isAtRightEnd) {
-      const newValue =
-        gridSections + 4 >= products.length ?
-          products.length - 4
-        : gridSections + 4;
-      setGridSections(newValue);
-      loadMoreProducts?.(4);
-      container.scrollTo({
-        left: 0,
-        behavior: 'smooth',
-      });
-    } else {
+    if (!isAtRightEnd) {
       container.scrollBy({
         left: container.clientWidth,
         behavior: 'smooth',
       });
+      return;
     }
+
+    const nextStart = gridSections + ITEMS_PER_VIEW;
+
+    if (nextStart < products.length) {
+      setGridSections(nextStart);
+      container.scrollTo({ left: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (!hasMore || !loadMoreProducts) return;
+
+    setGridSections(nextStart);
+    loadMoreProducts(ITEMS_PER_VIEW);
+    container.scrollTo({ left: 0, behavior: 'smooth' });
   }
 
   return (
@@ -93,8 +104,14 @@ export const ProductGrid: React.FC<Props> = ({
               'hover:bg-sbns-hover  ',
               'hover:border-sbns-hover-border',
               'hover:text-sbns-hover-text',
+              {
+                'disabled:border-sbns-disabled': isLeftEnd,
+                'disabled:border-sbns-disabled-border': isLeftEnd,
+                'disabled:border-sbns-disabled-text': isLeftEnd,
+              },
             )}
-            onClick={handleLeftButon}
+            disabled={isLeftEnd}
+            onClick={handleLeftButton}
           >
             <ArrowLeft />
           </Button>
@@ -107,10 +124,18 @@ export const ProductGrid: React.FC<Props> = ({
               'hover:bg-sbns-hover  ',
               'hover:border-sbns-hover-border',
               'hover:text-sbns-hover-text',
+              {
+                'disabled:border-sbns-disabled': isRightEnd,
+                'disabled:border-sbns-disabled-border': isRightEnd,
+                'disabled:border-sbns-disabled-text': isRightEnd,
+              },
             )}
+            disabled={isRightEnd}
             onClick={handleRightButon}
           >
-            <ArrowRight />
+            {isLoading ?
+              <Loader2 className="animate-spin" />
+            : <ArrowRight />}
           </Button>
         </div>
       </div>

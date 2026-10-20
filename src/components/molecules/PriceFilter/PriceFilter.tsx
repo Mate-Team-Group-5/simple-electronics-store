@@ -35,7 +35,7 @@ export function PriceFilter({ min, max, value, onChange }: PriceFilterProps) {
   };
 
   const inputClassName =
-    'h-10 w-full min-w-0 border border-icons px-3 text-sm text-text-primary outline-none transition-colors hover:border-text-primary focus:border-accent-purple';
+    'h-10 w-full min-w-0 border border-icons px-3 text-sm text-primary outline-none transition-colors hover:border-primary focus:border-accent-purple';
 
   return (
     <div className="flex flex-col gap-4">
@@ -53,7 +53,7 @@ export function PriceFilter({ min, max, value, onChange }: PriceFilterProps) {
           className={inputClassName}
         />
 
-        <span className="text-text-secondary">–</span>
+        <span className="text-primary">–</span>
 
         <input
           type="number"

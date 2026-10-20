@@ -20,18 +20,18 @@ export const QuantityCounter: React.FC<QuantityCounterProps> = ({
         aria-label={t('quantity.decrease')}
         onClick={onDecrease}
         disabled={value <= 1}
-        className="flex size-8 items-center justify-center border border-icons text-text-primary transition-colors enabled:hover:border-text-primary disabled:border-elements disabled:text-icons"
+        className="flex size-8 items-center justify-center border border-icons text-primary transition-colors enabled:hover:border-primary disabled:border-elements disabled:text-icons"
       >
         <Minus className="size-4" />
       </button>
 
-      <span className="w-8 text-center text-sm text-text-primary">{value}</span>
+      <span className="w-8 text-center text-sm text-primary">{value}</span>
 
       <button
         type="button"
         aria-label={t('quantity.increase')}
         onClick={onIncrease}
-        className="flex size-8 items-center justify-center border border-icons text-text-primary transition-colors enabled:hover:border-text-primary"
+        className="flex size-8 items-center justify-center border border-icons text-primary transition-colors enabled:hover:border-primary"
       >
         <Plus className="size-4" />
       </button>

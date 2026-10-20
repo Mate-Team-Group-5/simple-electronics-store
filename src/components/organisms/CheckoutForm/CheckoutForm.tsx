@@ -124,7 +124,7 @@ export function CheckoutForm({
       className="flex flex-col gap-10"
     >
       <fieldset className="flex flex-col gap-4">
-        <legend className="mb-4 text-xl font-bold text-text-primary">
+        <legend className="mb-4 text-xl font-bold text-primary">
           {t('checkout.contactDetails')}
         </legend>
 
@@ -161,7 +161,7 @@ export function CheckoutForm({
       </fieldset>
 
       <fieldset className="flex flex-col gap-4">
-        <legend className="mb-4 text-xl font-bold text-text-primary">
+        <legend className="mb-4 text-xl font-bold text-primary">
           {t('checkout.delivery')}
         </legend>
 
@@ -255,14 +255,12 @@ export function CheckoutForm({
         )}
 
         {values.delivery === 'pickup' && (
-          <p className="text-sm text-text-secondary">
-            {t('checkout.pickupInfo')}
-          </p>
+          <p className="text-sm text-secondary">{t('checkout.pickupInfo')}</p>
         )}
       </fieldset>
 
       <fieldset className="flex flex-col gap-4">
-        <legend className="mb-4 text-xl font-bold text-text-primary">
+        <legend className="mb-4 text-xl font-bold text-primary">
           {t('checkout.payment')}
         </legend>
 

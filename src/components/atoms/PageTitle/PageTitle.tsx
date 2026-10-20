@@ -10,8 +10,8 @@ export function PageTitle({ children, className }: PageTitleProps) {
   return (
     <h1
       className={cn(
-        'text-[32px] leading-[41px] font-extrabold tracking-[-0.01em] text-text-primary',
-        'tablet:text-5xl tablet:leading-[56px]',
+        'text-[32px] leading-10.25 font-extrabold tracking-[-0.01em] text-primary',
+        'tablet:text-5xl tablet:leading-14',
         className,
       )}
     >

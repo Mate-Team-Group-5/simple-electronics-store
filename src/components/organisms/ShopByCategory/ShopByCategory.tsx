@@ -41,7 +41,7 @@ export function ShopByCategory({ counts, className }: ShopByCategoryProps) {
 
   return (
     <section className={className}>
-      <h2 className="text-[22px] font-bold text-text-primary tablet:text-[32px]">
+      <h2 className="text-[22px] font-bold text-primary tablet:text-[32px]">
         {t('home.shopByCategory')}
       </h2>
 

@@ -37,10 +37,10 @@ export function CategoryCard({
         />
       </div>
 
-      <h3 className="mt-6 text-xl font-semibold text-text-primary">{title}</h3>
+      <h3 className="mt-6 text-xl font-semibold text-primary">{title}</h3>
 
-      <p className="mt-1 text-sm text-text-secondary">
-        {t('category.modelsCount', { count })}
+      <p className="mt-1 text-sm text-secondary">
+        {t('category.modelsCount', { count })}123
       </p>
     </Link>
   );

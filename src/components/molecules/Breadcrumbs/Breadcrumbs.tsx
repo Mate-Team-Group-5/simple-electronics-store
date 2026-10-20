@@ -27,7 +27,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
           <Link
             to="/"
             aria-label={t('nav.home')}
-            className="flex text-text-primary transition-colors hover:text-text-secondary"
+            className="flex text-primary transition-colors hover:text-secondary"
           >
             <House size={16} />
           </Link>
@@ -49,13 +49,13 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
                 {item.to && !isLast ?
                   <Link
                     to={item.to}
-                    className="text-text-primary transition-colors hover:text-text-secondary"
+                    className="text-primary transition-colors hover:text-secondary"
                   >
                     {item.label}
                   </Link>
                 : <span
                     aria-current="page"
-                    className={cn('text-text-secondary')}
+                    className={cn('text-secondary')}
                   >
                     {item.label}
                   </span>

@@ -36,7 +36,7 @@ export function PasswordField({
     <div className="flex flex-col gap-1">
       <label
         htmlFor={id}
-        className="text-xs font-semibold text-text-secondary"
+        className="text-xs font-semibold text-primary"
       >
         {label}
       </label>
@@ -55,8 +55,8 @@ export function PasswordField({
           aria-invalid={Boolean(error)}
           aria-describedby={error ? errorId : undefined}
           className={cn(
-            'h-12 w-full border pr-12 pl-4 text-sm text-text-primary transition-colors outline-none placeholder:text-icons focus:border-accent-purple',
-            error ? 'border-red' : 'border-icons hover:border-text-primary',
+            'h-12 w-full border pr-12 pl-4 text-sm text-primary transition-colors outline-none placeholder:text-icons focus:border-accent-purple',
+            error ? 'border-red' : 'border-icons hover:border-primary',
           )}
         />
 
