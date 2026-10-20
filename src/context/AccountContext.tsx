@@ -11,6 +11,8 @@ interface AccountContextType {
   updateCartItem: (id: number, quantity: number) => void;
   removeCartItem: (id: number) => void;
   clearCart: () => void;
+  updateFavorites: (ids: number[]) => void;
+  updateCart: (products: CartProduct[]) => void;
 }
 
 const AccountContext = createContext<AccountContextType | undefined>(undefined);
@@ -69,6 +71,14 @@ export const AccountProvider: React.FC<{ children: React.ReactNode }> = ({
     setCartItems([]);
   }
 
+  function updateFavorites(ids: number[]) {
+    setFavoriteProducts(ids);
+  }
+
+  function updateCart(products: CartProduct[]) {
+    setCartItems(products);
+  }
+
   return (
     <AccountContext.Provider
       value={{
@@ -80,6 +90,8 @@ export const AccountProvider: React.FC<{ children: React.ReactNode }> = ({
         updateCartItem,
         removeCartItem,
         clearCart,
+        updateFavorites,
+        updateCart,
       }}
     >
       {children}
