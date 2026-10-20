@@ -53,7 +53,6 @@ export function FavouritesPage() {
 
           <ProductsGrid
             products={favourites}
-            animateRemoval
             className="mt-8 mb-20 desktop:mt-10"
           />
         </>

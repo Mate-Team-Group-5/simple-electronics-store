@@ -18,8 +18,8 @@ type Props = {
 export const ProductGrid: React.FC<Props> = ({
   title,
   products,
-  classNames,
   isSaleGrid,
+  classNames,
   loadMoreProducts,
 }) => {
   const [gridSections, setGridSections] = useState<number>(
