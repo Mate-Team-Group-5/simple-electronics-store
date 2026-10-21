@@ -1,5 +1,5 @@
 import { useParams } from 'react-router';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Loader } from '@/components/atoms/Loader/Loader';
 import { ErrorMessage } from '@/components/molecules/ErrorMessage/ErrorMessage';
 import { PageTitle } from '@/components/atoms/PageTitle/PageTitle';
@@ -18,6 +18,7 @@ type Props = {
 export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
   const { t } = useLanguage();
   const { productId } = useParams();
+  const mainImageRef = useRef<HTMLImageElement>(null);
   const { product, isLoading, hasError, catalogProduct, allProducts } =
     useProductDetails(category, productId);
   function renderContent() {
@@ -38,11 +39,13 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
             // key={product.id}
             images={product.images}
             name={product.name}
+            imageRef={mainImageRef}
           />
           <ProductPurchase
             product={product}
             category={category}
             catalogProduct={catalogProduct}
+            flySourceRef={mainImageRef}
           />
         </section>
 

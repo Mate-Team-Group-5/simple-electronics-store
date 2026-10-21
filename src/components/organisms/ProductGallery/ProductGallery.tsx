@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, type Ref } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 
 type Props = {
   images: string[];
   name: string;
+  imageRef?: Ref<HTMLImageElement>;
 };
 
-export const ProductGallery: React.FC<Props> = ({ images, name }) => {
+export const ProductGallery: React.FC<Props> = ({ images, name, imageRef }) => {
   const { t } = useLanguage();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
     <div className="flex flex-col gap-4 tablet:flex-row-reverse">
       <img
+        ref={imageRef}
         src={images[selectedIndex]}
         alt={name}
         className="aspect-square w-full object-contain tablet:min-w-0 tablet:flex-1"

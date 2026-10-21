@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type RefObject } from 'react';
 import type { Category } from '@/hooks/useProducts';
 import type { Product } from '@/types/Product';
 import { ColorSelector } from '@/components/molecules/ColorSelector';
@@ -10,17 +10,20 @@ import { useAccountContext } from '@/context/AccountContext';
 import { useFavourites } from '@/hooks/useFavourites';
 import type { ProductDetails } from '@/types/ProductDetails';
 import { useLanguage } from '@/context/LanguageContext';
+import { flyToTarget, type FlyTarget } from '@/utils/flyToTarget';
 
 type Props = {
   product: ProductDetails;
   category: Category;
   catalogProduct: Product | null;
+  flySourceRef?: RefObject<HTMLImageElement | null>;
 };
 
 export const ProductPurchase: React.FC<Props> = ({
   product,
   category,
   catalogProduct,
+  flySourceRef,
 }) => {
   const { t } = useLanguage();
   const { cartItems, addCartItem, updateCartItem, removeCartItem } =
@@ -32,6 +35,12 @@ export const ProductPurchase: React.FC<Props> = ({
       cartItems.find((item) => item.id === catalogProduct.id)?.quantity
     : undefined;
 
+  function flyImageTo(target: FlyTarget) {
+    if (flySourceRef?.current) {
+      flyToTarget(flySourceRef.current, target);
+    }
+  }
+
   function handleAddToCart() {
     if (!catalogProduct) return;
 
@@ -39,7 +48,18 @@ export const ProductPurchase: React.FC<Props> = ({
       updateCartItem(catalogProduct.id, cartQuantity + 1);
     } else {
       addCartItem(catalogProduct, 1);
+      flyImageTo('cart'); // ← новое
     }
+  }
+
+  function handleFavouriteClick() {
+    if (!catalogProduct) return;
+
+    if (!isFavourite(catalogProduct.id)) {
+      flyImageTo('favourites');
+    }
+
+    toggleFavourite(catalogProduct.id);
   }
 
   function handleRemoveFromCart() {
@@ -105,7 +125,7 @@ export const ProductPurchase: React.FC<Props> = ({
 
             <FavouriteButton
               isFavourite={isFavourite(catalogProduct.id)}
-              onClick={() => toggleFavourite(catalogProduct.id)}
+              onClick={handleFavouriteClick} // ← новое
             />
           </div>
         )}
