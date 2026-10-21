@@ -251,4 +251,10 @@ export const uk: Translations = {
   'chat.openProduct': 'Відкрити',
   'chat.suggestions.thisProduct': 'Розкажи про цей товар',
   'chat.errors.tooManyRequests': 'Забагато запитів. Зачекайте хвилину.',
+  'search.label': 'Пошук товарів',
+  'search.placeholder': 'Пошук товарів…',
+  'search.open': 'Відкрити пошук',
+  'search.close': 'Закрити пошук',
+  'search.clear': 'Очистити пошук',
+  'search.noResults': 'За запитом «{query}» нічого не знайдено',
 };

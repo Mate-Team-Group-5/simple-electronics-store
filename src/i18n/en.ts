@@ -246,6 +246,12 @@ export const en = {
   'chat.openProduct': 'Open',
   'chat.suggestions.thisProduct': 'Tell me about this product',
   'chat.errors.tooManyRequests': 'Too many requests. Please wait a minute.',
+  'search.label': 'Search products',
+  'search.placeholder': 'Search products…',
+  'search.open': 'Open search',
+  'search.close': 'Close search',
+  'search.clear': 'Clear search',
+  'search.noResults': 'Nothing found for “{query}”',
 } satisfies Record<string, TranslationValue>;
 
 export type TranslationKey = keyof typeof en;
