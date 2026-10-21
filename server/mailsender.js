@@ -1,6 +1,35 @@
 import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+import dotenv from 'dotenv';
 
-async function sendEmail(recipient, body) {
+dotenv.config();
+
+async function sendEmail(recepient, body) {
+  if (process.env.RESEND_API_KEY) {
+    sendByResend(recepient, body);
+  } else {
+    sendByGoogleSMTP(recepient, body);
+  }
+}
+
+async function sendByResend(recipient, body) {
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const result = await resend.emails.send({
+      from: 'My App <onboarding@resend.dev>',
+      to: 'vlad.ua@gmail.com',
+      subject: 'Your order 🚀',
+      html: body,
+    });
+
+    console.log('Email sent via Resend.com:', result);
+  } catch (error) {
+    console.error('Error sending email via Resend.com:', error);
+  }
+}
+
+async function sendByGoogleSMTP(recipient, body) {
   // 1. Create a transporter object using SMTP transport
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com', // Replace with your SMTP host (e.g., smtp.mailtrap.io, ://brevo.com)
@@ -24,9 +53,12 @@ async function sendEmail(recipient, body) {
   try {
     // 3. Send the email
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully!. Message ID:', info.messageId);
+    console.log(
+      'Email sent successfully via google SMTP. Message ID:',
+      info.messageId,
+    );
   } catch (error) {
-    console.error('Error occurred while sending email:', error);
+    console.error('Error occurred while sending email via google SMTP:', error);
   }
 }
 
