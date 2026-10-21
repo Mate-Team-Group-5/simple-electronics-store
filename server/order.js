@@ -16,7 +16,7 @@ async function orderHandler(req, res) {
     }
 
     // Posible types: pickup, courier, nova-poshta
-    if (deliveryType === 'nova-poshta' || deliveryType === 'courier') {
+    if (deliveryType === 'nova-poshta') {
       console.log('Create TTN for:', req.body);
     }
 

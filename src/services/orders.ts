@@ -5,6 +5,8 @@ export type OrderItem = {
   id: number;
   quantity: number;
   price: number;
+  name: string;
+  image: string;
 };
 
 export type Order = {

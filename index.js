@@ -185,7 +185,7 @@ app.post('/api/login', async (req, res) => {
         .json({ error: 'Authentication is not configured' });
     }
 
-    const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+    const token = jwt.sign(payload, secret, { expiresIn: '24h' });
     return res.json({
       message: 'Login successful',
       token,
