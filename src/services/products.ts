@@ -3,6 +3,7 @@ import type { Product } from '../types/Product';
 import type { Phone } from '../types/Phone';
 import type { Tablet } from '../types/Tablet';
 import type { Accessory } from '../types/Accessory';
+import type { ProductQuery } from '@/types/ProductQuery';
 
 export const getProducts = () => {
   return client.get<Product[]>(`/products`);
@@ -10,8 +11,15 @@ export const getProducts = () => {
 export const getProductById = (id: number) => {
   return client.get<Product>(`/products/${id}`);
 };
-export const getProductsPaginated = (limit: number, offset: number) => {
-  return client.get<Product[]>(`/products/?limit=${limit}&offset=${offset}`);
+export const getProductsPaginated = (
+  query: ProductQuery,
+  limit: number,
+  offset: number,
+  endpoint: string,
+) => {
+  return client.get<Product[]>(
+    `/products/${endpoint}/?limit=${limit}&offset=${offset}&sortOrder=${query.sortOrder}&sortByFild=${query.sortByFild}`,
+  );
 };
 
 // Returns products sorted by year in descending order
