@@ -116,7 +116,7 @@ export function CheckoutPage() {
     }
 
     return (
-      <div className="mt-8 mb-20 grid items-start gap-8 desktop:grid-cols-[1fr_368px] desktop:gap-16">
+      <div className="mt-8 mb-20 grid grid-cols-1 items-start gap-8 desktop:grid-cols-[1fr_368px] desktop:gap-16">
         <section aria-label={t('checkout.formLabel')}>
           {!user && (
             <p className="mb-8 border border-elements p-4 text-sm text-secondary">
