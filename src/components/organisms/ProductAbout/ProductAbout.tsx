@@ -22,7 +22,7 @@ export const ProductAbout: React.FC<Props> = ({ description }) => {
           key={index}
           className="flex flex-col gap-4"
         >
-          <h3 className="text-left text-[20px] mt-[32px] text-primary">
+          <h3 className="text-left text-[20px] mt-8 text-primary">
             {desc.title}
           </h3>
           {desc.text.map((p) => (
