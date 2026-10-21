@@ -39,7 +39,7 @@ export function Header({
   const { isAuthenticated } = useAuth();
 
   return (
-    <header className="relative flex h-12 items-center gap-2 bg-main-beak shadow-[0_1px_0_0_var(--header-border)] desktop:h-16 desktop:gap-6">
+    <header className="sticky top-0 z-50 flex h-12 items-center gap-2 bg-main-beak shadow-[0_1px_0_0_var(--header-border)] desktop:h-16 desktop:gap-6">
       <Logo className="h-full px-4 desktop:px-6" />
 
       <Navigation className="hidden tablet:block" />
