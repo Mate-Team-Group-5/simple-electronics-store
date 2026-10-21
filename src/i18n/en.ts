@@ -37,6 +37,30 @@ export const en = {
   'contacts.phoneDescription': 'Contact our team by phone.',
   'contacts.location': 'Our location',
   'contacts.locationDescription': 'Visit us at our store.',
+  'contacts.faqTitle': 'Frequently asked questions',
+  'contacts.faqDeliveryQuestion': 'What delivery options are available?',
+  'contacts.faqDeliveryAnswer':
+    'Choose a delivery method during checkout. Several convenient options are available, so you can select the one that works best for you.',
+  'contacts.faqDeliveryOptionsTitle': 'Most common delivery options:',
+  'contacts.faqDeliveryNovaPoshta':
+    'Nova Poshta — fast and reliable delivery across Ukraine.',
+  'contacts.faqDeliveryPickup':
+    'Store pickup — collect your order directly from the store.',
+  'contacts.faqDeliveryCourier':
+    'Courier delivery — have your order delivered to your door. It is a convenient option for large orders or anyone who values extra comfort.',
+  'contacts.faqDeliveryHowToChooseTitle': 'How to choose a delivery method:',
+  'contacts.faqDeliveryHowToChoose':
+    'During checkout, select a convenient delivery method from the available options.',
+  'contacts.faqPaymentQuestion': 'Which payment methods can I use?',
+  'contacts.faqPaymentOnline':
+    'Online payment: pay for your order directly on the website during checkout.',
+  'contacts.faqPaymentCash':
+    'Cash payment: pay in cash when picking up your order or when it is delivered by courier.',
+  'contacts.faqPaymentOnDelivery':
+    'Cash on delivery: pay when collecting your order at the post office. This is convenient if you want to inspect the product before paying.',
+  'contacts.faqReturnsQuestion': 'How can I ask about a return?',
+  'contacts.faqReturnsAnswer':
+    'Contact our team with your order details, and we will help with the next steps.',
 
   'home.title': 'Welcome to Nice Gadgets store!',
   'home.newModels': 'Brand new models',
