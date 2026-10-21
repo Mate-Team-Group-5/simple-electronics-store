@@ -1,6 +1,7 @@
 import sendEmail from './resendapi.js';
 import pool from './db.js';
 import { renderOrderEmail } from './emails/renderOrderEmail.js';
+import { createTtn } from './novaPoshta.js';
 
 async function orderHandler(req, res) {
   try {
@@ -15,9 +16,10 @@ async function orderHandler(req, res) {
       return res.status(400).json({ error: 'Email required' });
     }
 
+    let newTtn;
     // Posible types: pickup, courier, nova-poshta
     if (deliveryType === 'nova-poshta') {
-      console.log('Create TTN for:', req.body);
+      newTtn = (await createTtn({ customer: orderDetails, items, total })).ttn;
     }
 
     // Storing to DB, and return new OrderId
@@ -34,7 +36,7 @@ async function orderHandler(req, res) {
       customer: orderDetails,
       items: orderCart,
       total: total,
-      ttn: 1,
+      ttn: newTtn,
     };
     const body = renderOrderEmail(mailPrams);
     sendEmail(usermail, body);
