@@ -39,7 +39,7 @@ export const CartPage: React.FC = () => {
           className="mx-auto w-full max-w-100"
         />
       : <div className="flex flex-col gap-8 desktop:flex-row desktop:items-start desktop:gap-4">
-          <div className="flex flex-col gap-4 desktop:flex-1">
+          <div className="flex flex-col gap-4 desktop:flex-1  desktop:mb-[80px]">
             {cartItems.map((item) => {
               return (
                 <CartItem
@@ -52,7 +52,7 @@ export const CartPage: React.FC = () => {
               );
             })}
           </div>
-          <div className="flex flex-col items-center gap-4 border border-elements p-4 tablet:p-6 desktop:w-92">
+          <div className="flex flex-col items-center gap-4 border border-elements p-4 tablet:p-6 desktop:w-92 mb-[56px] tablet:mb-[64px] desktop:mb-[0]">
             <div className="flex flex-col items-center">
               <p className="text-[41px] font-bold text-primary">${totalSum}</p>
               <span className="text-sm text-secondary">

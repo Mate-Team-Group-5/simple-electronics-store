@@ -20,7 +20,7 @@ export const AddToCartButton: React.FC<Props> = ({
 
   return (
     <div className="flex-1 h-10 relative justify-center">
-      {productsCount && (
+      {(productsCount || 0) > 0 && (
         <Button
           variant={'destructive'}
           className="h-8 w-8 z-10 rounded-full absolute left-1 top-1"
@@ -36,14 +36,16 @@ export const AddToCartButton: React.FC<Props> = ({
         className={classNames(
           'w-full',
           'h-full',
-          'hover:shadow',
           'rounded-none',
-          'relative',
+          'hover:shadow-button-shadow',
+          'hover:bg-button-background-hover',
           {
             'bg-button-background': !productsCount,
             'bg-button-background-active': productsCount,
+            'hover:bg-button-background-active-hover': productsCount,
             'text-button-text': !productsCount,
             'text-button-text-active': productsCount,
+            'hover:text-button-text-active': productsCount,
           },
         )}
         onClick={onAddToCart}
@@ -52,7 +54,7 @@ export const AddToCartButton: React.FC<Props> = ({
           t('card.inCart', { count: productsCount })
         : t('card.addToCart')}
       </Button>
-      {productsCount && (
+      {(productsCount || 0) > 0 && (
         <Button
           className="absolute right-1 top-1 h-8 w-8 rounded-full"
           variant={'secondary'}

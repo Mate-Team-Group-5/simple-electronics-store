@@ -18,8 +18,8 @@ export const SpecsList: React.FC<Props> = ({ specs, className = '' }) => {
           key={label}
           className="flex justify-between gap-4"
         >
-          <dt className="text-text-secondary">{label}</dt>
-          <dd className="text-right text-text-primary">{value}</dd>
+          <dt className="text-secondary">{label}</dt>
+          <dd className="text-right text-primary">{value}</dd>
         </div>
       ))}
     </dl>

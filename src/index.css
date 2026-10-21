@@ -116,10 +116,12 @@
 
   /* buttons color */
   --color-button-background: var(--button-background);
-  --color-button-background-hover: var(--button-background);
+  --color-button-background-hover: var(--button-background-hover);
   --color-button-background-active: var(--button-background-active);
   --color-button-text: var(--button-text);
   --color-button-text-active: var(--button-text-active);
+  --color-button-background-active-hover: var(--button-background-active-hover);
+  --shadow-button-shadow: var(--shadow-card);
 
   /* cards color */
   --color-card-background: var(--card-background);
@@ -200,9 +202,12 @@
   /* buttons color */
   --button-background: #313237;
   --button-background-hover: #313237;
-  --button-background-active: #e2e6e9;
+  --button-background-active: #fff;
+  --button-background-active-hover: #fff;
   --button-text: #ffffff;
   --button-text-active: #27ae60;
+
+  --shadow-card: 0 3px 13px 0 rgb(23 32 49 / 40%);
 
   /* cards color */
   --card-background: #ffffff;
@@ -277,6 +282,8 @@
   --button-text: #f1f2f9;
   --button-text-active: #f1f2f9;
 
+  --shadow-card: none;
+
   /* cards color */
   --card-background: #161827;
   --card-border-background: #323542;
@@ -339,6 +346,11 @@
 }
 
 @layer base {
+  *,
+  ::before,
+  ::after {
+    @apply transition-colors duration-300;
+  }
   body {
     @apply bg-main-beak text-foreground;
   }

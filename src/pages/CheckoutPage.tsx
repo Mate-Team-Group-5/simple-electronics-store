@@ -72,6 +72,8 @@ export function CheckoutPage() {
           id,
           quantity,
           price: product.price,
+          name: product.name,
+          image: product.image,
         })),
         total: cartItems.reduce(
           (sum, item) => sum + item.product.price * item.quantity,

@@ -84,12 +84,12 @@ export const ProductPurchase: React.FC<Props> = ({
         <hr className="border-elements" />
 
         <div className="flex items-center gap-2">
-          <span className="text-[32px] font-extrabold text-text-primary">
+          <span className="text-[32px] font-extrabold text-primary">
             ${product.priceDiscount}
           </span>
 
           {product.priceDiscount < product.priceRegular && (
-            <span className="text-[22px] text-text-secondary line-through">
+            <span className="text-[22px] text-secondary line-through">
               ${product.priceRegular}
             </span>
           )}
