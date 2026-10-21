@@ -257,7 +257,7 @@ export function ChatWidget() {
           'fixed right-4 bottom-4 z-40 flex size-14 cursor-pointer items-center justify-center',
           'rounded-full bg-accent-purple text-white shadow-lg',
           'transition-transform hover:scale-105',
-          'tablet:right-6 tablet:bottom-6',
+          'tablet:right-6 tablet:bottom-30 min-[1320px]:bottom-6',
           isOpen && 'hidden tablet:flex',
         )}
       >
