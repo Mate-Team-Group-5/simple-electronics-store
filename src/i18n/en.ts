@@ -31,6 +31,13 @@ export const en = {
   'footer.rights': 'Rights',
   'footer.backToTop': 'Back to top',
 
+  'contacts.email': 'Email',
+  'contacts.emailDescription': 'Get in touch with our team by email.',
+  'contacts.phone': 'Phone',
+  'contacts.phoneDescription': 'Contact our team by phone.',
+  'contacts.location': 'Our location',
+  'contacts.locationDescription': 'Visit us at our store.',
+
   'home.title': 'Welcome to Nice Gadgets store!',
   'home.newModels': 'Brand new models',
   'home.hotPrices': 'Hot prices',

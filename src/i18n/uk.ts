@@ -26,6 +26,14 @@ export const uk: Translations = {
   'footer.rights': 'Права',
   'footer.backToTop': 'Вгору',
 
+  'contacts.email': 'Електронна пошта',
+  'contacts.emailDescription':
+    'Зв’яжіться з нашою командою електронною поштою.',
+  'contacts.phone': 'Телефон',
+  'contacts.phoneDescription': 'Зв’яжіться з нашою командою телефоном.',
+  'contacts.location': 'Наша адреса',
+  'contacts.locationDescription': 'Завітайте до нашого магазину.',
+
   'home.title': 'Ласкаво просимо до Nice Gadgets!',
   'home.newModels': 'Новинки',
   'home.hotPrices': 'Гарячі ціни',

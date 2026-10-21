@@ -16,6 +16,7 @@ import { useLanguage } from './context/LanguageContext';
 import { AccountPage } from './pages/AccountPage';
 import { ChatWidget } from './components/organisms/ChatWidget/ChatWidget';
 import { useCookie } from './hooks/useCookie';
+import { ContactsPage } from './pages/ContactsPage';
 
 function App() {
   const { favoriteProducts, cartItems } = useAccountContext();
@@ -41,7 +42,7 @@ function App() {
         theme={activeTheme}
         onSwithTheme={handleSwitchTheme}
       />
-      <main className="w-full flex-1 px-4 tablet:px-6 desktop:mx-auto desktop:max-w-[1200px] desktop:px-8">
+      <main className="w-full flex-1 px-4 tablet:px-6 desktop:mx-auto desktop:max-w-300 desktop:px-8">
         <Routes>
           <Route path="/">
             <Route
@@ -106,6 +107,10 @@ function App() {
             <Route
               path="account"
               element={<AccountPage />}
+            />
+            <Route
+              path="contacts"
+              element={<ContactsPage />}
             />
           </Route>
           <Route
