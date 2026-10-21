@@ -20,7 +20,8 @@ import { useCookie } from './hooks/useCookie';
 function App() {
   const { favoriteProducts, cartItems } = useAccountContext();
   const { t } = useLanguage();
-  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCount =
+    cartItems ? cartItems.reduce((sum, item) => sum + item.quantity, 0) : 0;
   const [activeTheme, setActiveTheme] = useCookie('theme', Theme.white);
 
   function handleSwitchTheme() {
