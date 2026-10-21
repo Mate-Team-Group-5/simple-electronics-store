@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { CircleCheck } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import cn from 'classnames';
 
 type OrderSuccessProps = {
   orderId: string;
@@ -32,7 +33,17 @@ export function OrderSuccess({ orderId, email }: OrderSuccessProps) {
 
       <Link
         to="/"
-        className="mt-4 flex h-12 items-center justify-center bg-primary px-10 text-sm font-semibold text-white transition-shadow hover:shadow-lg"
+        className={cn(
+          'mt-4 flex h-12 items-center',
+          'justify-center',
+          'px-10 font-semibold text-sm',
+          'text-button-text',
+          'bg-button-background',
+          'hover:bg-button-background-hover',
+          'transition-shadow',
+          'hover:shadow-button-shadow',
+          'hover:shadow-button-shadow',
+        )}
       >
         {t('success.continue')}
       </Link>

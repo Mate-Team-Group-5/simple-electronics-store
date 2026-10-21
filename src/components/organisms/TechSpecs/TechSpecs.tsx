@@ -30,7 +30,7 @@ export const TechSpecs: React.FC<Props> = ({ product }) => {
 
   return (
     <section>
-      <h2 className="text-[22px] font-extrabold text-text-primary">
+      <h2 className="text-[22px] font-extrabold text-primary">
         {t('details.techSpecs')}
       </h2>
 
