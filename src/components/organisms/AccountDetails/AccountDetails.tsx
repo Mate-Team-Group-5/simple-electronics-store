@@ -11,7 +11,7 @@ type AccountDetailsProps = {
 };
 
 const linkClassName =
-  'flex h-12 flex-1 items-center justify-center gap-2 border border-icons text-sm font-semibold text-text-primary transition-colors hover:border-text-primary';
+  'flex h-12 flex-1 items-center justify-center gap-2 border border-icons text-sm font-semibold text-primary transition-colors hover:border-primary';
 
 export function AccountDetails({ user, className }: AccountDetailsProps) {
   const { t } = useLanguage();
@@ -33,10 +33,10 @@ export function AccountDetails({ user, className }: AccountDetailsProps) {
         </span>
 
         <div className="min-w-0">
-          <h2 className="text-xl font-bold text-text-primary">
+          <h2 className="text-xl font-bold text-primary">
             {t('account.greeting')}
           </h2>
-          <p className="truncate text-sm text-text-secondary">
+          <p className="truncate text-sm text-secondary">
             {t('account.signedInAs', { email: user.email })}
           </p>
         </div>
@@ -44,12 +44,12 @@ export function AccountDetails({ user, className }: AccountDetailsProps) {
 
       <dl className="flex flex-col gap-2 text-sm">
         <div className="flex justify-between gap-4">
-          <dt className="text-text-secondary">{t('checkout.email')}</dt>
-          <dd className="truncate text-text-primary">{user.email}</dd>
+          <dt className="text-secondary">{t('checkout.email')}</dt>
+          <dd className="truncate text-primary">{user.email}</dd>
         </div>
         <div className="flex justify-between gap-4">
-          <dt className="text-text-secondary">{t('checkout.phone')}</dt>
-          <dd className="text-text-primary">{user.phone}</dd>
+          <dt className="text-secondary">{t('checkout.phone')}</dt>
+          <dd className="text-primary">{user.phone}</dd>
         </div>
       </dl>
 
@@ -79,7 +79,7 @@ export function AccountDetails({ user, className }: AccountDetailsProps) {
       <button
         type="button"
         onClick={logout}
-        className="flex h-12 cursor-pointer items-center justify-center gap-2 text-sm font-semibold text-red transition-colors hover:bg-hover-bg"
+        className="flex h-12 cursor-pointer items-center justify-center gap-2 text-sm font-semibold text-red transition-colors hover:bg-sbns"
       >
         <LogOut
           size={16}
