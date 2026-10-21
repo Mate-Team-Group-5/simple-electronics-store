@@ -3,15 +3,21 @@ import { FooterLink } from '@/components/atoms/FooterLink/FooterLink';
 import { useLanguage } from '@/context/LanguageContext';
 import type { TranslationKey } from '@/i18n/en';
 
-const FOOTER_LINKS: { href: string; labelKey: TranslationKey }[] = [
+const FOOTER_LINKS: {
+  href: string;
+  labelKey: TranslationKey;
+  openInNewTab: boolean;
+}[] = [
   {
     href: 'https://github.com/Mate-Team-Group-5/simple-electronics-store',
     labelKey: 'footer.github',
+    openInNewTab: true,
   },
-  { href: 'https://github.com/Mate-Team-Group-5', labelKey: 'footer.contacts' },
+  { href: '/contacts', labelKey: 'footer.contacts', openInNewTab: false },
   {
     href: 'https://github.com/Mate-Team-Group-5/simple-electronics-store',
     labelKey: 'footer.rights',
+    openInNewTab: true,
   },
 ];
 
@@ -33,10 +39,11 @@ export function FooterNav({ className }: FooterNavProps) {
           'tablet:flex-row tablet:items-center tablet:justify-between',
         )}
       >
-        {FOOTER_LINKS.map(({ href, labelKey }) => (
+        {FOOTER_LINKS.map(({ href, labelKey, openInNewTab }) => (
           <li key={labelKey}>
             <FooterLink
               href={href}
+              openInNewTab={openInNewTab}
               className="text-card-primary-text"
             >
               {t(labelKey)}
