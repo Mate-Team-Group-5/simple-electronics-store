@@ -1,4 +1,4 @@
-import sendEmail from './resendapi.js';
+import sendEmail from './mailsender.js';
 import pool from './db.js';
 import { renderOrderEmail } from './emails/renderOrderEmail.js';
 import { createTtn } from './novaPoshta.js';
