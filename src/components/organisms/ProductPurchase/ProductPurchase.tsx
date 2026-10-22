@@ -72,6 +72,10 @@ export const ProductPurchase: React.FC<Props> = ({
     }
   }
 
+  // The cart, checkout, catalog and AI chat use prices from the products list,
+  // so the page shows the same price (details data has different prices)
+  const price = catalogProduct?.price ?? product.priceDiscount;
+  const fullPrice = catalogProduct?.fullPrice ?? product.priceRegular;
   const shortSpecs = [
     { label: t('specs.screen'), value: product.screen },
     { label: t('specs.resolution'), value: product.resolution },
@@ -105,12 +109,12 @@ export const ProductPurchase: React.FC<Props> = ({
 
         <div className="flex items-center gap-2">
           <span className="text-[32px] font-extrabold text-primary">
-            ${product.priceDiscount}
+            ${price}
           </span>
 
-          {product.priceDiscount < product.priceRegular && (
+          {price < fullPrice && (
             <span className="text-[22px] text-secondary line-through">
-              ${product.priceRegular}
+              ${fullPrice}
             </span>
           )}
         </div>
