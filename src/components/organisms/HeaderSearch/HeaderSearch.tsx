@@ -10,11 +10,13 @@ import { Link, useNavigate } from 'react-router';
 import { Search, X } from 'lucide-react';
 import { cn } from 'cn';
 import { useAllProducts } from '@/hooks/useAllProducts';
+import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 import { useLanguage } from '@/context/LanguageContext';
 import { searchProducts } from '@/utils/searchProducts';
 import type { Product } from '@/types/Product';
 
 const MAX_RESULTS = 6;
+const SEARCH_DELAY = 300;
 
 function getProductLink(product: Product) {
   return `/${product.category}/${product.itemId}`;
@@ -34,13 +36,15 @@ export function HeaderSearch() {
   const [shouldLoad, setShouldLoad] = useState(false);
 
   const products = useAllProducts(shouldLoad);
+  const debouncedQuery = useDebouncedValue(query, SEARCH_DELAY);
   const results = useMemo(
-    () => searchProducts(products, query, MAX_RESULTS),
-    [products, query],
+    () => searchProducts(products, debouncedQuery, MAX_RESULTS),
+    [products, debouncedQuery],
   );
 
   const hasQuery = query.trim().length > 0;
-  const showDropdown = isDropdownOpen && hasQuery;
+  const showDropdown =
+    isDropdownOpen && hasQuery && debouncedQuery.trim().length > 0;
 
   useEffect(() => {
     if (!isDropdownOpen && !isPanelOpen) {
@@ -79,10 +83,33 @@ export function HeaderSearch() {
     requestAnimationFrame(() => inputRef.current?.focus());
   };
 
+  const openProduct = (product: Product) => {
+    navigate(getProductLink(product));
+    close();
+    inputRef.current?.blur();
+  };
+
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Escape') {
       close();
       inputRef.current?.blur();
+
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      // Enter can be pressed before the delay ends:
+      // then we search the current text right away
+      const isUpToDate = query === debouncedQuery;
+      const currentResults =
+        isUpToDate ? results : searchProducts(products, query, MAX_RESULTS);
+      const product = currentResults[isUpToDate ? Math.max(activeIndex, 0) : 0];
+
+      if (product) {
+        openProduct(product);
+      }
 
       return;
     }
@@ -99,13 +126,6 @@ export function HeaderSearch() {
     if (event.key === 'ArrowUp') {
       event.preventDefault();
       setActiveIndex((prev) => (prev <= 0 ? results.length - 1 : prev - 1));
-    }
-
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      navigate(getProductLink(results[Math.max(activeIndex, 0)]));
-      close();
-      inputRef.current?.blur();
     }
   };
 
@@ -189,7 +209,7 @@ export function HeaderSearch() {
           >
             {results.length === 0 && (
               <li className="px-3 py-4 text-center text-sm text-text-secondary">
-                {t('search.noResults', { query: query.trim() })}
+                {t('search.noResults', { query: debouncedQuery.trim() })}
               </li>
             )}
 
