@@ -33,6 +33,30 @@ export const uk: Translations = {
   'contacts.phoneDescription': 'Зв’яжіться з нашою командою телефоном.',
   'contacts.location': 'Наша адреса',
   'contacts.locationDescription': 'Завітайте до нашого магазину.',
+  'contacts.faqTitle': 'Часті запитання',
+  'contacts.faqDeliveryQuestion': 'Які є способи доставки товару?',
+  'contacts.faqDeliveryAnswer':
+    'Спосіб доставки обирається під час оформлення замовлення. Доступно кілька зручних варіантів — оберіть той, що підходить саме вам.',
+  'contacts.faqDeliveryOptionsTitle': 'Найпоширеніші способи доставки:',
+  'contacts.faqDeliveryNovaPoshta':
+    'Нова пошта — швидка та надійна доставка по всій Україні.',
+  'contacts.faqDeliveryPickup':
+    'Самовивіз — заберіть товар безпосередньо з магазину.',
+  'contacts.faqDeliveryCourier':
+    'Кур’єрська доставка — отримайте замовлення прямо біля дверей. Це зручний варіант для великих замовлень або тих, хто цінує комфорт.',
+  'contacts.faqDeliveryHowToChooseTitle': 'Як обрати спосіб доставки:',
+  'contacts.faqDeliveryHowToChoose':
+    'Під час оформлення замовлення виберіть зручний спосіб доставки зі списку доступних.',
+  'contacts.faqPaymentQuestion': 'Якими способами можна оплатити замовлення?',
+  'contacts.faqPaymentOnline':
+    'Онлайн-оплата: ви можете оплатити замовлення безпосередньо на сайті під час його оформлення.',
+  'contacts.faqPaymentCash':
+    'Оплата готівкою: ви можете розрахуватися під час самовивозу або при доставці товару кур’єром.',
+  'contacts.faqPaymentOnDelivery':
+    'Післяплата: оплата здійснюється під час отримання товару у відділенні пошти. Це зручно, якщо ви хочете спочатку оглянути товар.',
+  'contacts.faqReturnsQuestion': 'Як дізнатися про повернення товару?',
+  'contacts.faqReturnsAnswer':
+    'Напишіть нашій команді та вкажіть дані замовлення — ми підкажемо подальші кроки.',
 
   'home.title': 'Ласкаво просимо до Nice Gadgets!',
   'home.newModels': 'Новинки',

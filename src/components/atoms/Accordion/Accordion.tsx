@@ -41,7 +41,7 @@ export function AccordionItem({
   return (
     <AccordionPrimitive.Item
       value={value}
-      className="border-b border-elements last:border-b-0"
+      className="border-b border-sidebar-ring last:border-b-0"
     >
       <AccordionPrimitive.Header>
         <AccordionPrimitive.Trigger className="group flex w-full cursor-pointer items-center justify-between gap-2 py-4 text-left">

@@ -203,44 +203,87 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-app.get('/api/products', async (req, res) => {
+app.get('/api/products/filter', async (req, res) => {
+  const { limit, offset, sortOrder, sortByFild } = req.query;
+
+  const sortColumns = {
+    id: '"id"',
+    fullPrice: '"fullPrice"',
+    year: '"year"',
+  };
+
+  const sortColumn = sortColumns[sortByFild];
+  const sortDirection = sortOrder === 'DESC' ? 'DESC' : 'ASC';
+
+  const orderBy =
+    sortByFild === 'id' ?
+      `${sortColumn} ${sortDirection}`
+    : `${sortColumn} ${sortDirection}, "id" ASC`;
+  try {
+    if (!process.env.DB_URL) {
+      const products = await readJSONFile('products.json');
+      res.json(products);
+    } else {
+      const result = await pool.query(
+        `SELECT * FROM products ORDER BY ${orderBy} LIMIT $1 OFFSET $2`,
+        [limit, offset],
+      );
+
+      res.status(200).json(result.rows);
+    }
+  } catch (error) {
+    console.error('Error reading products.json:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error: Could not load products' });
+  }
+});
+app.get('/api/products/discount', async (req, res) => {
   const { limit, offset } = req.query;
 
-  if (!limit && !offset) {
-    try {
-      if (!process.env.DB_URL) {
-        const products = await readJSONFile('products.json');
-        res.json(products);
-      } else {
-        const result = await pool.query('SELECT * FROM products');
+  try {
+    if (!process.env.DB_URL) {
+      const products = await readJSONFile('products.json');
+      res.json(products);
+    } else {
+      const result = await pool.query(
+        `SELECT *,
+        ROUND(
+        (("fullPrice" - price)::numeric
+        / NULLIF("fullPrice", 0)) * 100,
+        2
+        ) AS discount_percent
+        FROM products
+        ORDER BY discount_percent DESC, id ASC
+        LIMIT $1 OFFSET $2`,
+        [limit, offset],
+      );
 
-        res.status(200).json(result.rows);
-      }
-    } catch (error) {
-      console.error('Error reading products.json:', error);
-      res
-        .status(500)
-        .json({ error: 'Internal Server Error: Could not load products' });
+      res.status(200).json(result.rows);
     }
-  } else {
-    try {
-      if (!process.env.DB_URL) {
-        const products = await readJSONFile('products.json');
-        res.json(products);
-      } else {
-        const result = await pool.query(
-          'SELECT * FROM products ORDER BY id LIMIT $1 OFFSET $2',
-          [limit, offset],
-        );
+  } catch (error) {
+    console.error('Error reading products.json:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error: Could not load products' });
+  }
+});
 
-        res.status(200).json(result.rows);
-      }
-    } catch (error) {
-      console.error('Error reading products.json:', error);
-      res
-        .status(500)
-        .json({ error: 'Internal Server Error: Could not load products' });
+app.get('/api/products', async (req, res) => {
+  try {
+    if (!process.env.DB_URL) {
+      const products = await readJSONFile('products.json');
+      res.json(products);
+    } else {
+      const result = await pool.query('SELECT * FROM products');
+
+      res.status(200).json(result.rows);
     }
+  } catch (error) {
+    console.error('Error reading products.json:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error: Could not load products' });
   }
 });
 
