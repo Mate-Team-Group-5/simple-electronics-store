@@ -225,7 +225,9 @@ app.get('/api/products/filter', async (req, res) => {
       res.json(products);
     } else {
       const result = await pool.query(
-        `SELECT * FROM products ORDER BY ${orderBy} LIMIT $1 OFFSET $2`,
+        `SELECT id, category, "itemId", name, 
+        "fullPrice", price, screen, capacity, color, ram, year, image
+        FROM products_full ORDER BY ${orderBy} LIMIT $1 OFFSET $2`,
         [limit, offset],
       );
 
@@ -238,6 +240,7 @@ app.get('/api/products/filter', async (req, res) => {
       .json({ error: 'Internal Server Error: Could not load products' });
   }
 });
+
 app.get('/api/products/discount', async (req, res) => {
   const { limit, offset } = req.query;
 
@@ -247,13 +250,14 @@ app.get('/api/products/discount', async (req, res) => {
       res.json(products);
     } else {
       const result = await pool.query(
-        `SELECT *,
+        `SELECT id, category, "itemId", name, 
+        "fullPrice", price, screen, capacity, color, ram, year, image,
         ROUND(
         (("fullPrice" - price)::numeric
         / NULLIF("fullPrice", 0)) * 100,
         2
         ) AS discount_percent
-        FROM products
+        FROM products_full
         ORDER BY discount_percent DESC, id ASC
         LIMIT $1 OFFSET $2`,
         [limit, offset],
@@ -275,7 +279,9 @@ app.get('/api/products', async (req, res) => {
       const products = await readJSONFile('products.json');
       res.json(products);
     } else {
-      const result = await pool.query('SELECT * FROM products');
+      const result = await pool.query(`SELECT id, category, "itemId", name, 
+        "fullPrice", price, screen, capacity, color, ram, year, image
+	      FROM products_full`);
 
       res.status(200).json(result.rows);
     }
