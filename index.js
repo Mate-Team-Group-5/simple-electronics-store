@@ -225,7 +225,9 @@ app.get('/api/products/filter', async (req, res) => {
       res.json(products);
     } else {
       const result = await pool.query(
-        `SELECT * FROM products ORDER BY ${orderBy} LIMIT $1 OFFSET $2`,
+        `SELECT id, category, "itemId", name, 
+        "fullPrice", price, screen, capacity, color, ram, year, image
+        FROM products_full ORDER BY ${orderBy} LIMIT $1 OFFSET $2`,
         [limit, offset],
       );
 
@@ -238,6 +240,7 @@ app.get('/api/products/filter', async (req, res) => {
       .json({ error: 'Internal Server Error: Could not load products' });
   }
 });
+
 app.get('/api/products/discount', async (req, res) => {
   const { limit, offset } = req.query;
 
@@ -247,13 +250,14 @@ app.get('/api/products/discount', async (req, res) => {
       res.json(products);
     } else {
       const result = await pool.query(
-        `SELECT *,
+        `SELECT id, category, "itemId", name, 
+        "fullPrice", price, screen, capacity, color, ram, year, image,
         ROUND(
         (("fullPrice" - price)::numeric
         / NULLIF("fullPrice", 0)) * 100,
         2
         ) AS discount_percent
-        FROM products
+        FROM products_full
         ORDER BY discount_percent DESC, id ASC
         LIMIT $1 OFFSET $2`,
         [limit, offset],
@@ -275,7 +279,9 @@ app.get('/api/products', async (req, res) => {
       const products = await readJSONFile('products.json');
       res.json(products);
     } else {
-      const result = await pool.query('SELECT * FROM products');
+      const result = await pool.query(`SELECT id, category, "itemId", name, 
+        "fullPrice", price, screen, capacity, color, ram, year, image
+	      FROM products_full`);
 
       res.status(200).json(result.rows);
     }
@@ -312,76 +318,8 @@ app.get('/api/phones/count', async (req, res) => {
       const phones = await readJSONFile('phones.json');
       res.json(phones.length);
     } else {
-      const result = await pool.query('SELECT COUNT(*) AS total FROM phones');
-
-      res.status(200).json(result.rows[0].total);
-    }
-  } catch (error) {
-    console.error('Error reading phones.json:', error);
-    res
-      .status(500)
-      .json({ error: 'Internal Server Error: Could not load phones' });
-  }
-});
-app.get('/api/phones', async (req, res) => {
-  try {
-    if (!process.env.DB_URL) {
-      const phones = await readJSONFile('phones.json');
-      res.json(phones);
-    } else {
-      const result = await pool.query('SELECT * FROM phones');
-
-      res.status(200).json(result.rows);
-    }
-  } catch (error) {
-    console.error('Error reading phones.json:', error);
-    res
-      .status(500)
-      .json({ error: 'Internal Server Error: Could not load phones' });
-  }
-});
-app.get('/api/tablets/count', async (req, res) => {
-  try {
-    if (!process.env.DB_URL) {
-      const phones = await readJSONFile('phones.json');
-      res.json(phones.length);
-    } else {
-      const result = await pool.query('SELECT COUNT(*) AS total FROM tablets');
-
-      res.status(200).json(result.rows[0].total);
-    }
-  } catch (error) {
-    console.error('Error reading phones.json:', error);
-    res
-      .status(500)
-      .json({ error: 'Internal Server Error: Could not load phones' });
-  }
-});
-app.get('/api/tablets', async (req, res) => {
-  try {
-    if (!process.env.DB_URL) {
-      const tablets = await readJSONFile('tablets.json');
-      res.json(tablets);
-    } else {
-      const result = await pool.query('SELECT * FROM tablets');
-
-      res.status(200).json(result.rows);
-    }
-  } catch (error) {
-    console.error('Error reading tablets.json:', error);
-    res
-      .status(500)
-      .json({ error: 'Internal Server Error: Could not load tablets' });
-  }
-});
-app.get('/api/accessories/count', async (req, res) => {
-  try {
-    if (!process.env.DB_URL) {
-      const phones = await readJSONFile('phones.json');
-      res.json(phones.length);
-    } else {
       const result = await pool.query(
-        'SELECT COUNT(*) AS total FROM accessories',
+        `SELECT COUNT(*) AS total FROM products_full WHERE category='phones'`,
       );
 
       res.status(200).json(result.rows[0].total);
@@ -393,13 +331,107 @@ app.get('/api/accessories/count', async (req, res) => {
       .json({ error: 'Internal Server Error: Could not load phones' });
   }
 });
+
+app.get('/api/phones', async (req, res) => {
+  try {
+    if (!process.env.DB_URL) {
+      const phones = await readJSONFile('phones.json');
+      res.json(phones);
+    } else {
+      const result =
+        await pool.query(`SELECT "itemId" as id, category, "namespaceId",
+          name, "capacityAvailable", capacity, 
+          "fullPrice" as "priceRegular", "price" as "priceDiscount", 
+          "colorsAvailable", color, images, description, screen, 
+          resolution, processor, ram, camera, zoom, cell
+	        FROM products_full where category='phones'`);
+
+      res.status(200).json(result.rows);
+    }
+  } catch (error) {
+    console.error('Error reading phones.json:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error: Could not load phones' });
+  }
+});
+
+app.get('/api/tablets/count', async (req, res) => {
+  try {
+    if (!process.env.DB_URL) {
+      const phones = await readJSONFile('phones.json');
+      res.json(phones.length);
+    } else {
+      const result = await pool.query(
+        `SELECT COUNT(*) AS total FROM products_full WHERE category='tablets'`,
+      );
+
+      res.status(200).json(result.rows[0].total);
+    }
+  } catch (error) {
+    console.error('Error reading phones.json:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error: Could not load phones' });
+  }
+});
+
+app.get('/api/tablets', async (req, res) => {
+  try {
+    if (!process.env.DB_URL) {
+      const tablets = await readJSONFile('tablets.json');
+      res.json(tablets);
+    } else {
+      const result =
+        await pool.query(`SELECT "itemId" as id, category, "namespaceId", 
+          name, "capacityAvailable", capacity, 
+          "fullPrice" as "priceRegular", "price" as "priceDiscount", 
+          "colorsAvailable", color, images, description, screen, 
+          resolution, processor, ram, camera, zoom, cell
+	        FROM products_full where category='tablets'`);
+
+      res.status(200).json(result.rows);
+    }
+  } catch (error) {
+    console.error('Error reading tablets.json:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error: Could not load tablets' });
+  }
+});
+
+app.get('/api/accessories/count', async (req, res) => {
+  try {
+    if (!process.env.DB_URL) {
+      const phones = await readJSONFile('phones.json');
+      res.json(phones.length);
+    } else {
+      const result = await pool.query(
+        `SELECT COUNT(*) AS total FROM products_full where category='accessories'`,
+      );
+
+      res.status(200).json(result.rows[0].total);
+    }
+  } catch (error) {
+    console.error('Error reading phones.json:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error: Could not load phones' });
+  }
+});
+
 app.get('/api/accessories', async (req, res) => {
   try {
     if (!process.env.DB_URL) {
       const accessories = await readJSONFile('accessories.json');
       res.json(accessories);
     } else {
-      const result = await pool.query('SELECT * FROM accessories');
+      const result =
+        await pool.query(`SELECT "itemId" as id, category, "namespaceId", name,
+          "capacityAvailable", capacity, "fullPrice" as "priceRegular", 
+          "price" as "priceDiscount", "colorsAvailable", color, images,
+           description, screen, resolution, processor, ram, cell
+	        FROM products_full where category='accessories'`);
 
       res.status(200).json(result.rows);
     }
