@@ -23,6 +23,7 @@ function App() {
   const { t } = useLanguage();
   const cartCount =
     cartItems ? cartItems.reduce((sum, item) => sum + item.quantity, 0) : 0;
+  const favoritesCount = favoriteProducts ? favoriteProducts.length : 0;
   const [activeTheme, setActiveTheme] = useCookie('theme', Theme.white);
 
   function handleSwitchTheme() {
@@ -37,7 +38,7 @@ function App() {
       })}
     >
       <Header
-        favouritesCount={favoriteProducts.length}
+        favouritesCount={favoritesCount}
         cartCount={cartCount}
         theme={activeTheme}
         onSwithTheme={handleSwitchTheme}
