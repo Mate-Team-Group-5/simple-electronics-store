@@ -13,8 +13,8 @@ export function IconButton({
       type={type}
       className={cn(
         'flex size-12 shrink-0 items-center justify-center',
-        'bg-white text-text-primary transition-colors hover:bg-hover-bg',
-        'shadow-[-1px_0_0_0_var(--color-elements)]',
+        'bg-main-beak text-primary transition-colors hover:bg-second-beak',
+        'shadow-[-1px_0_0_0_var(--second-beak)]',
         className,
       )}
       {...props}

@@ -47,7 +47,7 @@ export function BurgerMenu({
         <Navigation vertical />
       </div>
 
-      <div className="flex shrink-0 shadow-[0_-1px_0_0_var(--color-elements)]">
+      <div className="flex shrink-0 shadow-[0_-1px_0_0_var(--second-beak)]">
         <HeaderActionButton
           to="/favourites"
           label={t('header.favourites')}

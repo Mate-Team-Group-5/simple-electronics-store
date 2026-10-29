@@ -11,6 +11,7 @@ import { ProductGrid } from '@/components/organisms/ProductGrid';
 import type { Category } from '@/hooks/useProducts';
 import { useProductDetails } from '@/hooks/useProductDetails';
 import { useLanguage } from '@/context/LanguageContext';
+import { useLoadMoreProducts } from '@/hooks/useLoadMoreProducts';
 
 type Props = {
   category: Category;
@@ -19,8 +20,14 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
   const { t } = useLanguage();
   const { productId } = useParams();
   const mainImageRef = useRef<HTMLImageElement>(null);
-  const { product, isLoading, hasError, catalogProduct, allProducts } =
-    useProductDetails(category, productId);
+  const { product, isLoading, hasError, catalogProduct } = useProductDetails(
+    category,
+    productId,
+  );
+  const recomendatedProduct = useLoadMoreProducts(4, 'filter', {
+    sortByFild: 'fullPrice',
+    sortOrder: 'DESC',
+  });
   function renderContent() {
     if (isLoading) {
       return <Loader />;
@@ -56,7 +63,10 @@ export const ProductDetailsPage: React.FC<Props> = ({ category }) => {
 
         <ProductGrid
           title={t('details.alsoLike')}
-          products={allProducts}
+          products={recomendatedProduct.products}
+          hasMore={recomendatedProduct.hasMore}
+          isLoading={recomendatedProduct.isLoading}
+          loadMoreProducts={recomendatedProduct.loadMoreProducts}
           classNames="mt-20"
         />
       </>

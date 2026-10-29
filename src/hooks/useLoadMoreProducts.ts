@@ -1,14 +1,26 @@
 import { getProductsPaginated } from '@/services/products';
 import { useCallback, useState } from 'react';
 import type { Product } from '@/types/Product';
+import type { ProductQuery } from '@/types/ProductQuery';
 
-export function useLoadMoreProducts(limit: number) {
+type Endpoint = 'discount' | 'filter';
+
+export function useLoadMoreProducts(
+  limit: number,
+  endpoint: Endpoint,
+  query?: ProductQuery,
+) {
   const [products, setProducts] = useState<(Product | null)[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
   const loadMoreProducts = useCallback(async () => {
     if (isLoading || !hasMore) return;
+
+    const stableQuery: ProductQuery = query ?? {
+      sortOrder: 'ASC',
+      sortByFild: 'id',
+    };
 
     // Скільки реальних продуктів вже було запитано
     const offset = products.filter((product) => product !== null).length;
@@ -25,7 +37,12 @@ export function useLoadMoreProducts(limit: number) {
     setIsLoading(true);
 
     try {
-      const newProducts = await getProductsPaginated(limit, offset);
+      const newProducts = await getProductsPaginated(
+        stableQuery,
+        limit,
+        offset,
+        endpoint,
+      );
 
       setProducts((currentProducts) => [
         // Усі старі продукти до нової порції
@@ -48,7 +65,7 @@ export function useLoadMoreProducts(limit: number) {
     } finally {
       setIsLoading(false);
     }
-  }, [limit, products, isLoading, hasMore]);
+  }, [limit, endpoint, query, products, isLoading, hasMore]);
 
   return {
     products,

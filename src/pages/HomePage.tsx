@@ -13,9 +13,12 @@ import { useLoadMoreProducts } from '@/hooks/useLoadMoreProducts';
 
 export function HomePage() {
   const { t } = useLanguage();
-  const newModelsProducts = useLoadMoreProducts(4);
+  const newModelsProducts = useLoadMoreProducts(4, 'filter', {
+    sortByFild: 'year',
+    sortOrder: 'DESC',
+  });
 
-  const hotPricesProducts = useLoadMoreProducts(4);
+  const hotPricesProducts = useLoadMoreProducts(4, 'discount');
 
   const [categoryCounts, setCategoryCounts] = useState({
     phones: 0,
